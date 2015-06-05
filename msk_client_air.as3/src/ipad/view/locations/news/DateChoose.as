@@ -187,7 +187,7 @@ package ipad.view.locations.news
 			oval2.y = 610 * IpadConstants.contentScaleFactor+1;
 			popup.addChild(oval2);
 			
-			trace("oval!!!!!!!!!!!!!!!!:", oval1.x, oval1.y, oval1.width, oval1.height);
+			//trace("oval!!!!!!!!!!!!!!!!:", oval1.x, oval1.y, oval1.width, oval1.height);
 			
 			var _textFormat:TextFormat = new TextFormat("TornadoL", 54 * IpadConstants.contentScaleFactor, 0xffffff);
 			var txt1:TextField = TextUtil.createTextField(0, 0);

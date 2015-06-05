@@ -108,19 +108,21 @@ package app.view.handsview
 		private function updateHandPosition(e:InteractiveRemoteEvent):void 
 		{	
 			if (user.is_active == false) return;
+			
+			//trace(e.stageX, e.stageY);
+			
 			view.updateHand(e.stageX, e.stageY, e.stageZ, e.handType);	
 			
 			if (view.checkHand())
 			{				
-				if (!user.isHandActive) return;
-				
-				user.isHandActive = false;				
-				dispatch( new IpadEvent(IpadEvent.HAND_LOST));							
+				if (user.isHandActive)
+				{
+					user.isHandActive = false;				
+					dispatch( new IpadEvent(IpadEvent.HAND_LOST));
+				}											
 			}
-			else
-			{
-				if (user.isHandActive) return;
-				
+			else if (!user.isHandActive)
+			{				
 				user.isHandActive = true;
 				dispatch( new IpadEvent(IpadEvent.HAND_ACTIVE));
 			}

@@ -15,12 +15,10 @@ package app.services.interactive
 	import com.leapmotion.leap.KeyTapGesture;
 	import com.leapmotion.leap.Pointable;
 	import com.leapmotion.leap.ScreenTapGesture;
-	import com.leapmotion.leap.SwipeGesture;
 	import com.leapmotion.leap.Vector3;
 	import flash.display.Stage;
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
-	import flash.geom.Vector3D;
 	import flash.utils.getTimer;
 	
 	/**
@@ -34,6 +32,16 @@ package app.services.interactive
 		
 		private var iel:InteractiveRemoteEvent = new InteractiveRemoteEvent(InteractiveRemoteEvent.HAND_UPDATE);
 		private var stage:Stage;
+		
+		private var portX:int = 200;
+		private var portY:int = 200;
+		
+		private var handState:String = "Grip";
+		
+		private var activeID:int=-1;
+		private var catchCircle:Boolean = false;
+		private var lastVec1:Vector3 = null;
+		private var lastVec2:Vector3 = null;
 		
 		public function LeapMotion(stage:Stage)
 		{
@@ -50,13 +58,7 @@ package app.services.interactive
 			controller.enableGesture(Gesture.TYPE_KEY_TAP);
 			controller.enableGesture(Gesture.TYPE_SCREEN_TAP);			
 		}
-		private var portX:int = 200;
-		private var portY:int = 200;
 		
-		private var handState:String = "Grip";
-		
-		private var activeID:int=-1;
-		private var catchCircle:Boolean = false;
 		protected function leapmotionFrameHandler(event:LeapEvent):void
 		{
 			var now:int = getTimer();
@@ -64,10 +66,7 @@ package app.services.interactive
 			var numPointables:int = event.frame.pointables.length;
 			
 			if (now - lastSwipe > 10)
-			{
-				
-				//AppSettings.WIDTH - 100
-				
+			{			
 				if (numPointables)
 				{
 					if (numPointables > 1)					
@@ -112,38 +111,24 @@ package app.services.interactive
 						if (gesture is CircleGesture  && !catchCircle/*&& gesture.state == Gesture.STATE_STOP*/)
 						{
 							var circle:CircleGesture = gesture as CircleGesture;
-							//trace(circle.progress,	circle.radius);
-							
-							//circle.radius
-							//if(circle.duration > 1520854 && circle.normal.z>0)
-							//controller.enableGesture(Gesture.TYPE_CIRCLE,false);
 							if (circle.progress > 1.3 && circle.radius > 20 && circle.radius < 40)
 							{
 								catchCircle = true;
 								dispatchCircle();
 								TweenLite.killDelayedCallsTo(setCatch);
 								TweenLite.delayedCall(3, setCatch);
-							}
-							//controller.enableGesture(Gesture.TYPE_CIRCLE);
-							
+							}							
 						}
 						
-						
-						
-						if (gesture is KeyTapGesture && gesture.state == Gesture.STATE_STOP)
-						{
-							//trace("TAP", gesture.state);
-							dispatchMenu();
-						}
+						if (gesture is KeyTapGesture && gesture.state == Gesture.STATE_STOP)						
+							dispatchMenu();						
 					}
 					
 				}
 				else activeID = -1;
 				lastSwipe = now;
-			}
-		
-		}
-		
+			}		
+		}	
 		
 		private function setCatch():void 
 		{
@@ -197,21 +182,9 @@ package app.services.interactive
 		}
 		
 		private function normalize(x:Number, y:Number):Point
-		{
-			
-			var scale:Number = (x + 100) / portX;
-			/*if (scale < 0)
-				scale = 0;
-			if (scale > 1)
-				scale = 1;*/
-			
-			var scale2:Number;
-			/*if (y < 100)
-				scale2 = 1;
-			else if (y > 300)
-				scale2 = 0;
-			else*/
-				scale2 = 1 - (y) / portY;
+		{			
+			var scale:Number = (x + 100) / portX;		
+			var scale2:Number = 1 - (y) / portY;
 			
 			return new Point(AppSettings.WIDTH * scale, AppSettings.HEIGHT * scale2 * 2);
 		}
@@ -242,10 +215,8 @@ package app.services.interactive
 			}
 			
 			return null;
-		}
+		}		
 		
-		private var lastVec1:Vector3 = null;
-		private var lastVec2:Vector3 = null;
 		private function checkZoomPlato(pointables:Vector.<Pointable>):Pointable 
 		{
 			var vec1:Vector3 = pointables[0].tipPosition;
@@ -255,28 +226,20 @@ package app.services.interactive
 			var plato:InteractiveObject = checkForInteractiveStretch(point.x, point.y);			
 			if (plato != null)
 			{
-				if (lastVec1 == null || lastVec2 == null)
-				{
-					
-				}
-				else
-				{
+				if (lastVec1 != null && lastVec2 != null)
+				{				
 					vec1 = vec1.minus(lastVec1);
-					vec2 = vec2.minus(lastVec2);
-					
-					var finalVector:Vector3 = vec1.minus(vec2);
-					//trace(finalVector.normalized());
-					
-					
+					vec2 = vec2.minus(lastVec2);					
+					var finalVector:Vector3 = vec1.minus(vec2);					
 				}
 				
 				lastVec1 = vec1;
-				lastVec2 = vec2;
-				
-				//_pushButton.dispatchEvent(new InteractiveEvent(InteractiveEvent.HAND_PUSH, false, false));
+				lastVec2 = vec2;	
+			
 			}
 			return null;
 		}
+		
 		private function checkForInteractiveStretch(x:Number, y:Number):InteractiveObject
 		{
 			var interactiveArray:Vector.<InteractiveObject> = DisplayListHelper.getTopDisplayObjectUnderPoint(new Point(x, y), stage);
@@ -294,5 +257,4 @@ package app.services.interactive
 			return null;
 		}
 	}
-
 }

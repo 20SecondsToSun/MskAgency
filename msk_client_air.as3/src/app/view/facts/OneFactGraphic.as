@@ -178,8 +178,6 @@ package app.view.facts
 			
 			TweenLite.killTweensOf(factTitleBmp);
 			TweenLite.killTweensOf(factTime);
-		}
-	
+		}	
 	}
-
 }

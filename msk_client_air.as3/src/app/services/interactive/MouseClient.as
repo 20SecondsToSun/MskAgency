@@ -13,12 +13,7 @@ package app.services.interactive
 	 * @author metalcorehero
 	 */
 	public class MouseClient extends Sprite
-	{		
-		public function MouseClient() 
-		{
-			
-		}
-		
+	{	
 		public function startListening():void
 		{			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, closeHand);			
@@ -26,17 +21,7 @@ package app.services.interactive
 			stage.addEventListener(MouseEvent.CLICK, clickHand);				
 			stage.addEventListener(MouseEvent.MOUSE_UP, openHand);	
 			stage.addEventListener(Event.ENTER_FRAME, updateHand);		
-		}
-		
-		private function clickHand(e:MouseEvent):void 
-		{
-			var ie:InteractiveRemoteEvent = new InteractiveRemoteEvent(InteractiveRemoteEvent.CLICK);			
-				ie.stageX = mouseX;
-				ie.stageY = mouseY;
-				ie.handType = HandType.LEFT;
-			
-			dispatchEvent(ie);	
-		}
+		}	
 		
 		public function stopListening():void
 		{			
@@ -48,10 +33,17 @@ package app.services.interactive
 		
 		public function dispose():void
 		{			
-			//stage.removeEventListener(Event.ENTER_FRAME, updateHand);		
-			//stage.removeEventListener(MouseEvent.MOUSE_DOWN, closeHand);			
-			//stage.removeEventListener(MouseEvent.RIGHT_CLICK, pushHand);				
-			//stage.removeEventListener(MouseEvent.MOUSE_UP, openHand);			
+	
+		}
+		
+		private function clickHand(e:MouseEvent):void 
+		{
+			var ie:InteractiveRemoteEvent = new InteractiveRemoteEvent(InteractiveRemoteEvent.CLICK);			
+				ie.stageX = mouseX;
+				ie.stageY = mouseY;
+				ie.handType = HandType.LEFT;
+			
+			dispatchEvent(ie);	
 		}
 		
 		private function openHand(e:MouseEvent):void 

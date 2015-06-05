@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<application xmlns="http://ns.adobe.com/air/application/3.9">
+<application xmlns="http://ns.adobe.com/air/application/17.0">
   <id>mskagencyIpad1</id>
   <versionNumber>1.0</versionNumber>
   <filename>msk</filename>
@@ -19,4 +19,7 @@
 		 More options:
 		 http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
 	-->
+		<supportedProfiles>extendedDesktop</supportedProfiles>	
+	<extensions><extensionID>com.tastenkunst.airkinectv2</extensionID></extensions>
+	
 </application>

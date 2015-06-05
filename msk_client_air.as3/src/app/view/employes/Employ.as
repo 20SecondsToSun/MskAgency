@@ -48,105 +48,44 @@ package app.view.employes
 		private var initScreenShot:Sprite;
 		
 		private var NUM:int = 3;
+		private var weather:Vector.<Weather>;
 		
 		public function Employ()
 		{
-			
-			/*visible = false;
-			   services = Assets.create("services");
-			   addChild(services);
-			
-			   var splash1:Shape = Tool.createShape(550, 69, 0x101114);
-			   addChild(splash1);
-			
-			   var splash2:Shape = Tool.createShape(537, 69, 0x101114);
-			   addChild(splash2);
-			   splash2.x = 553;
-			
-			   var splash3:Shape = Tool.createShape(780, 69, 0x101114);
-			   addChild(splash3);
-			   splash3.x = 553 + 537 + 3;
-			
-			
-			   wethArray = new Array();
-			   for (var i:int = 1; i <= 2; i++)
-			   {
-			   this["weth" + i] = Assets.create("weth" + i);
-			   addChild(this["weth" + i]);
-			   wethArray.push(this["weth" + i]);
-			   this["weth" + i].alpha = 0;
-			   }
-			
-			   dtpArray = new Array();
-			   for ( i = 1; i <= 2; i++)
-			   {
-				   this["dtp" + i] = Assets.create("dtp" + i);
-				   addChild(this["dtp" + i]);
-				   dtpArray.push(this["dtp" + i]);
-				   this["dtp" + i].alpha = 0;
-				   this["dtp" + i].x = 553;
-			   }
-			
-			   valArray = new Array();
-			   for (i = 1; i <= 2; i++)
-			   {
-				   this["val" + i] = Assets.create("val" + i);
-				   addChild(this["val" + i]);
-				   valArray.push(this["val" + i]);
-				   this["val" + i].alpha = 0;
-				   this["val" + i].x = 553 + 537 + 3;
-			   }			
-			*/
-			   
-
-		
-			
-			
-			
-			
-			
-			
-			
-			  
 			rotatorTimer = new Timer(3000);
 			rotatorTimer.addEventListener(TimerEvent.TIMER, showBlock);
 			rotatorTimer.start();
-			
 		}
 		
 		public function setInformer(inf:Informer):void
-		{			
+		{
 			var w:WeatherGr = new WeatherGr();
 			w.road(inf);
-			w.x = AppSettings.WIDTH /3;
+			w.x = AppSettings.WIDTH / 3;
 			addChildAt(w, 0);
-			
 			
 			var w1:WeatherGr = new WeatherGr();
 			w1.financial(inf);
-			w1.x = AppSettings.WIDTH/3 * 2;			
+			w1.x = AppSettings.WIDTH / 3 * 2;
 			addChildAt(w1, 0);
-			
 		}
-		private var weather:Vector.<Weather>;
+		
 		public function setWeather(weather:Vector.<Weather>):void
 		{
-			
 			this.weather = weather;
 			
 			var w:WeatherGr = new WeatherGr();
 			w.weather(weather[0]);
-			addChild(w);	
+			addChild(w);
 			addChildAt(w, 0);
-			
 			
 			var l1:Shape = Tool.createShape(2, 69, 0x000000);
 			addChild(l1);
 			l1.x = AppSettings.WIDTH / 3;
 			
-			var l2:Shape = Tool.createShape(2, 69,  0x000000);
+			var l2:Shape = Tool.createShape(2, 69, 0x000000);
 			addChild(l2);
-			l2.x = AppSettings.WIDTH / 3 *2;
+			l2.x = AppSettings.WIDTH / 3 * 2;
 		}
 		
 		public function setScreenShot():void
@@ -154,7 +93,7 @@ package app.view.employes
 			var bitmapData:BitmapData = new BitmapData(AppSettings.WIDTH, 69);
 			bitmapData.drawWithQuality(this, null, null, null, null, true, StageQuality.BEST);
 			config.setScreenShot(new Bitmap(bitmapData), "EMPLOY_NEWS");
-		}	
+		}
 		
 		override public function setScreen():void
 		{
@@ -168,24 +107,6 @@ package app.view.employes
 		{
 			if (initScreenShot && contains(initScreenShot))
 				removeChild(initScreenShot);
-		
-		/*for (var i:int = 1; i <=2; i++)
-		   this["weth" + i].alpha = 0;
-		
-		   for ( i = 1; i <=2; i++)
-		   this["dtp" + i].alpha = 0;
-		
-		   for ( i = 1; i <= 2; i++)
-		   this["val" + i].alpha = 0;
-		
-		   var num:int = rotatorTimer.currentCount % 2;
-		
-		   TweenLite.to(wethArray[num], 1.0, { alpha:1 });
-		   TweenLite.to(dtpArray[num], 1.0,  { alpha:1 });
-		   TweenLite.to(valArray[num], 1.0,  { alpha:1 });	
-		   
-		   */
-		   
 		}
 		
 		override public function kill():void
@@ -230,8 +151,6 @@ package app.view.employes
 		{
 			dispatchEvent(new AnimationEvent(AnimationEvent.EMPLOY_ANIMATION_FINISHED, AnimationType.OUT, this));
 		}
-		
-		
 	}
 }
 
@@ -254,27 +173,29 @@ internal class WeatherGr extends Sprite
 	private var txtW2:TextField;
 	public var surf:Sprite;
 	public var textFormat:TextFormat = new TextFormat("Tornado", 16, 0xfff000);
-
+	
 	public static var weatherArray:Dictionary = new Dictionary();
+	
 	public function WeatherGr():void
 	{
 		
-			weatherArray["4"]  = { text:"Дождь", img:"wrain" };
-			weatherArray["5"]  = { text:"Ливень", img:"wshower" };
-			weatherArray["6"]  = { text:"Снег", img:"wsnow" };
-			weatherArray["7"]  = { text:"Снег", img:"wsnow" };
-			weatherArray["8"]  = { text:"Гроза", img:"wstorm" };
-			weatherArray["9"]  = { text:"Нет данных", img:"" };
-			weatherArray["10"] = { text:"Ясно", img:"wclear" };
-			
+		weatherArray["4"] = {text: "Дождь", img: "wrain"};
+		weatherArray["5"] = {text: "Ливень", img: "wshower"};
+		weatherArray["6"] = {text: "Снег", img: "wsnow"};
+		weatherArray["7"] = {text: "Снег", img: "wsnow"};
+		weatherArray["8"] = {text: "Гроза", img: "wstorm"};
+		weatherArray["9"] = {text: "Нет данных", img: ""};
+		weatherArray["10"] = {text: "Ясно", img: "wclear"};
+	
 	}
+	
 	public function financial(inf:Informer):void
 	{
 		surf = new Sprite();
 		addChild(surf);
 		
 		var sh:Shape = Tool.createShape(AppSettings.WIDTH / 3, 69, 0x101114);
-		surf.addChild(sh);			
+		surf.addChild(sh);
 		
 		txt = TextUtil.createTextField(0, 0);
 		txt.text = "ФИНАНСЫ";
@@ -285,19 +206,14 @@ internal class WeatherGr extends Sprite
 		
 		addChild(txt);
 		
-		
-		
 		var img:Sprite = Assets.create("backs");
-			addChild(img);
-			
+		addChild(img);
+		
 		img.x = txt.x + txt.width + 30;
-		img.y  =  0.5 * (surf.height - img.height);
-		
-		
-		
+		img.y = 0.5 * (surf.height - img.height);
 		
 		textFormat.color = 0xf4f4f4;
-		textFormat.size  = 25;
+		textFormat.size = 25;
 		
 		txtW = TextUtil.createTextField(0, 0);
 		txtW.text = inf.usd_current;
@@ -311,19 +227,16 @@ internal class WeatherGr extends Sprite
 		//trace("inf.usd_change", inf.usd_change);
 		
 		var img1:Sprite = Assets.create(inf.getUsdChangeImg());
-			addChild(img1);
-			
+		addChild(img1);
+		
 		img1.x = txtW.x + txtW.width + 10;
 		img1.y = 0.5 * (surf.height - img1.height);
 		
-		
 		var img3:Sprite = Assets.create("backs");
-			addChild(img3);
-			
+		addChild(img3);
+		
 		img3.x = img1.x + img1.width + 50;
-		img3.y  =  0.5 * (surf.height - img3.height);
-		
-		
+		img3.y = 0.5 * (surf.height - img3.height);
 		
 		txtW2 = TextUtil.createTextField(0, 0);
 		txtW2.text = inf.eur_current;
@@ -334,27 +247,20 @@ internal class WeatherGr extends Sprite
 		
 		addChild(txtW2);
 		
-		
-		
-		
-		
 		var img2:Sprite = Assets.create(inf.getEuroChangeImg());
-			addChild(img2);
-			
+		addChild(img2);
+		
 		img2.x = txtW2.x + txtW2.width + 10;
-		img2.y = 0.5 * (surf.height - img2.height);
-		
+		img2.y = 0.5 * (surf.height - img2.height);	
 	}
-		
-		
+	
 	public function road(inf:Informer):void
 	{
 		surf = new Sprite();
 		addChild(surf);
 		
 		var sh:Shape = Tool.createShape(AppSettings.WIDTH / 3, 69, 0x101114);
-		surf.addChild(sh);	
-		
+		surf.addChild(sh);
 		
 		txt = TextUtil.createTextField(0, 0);
 		txt.text = "ПРОБКИ";
@@ -365,9 +271,8 @@ internal class WeatherGr extends Sprite
 		
 		addChild(txt);
 		
-		
 		textFormat.color = 0xf4f4f4;
-		textFormat.size  = 25;
+		textFormat.size = 25;
 		
 		txtW = TextUtil.createTextField(0, 0);
 		txtW.text = inf.getBallText(); //inf.getRoadText(); //"";//w.maxT + " °C";
@@ -378,24 +283,21 @@ internal class WeatherGr extends Sprite
 		
 		addChild(txtW);
 		
-		
-		
 		var img:Sprite = Assets.create(inf.geImage());
-			addChild(img);
-			//Tool.changecolor(img, 0x7a8092);
-			//img.scaleX = img.scaleY = 0.3;
+		addChild(img);
+		//Tool.changecolor(img, 0x7a8092);
+		//img.scaleX = img.scaleY = 0.3;
 		img.x = txtW.x + txtW.width + 20;
 		img.y = 0.5 * (surf.height - img.height);
-		
 		
 		txtW2 = TextUtil.createTextField(0, 0);
 		txtW2.text = inf.getRoadText();
 		if (txtW2.text.length > 17)
-			{
-				textFormat.size  = 20;
-				txtW2.setTextFormat(textFormat);
-				textFormat.size  = 25;
-			}
+		{
+			textFormat.size = 20;
+			txtW2.setTextFormat(textFormat);
+			textFormat.size = 25;
+		}
 		else
 		{
 			txtW2.setTextFormat(textFormat);
@@ -403,10 +305,7 @@ internal class WeatherGr extends Sprite
 		
 		txtW2.x = img.x + img.width + 40;
 		txtW2.y = 0.5 * (surf.height - txtW2.height);
-		addChild(txtW2);
-		
-		
-		
+		addChild(txtW2);	
 	}
 	
 	public function weather(w:Weather):void
@@ -418,8 +317,6 @@ internal class WeatherGr extends Sprite
 		var sh:Shape = Tool.createShape(AppSettings.WIDTH / 3, 69, 0x101114);
 		surf.addChild(sh);
 		
-		
-		
 		txt = TextUtil.createTextField(0, 0);
 		txt.text = "СЕЙЧАС";
 		txt.setTextFormat(textFormat);
@@ -430,7 +327,7 @@ internal class WeatherGr extends Sprite
 		addChild(txt);
 		
 		textFormat.color = 0xf4f4f4;
-		textFormat.size  = 35;
+		textFormat.size = 35;
 		
 		txtW = TextUtil.createTextField(0, 0);
 		txtW.text = w.maxT + " °C";
@@ -457,11 +354,7 @@ internal class WeatherGr extends Sprite
 			txtW2.setTextFormat(textFormat);
 			txtW2.x = img.x + img.width + 40;
 			txtW2.y = 0.5 * (surf.height - txtW2.height);
-			addChild(txtW2);			
-		}
-		
+			addChild(txtW2);
+		}	
 	}
-	
-	
-	
 }

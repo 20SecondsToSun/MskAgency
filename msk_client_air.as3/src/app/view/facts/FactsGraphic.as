@@ -19,8 +19,6 @@ package app.view.facts
 		private var textFormat:TextFormat;
 		public var currentDate:String;
 		
-		
-		
 		public function FactsGraphic(i:int, fact1:Fact, fact2:Fact = null, curScreen:String ="", notema:Boolean = false)
 		{
 			factBackground = Assets.create("eventsBckrng");

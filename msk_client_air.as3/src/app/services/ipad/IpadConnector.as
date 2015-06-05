@@ -19,7 +19,7 @@ package app.services.ipad
 		private var events:Function;
 		
 		public function IpadConnector(_events:Function = null)
-		{		
+		{
 			events = _events;
 			addEventListener(NetStatusEvent.NET_STATUS, netStatus);
 			connect(SERVER + DEVKEY);
@@ -27,64 +27,49 @@ package app.services.ipad
 		
 		private function netStatus(event:NetStatusEvent):void
 		{
-			//trace("IPAD::::::", event.info.code);
-			if (events != null) events(event);
+			if (events != null)
+				events(event);
+			
 			switch (event.info.code)
 			{
-				case 'NetConnection.Connect.Success': 
-					initNetGroup();
-					break;
-				
-				case 'NetGroup.Neighbor.Connect': 
-					connectUser(event.info);
-					break;
+			case 'NetConnection.Connect.Success': 
+				initNetGroup();
+				break;
 			
-				 case 'NetGroup.Connect.Success':
-					trace(event.info, event.info.peerID);
-				  // this.dispatchEvent(new AppEvent(AppEvent.P2P_INIT, {}));
-				  // sendPost({message: 'test'});
-				   break;
+			case 'NetGroup.Neighbor.Connect': 
+				connectUser(event.info);
+				break;
 			
-			/*
-			   case 'NetGroup.Neighbor.Disconnect':
-			   disconnectUser(event.info);
-			   break;
-			
-			   case 'NetStream.Connect.Rejected':
-			   this.dispatchEvent(new AppEvent(AppEvent.ERROR_CONNECTION, {code: event.info.code}));
-			   break;
-			
-			   case 'NetGroup.Posting.Notify':
-			   trace(event.info.message);
-			 break;*/
+			case 'NetGroup.Connect.Success': 
+				trace(event.info, event.info.peerID);
+				break;
 			}
 		}
 		
 		public function sendData(data:Object):void
 		{
-			//return;
-			if (!netGroup) return;	
-			//trace("/----------------------POST IPAD-------------------/", data.type);
-			data.hash = getTimer();
-			netGroup.post(data);
+			if (netGroup)
+			{
+				data.hash = getTimer();
+				netGroup.post(data);
+			}			
 		}
+		
 		private function initNetGroup():void
 		{
 			groupspec = new GroupSpecifier("test");
-			groupspec.serverChannelEnabled = true; 
+			groupspec.serverChannelEnabled = true;
 			groupspec.postingEnabled = true;
-			groupspec.routingEnabled = true;
-			
+			groupspec.routingEnabled = true;			
 			groupspec.ipMulticastMemberUpdatesEnabled = true;
-            //groupspec.addIPMulticastAddress("225.225.0.1:30000");
 			
 			netGroup = new NetGroup(this, groupspec.groupspecWithAuthorizations());
-			netGroup.addEventListener(NetStatusEvent.NET_STATUS, netStatus);			
+			netGroup.addEventListener(NetStatusEvent.NET_STATUS, netStatus);
 		}
 		
 		private function connectUser(obj:Object):void
 		{
-			//trace( "USER::::::::",obj.peerID);
+			
 		}
 	}
 }

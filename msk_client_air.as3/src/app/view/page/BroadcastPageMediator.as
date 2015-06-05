@@ -2,6 +2,7 @@ package app.view.page
 {
 	import app.contoller.events.IpadEvent;
 	import app.model.dataall.IAllNewsModel;
+	import flash.events.Event;
 	
 	/**
 	 * ...
@@ -21,7 +22,15 @@ package app.view.page
 			activeModel = model;
 			super.onRegister();	
 			addContextListener(IpadEvent.VOLUME, volumeHandler, IpadEvent);
+			
+			addViewListener(Event.REMOVED_FROM_STAGE, removeHandler);
 		}	
+		
+		private function removeHandler(e:Event):void 
+		{
+			removeViewListener(Event.REMOVED_FROM_STAGE, removeHandler);
+			view.kill();
+		}
 		
 		private function volumeHandler(e:IpadEvent):void 
 		{

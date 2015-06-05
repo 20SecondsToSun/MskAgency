@@ -5,6 +5,7 @@ package app.contoller.events
 {
 
 import app.services.interactive.GestureID;
+import app.services.interactive.KinectHand;
 import app.view.handsview.HandType;
 import flash.display.DisplayObject;
 import flash.events.Event;
@@ -30,6 +31,7 @@ public class InteractiveRemoteEvent extends Event
     public static const DEACTIVATE_HAND:String    	 = "DEACTIVATE_HAND";
     public static const FIGURE_GESTURE:String    	 = "FIGURE_GESTURE";
     public static const HAND_OVER_HEAD:String    	 = "HAND_OVER_HEAD";
+    public static const HAND_UNDER_HEAD:String    	 = "HAND_UNDER_HEAD";
     public static const CLICK:String    	 = "CLICK";
 	
     public static const USER_LOST_FOR_ALL_SYSTEM:String    	     = "USER_LOST_FOR_ALL_SYSTEM";
@@ -114,6 +116,14 @@ public class InteractiveRemoteEvent extends Event
 	{
 		return _gesturePart;
 	}
+	
+	public function setHandData(hand : KinectHand):void
+	{
+		stageX = hand.x;
+		stageY = hand.y;
+		stageZ = hand.z;
+		handType = hand.type;
+	}
 	//--------------------------------------------------------------------------
 	//
 	//  Initialization
@@ -148,13 +158,7 @@ public class InteractiveRemoteEvent extends Event
 		this._gesture = gesture;
 		this._gesturePart = gesturePart;
 		
-	}
-	
-	
-	
-	
-	
-	
+	}	
 	
 	//--------------------------------------------------------------------------
 	//

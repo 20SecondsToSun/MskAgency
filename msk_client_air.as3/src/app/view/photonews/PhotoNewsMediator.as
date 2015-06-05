@@ -3,6 +3,7 @@ package app.view.photonews
 	import app.contoller.events.AnimationEvent;
 	import app.contoller.events.DataLoadServiceEvent;
 	import app.contoller.events.ServerUpdateEvent;
+	import app.model.config.IConfig;
 	import app.model.dataphoto.IPhotoNewsModel;
 	import app.model.datauser.IUser;
 	import app.view.baseview.MainScreenMediator; 
@@ -18,12 +19,16 @@ package app.view.photonews
 		public var view:PhotoNews;
 		
 		[Inject]
-		public var model:IPhotoNewsModel;		
+		public var model:IPhotoNewsModel;
+		
+		[Inject]
+		public var conf:IConfig;
 		
 		override public function onRegister():void
 		{
 			activeView = view;			
-			super.onRegister();			
+			super.onRegister();
+			view.curLoc = conf.currentScreen;
 			
 			addContextListener(DataLoadServiceEvent.LOAD_COMPLETED_PHOTO_NEWS, refreshData, DataLoadServiceEvent);
 			addContextListener(DataLoadServiceEvent.RELOAD_DATA, reloadData, DataLoadServiceEvent);

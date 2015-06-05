@@ -1359,8 +1359,6 @@ package app.services.dataloading
 			var loader:URLLoader = URLLoader(e.target);
 			var data:Object = JSON.parse(loader.data);
 			
-			//trace("LOAD ONE NEW!!!!!!!!!!!",  data.error.code, data.error.message);
-			
 			if (!data.success)
 			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
@@ -1372,16 +1370,7 @@ package app.services.dataloading
 				return;
 			
 			var material:Material = parseOneMaterial(data.data[0]);
-			
-			//var evt:DataLoadServiceEvent = new DataLoadServiceEvent(DataLoadServiceEvent.ONE_NEW_LOADED);
-			//evt.mat = material;			
-			//dispatch(evt);
-			
-			/*	var mainEvent:ServerUpdateEvent = new ServerUpdateEvent(ServerUpdateEvent.MAIN_NEWS);
-			   mainEvent.mat = material;
-			   dispatch(mainEvent);
-			
-			 return;*/
+
 			
 			trace("material.type", material.type);
 			
@@ -1420,52 +1409,7 @@ package app.services.dataloading
 				mainEvent.mat = material;
 				dispatch(mainEvent);
 			}
-			loader_success();
-		
-		/*
-		   var evt1:ServerUpdateEvent = new ServerUpdateEvent(ServerUpdateEvent.MAIN_NEWS);
-		
-		   if (material.id == 218533)
-		   {
-		   var evt2:ServerUpdateEvent = new ServerUpdateEvent(ServerUpdateEvent.GEO_NEWS);
-		   evt2.mat = material;
-		   dispatch(evt2);
-		
-		   evt1.mat = material;
-		   dispatch(evt1);
-		
-		   return;
-		   }
-		   if (material.id == 220581)
-		   {
-		   var evt4:IpadEvent = new IpadEvent(IpadEvent.OPEN_POPUP);
-		   evt4.data = material;
-		   dispatch(evt4);
-		   return;
-		   }
-		   if (material.id == 213069)
-		   {
-		
-		   var evt_photo:ServerUpdateEvent = new ServerUpdateEvent(ServerUpdateEvent.PHOTO_NEWS);
-		   evt_photo.mat = material;
-		   allNewsSend(material);
-		   dispatch(evt_photo);
-		
-		   evt1.mat = material;
-		   dispatch(evt1);
-		   return;
-		   }
-		
-		   var evt:ServerUpdateEvent = new ServerUpdateEvent(ServerUpdateEvent.VIDEO_NEWS);
-		   evt.mat = material;
-		   allNewsSend(material);
-		   dispatch(evt);
-		
-		   evt1.mat = material;
-		 dispatch(evt1);*/
-		
-			//dispatch(new ServerUpdateEvent(ServerUpdateEvent.VIDEO_NEWS));			
-		
+			loader_success();		
 		}
 		
 		public function allNewsSend(mat:Material):void
@@ -1517,6 +1461,5 @@ package app.services.dataloading
 				delete loaderDictionary[id];
 			}
 		}
-	
 	}
 }

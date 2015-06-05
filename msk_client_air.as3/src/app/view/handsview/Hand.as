@@ -91,6 +91,7 @@ package app.view.handsview
 					hand.addChild(fingerHand1);;
 					beignFillFinger();
 					break;
+					
 				case "HAND_TWO_FINGERS":					
 					if (fingerState == "HAND_TWO_FINGERS")
 						return;
@@ -99,6 +100,7 @@ package app.view.handsview
 					hand.addChild(fingerHand2);					
 					beignFillFinger();
 					break;
+					
 				case "HAND_THREE_FINGERS": 
 					if (fingerState == "HAND_THREE_FINGERS")
 						return;				
@@ -106,7 +108,6 @@ package app.view.handsview
 					hand.addChild(fingerHand3);				
 					beignFillFinger();
 					break;
-				default: 
 			}
 			fingerType = type;
 			fingerState = state;
@@ -127,7 +128,7 @@ package app.view.handsview
 			addEventListener(Event.ENTER_FRAME, fillFinger);			
 		}
 		
-		public function  changeColor():void
+		public function changeColor():void
 		{
 			
 		}
@@ -194,8 +195,7 @@ package app.view.handsview
 				closeHand = Assets.create("leftHandClose");
 			}
 			else if (_handType == HandType.RIGHT)
-			{
-				
+			{				
 				openHand = Assets.create("rightHand");
 				maskHand = Assets.create("rightHand");
 				openHand_coutur = Assets.create("right_countur");
@@ -223,22 +223,20 @@ package app.view.handsview
 			endDegree = 360 * percent * 0.01;			
 			progressClip.graphics.lineStyle(5, color, 0.5, false, "normal", CapsStyle.NONE);			
 			point = DrawingShapes.drawArc(progressClip.graphics, 145, 75, 70, endDegree, 0, 70);			
-			//trace("DEGREE====", endDegree);
+			
 			if (endDegree >= 360)			
 				progressClip.graphics.clear();			
 		}	
 		
 		public function pushProgress(percent:Number):void
 		{
-			//trace("Push=========== ", percent);
 			var per:Number = percent / 100;
+			
 			if (percent < 100)
 			{
-				//tween.updateTo( { colorTransform: { tint:0xff0000, tintAmount:percent / 100 }}, false	);
-				
-				
-				tween_blue.updateTo({height: openHand.height * per, y: openHand.height * (1 - per)}, false);
-				
+				//tween.updateTo( { colorTransform: { tint:0xff0000, tintAmount:percent / 100 }}, false	);	
+				if(openHand)
+				tween_blue.updateTo({height: openHand.height * per, y: openHand.height * (1 - per)}, false);				
 				//TweenMax.to(this, 0.2, {colorTransform:{tint:0xff0000, tintAmount:percent/100}});
 			}
 			else if (percent >= 100 && percent < 120)			
@@ -275,11 +273,8 @@ package app.view.handsview
 		}
 		
 		public function show():void
-		{
-			if (_handType == HandType.NONE)
-				return;
-		
-			visible = true;
+		{			
+			visible = _handType != HandType.NONE;
 		}
 		
 		public function hide():void
@@ -313,11 +308,9 @@ package app.view.handsview
 		
 		public function close():void
 		{
-			//if (fingerState != "") return;
 			clear();
-			if (_handType == HandType.NONE)
-				return;
-			hand.addChild(closeHand);		
+			if (_handType != HandType.NONE)				
+				hand.addChild(closeHand);		
 		}
 		
 		public function clear():void

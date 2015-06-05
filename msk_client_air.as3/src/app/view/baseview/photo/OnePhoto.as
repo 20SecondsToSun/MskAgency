@@ -21,6 +21,7 @@ package app.view.baseview.photo
 		public var _loadAtOnce:Boolean = true;
 		public var _scaleMode:String = ScaleMode.NONE;
 		public var _photo:Bitmap;
+		public var _scale:Number;
 		
 		public function OnePhoto(path:String, id:int, loadAtOnce:Boolean = true) 
 		{
@@ -53,7 +54,9 @@ package app.view.baseview.photo
 				
 				case ScaleMode.HEIGHT_ONLY:
 					photo.height = _height;
-					photo.scaleX = photo.scaleY;
+					_scale = photo.scaleX = photo.scaleY;
+				//	trace("WIDTH:::::::::::::::::::::::::", _scale);
+					//trace("photo.scaleX =", photo.scaleX );
 				break;
 				
 				case ScaleMode.STRETCH:
@@ -66,15 +69,17 @@ package app.view.baseview.photo
 				
 				default:
 			}
+			
 			photo.smoothing = true;	
-			addChild(photo);
-		
+			addChild(photo);		
 		
 		}
+		
 		public function kill()  :void
 		{
 			if (_photo) _photo.bitmapData.dispose();
 		}
-	}
+		
+	}	
 
 }

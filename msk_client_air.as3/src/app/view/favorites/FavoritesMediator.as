@@ -93,8 +93,7 @@ package app.view.favorites
 				default:
 			}	
 				
-			dispatch( new DataLoadServiceEvent(DataLoadServiceEvent.REMOVE_FROM_FAVORITES, true, false,  e.target.parent.id, null, data));
-			
+			dispatch( new DataLoadServiceEvent(DataLoadServiceEvent.REMOVE_FROM_FAVORITES, true, false,  e.target.parent.id, null, data));			
 		}
 		
 		private function loadedMaterials(e:DataLoadServiceEvent):void 
@@ -118,6 +117,5 @@ package app.view.favorites
 			super.removeAllHandlers();
 			removeViewListener(AnimationEvent.FAVORITES_ANIMATION_FINISHED, dispatch, AnimationEvent);				
 		}		
-	
 	}
 }

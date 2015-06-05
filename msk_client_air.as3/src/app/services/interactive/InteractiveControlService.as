@@ -1,12 +1,9 @@
 package app.services.interactive
 {
 	import app.AppSettings;
-	import app.contoller.events.AnimationEvent;
 	import app.contoller.events.ChangeLocationEvent;
 	import app.contoller.events.InteractiveEvent;
 	import app.contoller.events.InteractiveRemoteEvent;
-	import app.InteractiveStendContext;
-	import app.services.ipad.IIpadService;
 	import app.view.handsview.HandType;
 	import flash.display.DisplayObjectContainer;
 	import flash.ui.Mouse;
@@ -44,8 +41,7 @@ package app.services.interactive
 		}
 		
 		public function start():void
-		{
-			
+		{			
 			if (interactiveClient)
 				return;
 			
@@ -75,8 +71,7 @@ package app.services.interactive
 		
 		public function stopInteraction():void
 		{
-			stopStack++;
-			
+			stopStack++;			
 			_isInteraction = false;
 			
 			interactiveClient.removeEventListener(InteractiveRemoteEvent.HAND_DOWN, dispatch);
@@ -92,8 +87,7 @@ package app.services.interactive
 			interactiveClient.removeEventListener(InteractiveRemoteEvent.HAND_ONE_FINGER, dispatch);
 			interactiveClient.removeEventListener(InteractiveRemoteEvent.HAND_TWO_FINGERS, dispatch);
 			interactiveClient.removeEventListener(InteractiveRemoteEvent.HAND_THREE_FINGERS, dispatch);
-			interactiveClient.removeEventListener(InteractiveRemoteEvent.CLICK, click);
-		
+			interactiveClient.removeEventListener(InteractiveRemoteEvent.CLICK, click);		
 		}
 		
 		public function startInteraction():void
@@ -128,9 +122,8 @@ package app.services.interactive
 		
 		private function dispatch1(e:InteractiveRemoteEvent):void 
 		{
-			if (_isIpadConnect) return;		
-			
-			dispatch(e);
+			if (!_isIpadConnect)		
+				dispatch(e);
 		}
 		
 		private function click(e:InteractiveRemoteEvent):void
@@ -148,29 +141,7 @@ package app.services.interactive
 					break;
 				default: 
 					dispatch(new ChangeLocationEvent(ChangeLocationEvent.SHOW_FILTERS));
-			}
-		
-		}
-		
-		private function oneFinger(e:InteractiveRemoteEvent):void
-		{
-			//var event:ChangeLocationEvent = new ChangeLocationEvent( ChangeLocationEvent.MAIN_SCREEN);
-			//event.mode = "MENU_MODE";
-			//dispatch(event);
-		}
-		
-		private function twoFingers(e:InteractiveRemoteEvent):void
-		{
-			//var event:ChangeLocationEvent = new ChangeLocationEvent( ChangeLocationEvent.CUSTOM_SCREEN);
-			//event.mode = "MENU_MODE";
-			//dispatch(event);
-		}
-		
-		private function threeFingers(e:InteractiveRemoteEvent):void
-		{
-			//var event:ChangeLocationEvent = new ChangeLocationEvent( ChangeLocationEvent.STORY_SCREEN);
-			//event.mode = "MENU_MODE";
-			//dispatch(event);
+			}		
 		}
 		
 		private function sendToShowMenu(e:InteractiveRemoteEvent):void

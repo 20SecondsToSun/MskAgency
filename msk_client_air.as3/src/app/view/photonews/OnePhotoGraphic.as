@@ -37,9 +37,6 @@ package app.view.photonews
 		private var initX:Number;
 		private var initY:Number;
 		
-		protected var timeTitleBmp:Bitmap;
-		public var __width:Number;
-		
 		public function OnePhotoGraphic(photoNews:Material)
 		{
 			mat = photoNews;
@@ -55,9 +52,10 @@ package app.view.photonews
 			}
 			
 			addChild(graphic);
-			
-			photo = new OnePhoto(photoNews.files[0].thumbPath, photoNews.files[0].id, false);	
-			photo._scaleMode = ScaleMode.STRETCH;
+			//"gallery/"+AppSettings.getNum().toString() +".jpg"
+			//photo = new OnePhoto("gallery/" + AppSettings.getNumG().toString() +".jpg", photoNews.files[0].id, false);				
+			photo = new OnePhoto(photoNews.files[0].thumbPath, photoNews.files[0].id, false);				
+			photo._scaleMode = ScaleMode.HEIGHT_ONLY;
 			photo._height = 232;
 			addChild(photo);
 			
@@ -71,6 +69,7 @@ package app.view.photonews
 			
 			titleText = TextUtil.createTextField(41, 41);
 			titleText.width = 220;
+			//titleText.border = true;
 			titleText.multiline = true;
 			titleText.multiline = true;
 			titleText.wordWrap = true;
@@ -79,15 +78,27 @@ package app.view.photonews
 			titleText.setTextFormat(textFormat);
 			TextUtil.truncate(titleText, MAX_LINES);
 			titleText.setTextFormat(textFormat);
+			//addChild(titleText);
+			
 			
 			timeTitleBmp = TextUtil.textFieldToBitmap(titleText);
-			addChild(timeTitleBmp);				
+			addChild(timeTitleBmp);	
+			
 		}
 		
-		public function overlay(_width:Number):void
+		protected var timeTitleBmp:Bitmap;
+		public var __width:Number;
+		
+		public function overlay(_width:Number,_height:Number = 10, _scale:Number = 1):void
 		{
+			
+			//photo.height = _height;
+			_scale = 232/_height;
+			
 			__width = width + _width - 20;
-			var overlay:Shape = Tool.createShape(width + _width - 20, height, 0xffffff);			
+			var w:Number = width  + _width*_scale  - 20;
+			//trace("WWWWWWWW:::::::::::::::::", _scale);
+			var overlay:Shape = Tool.createShape(w, height, 0xffffff);			
 			overlay.alpha = 0;
 			addChild(overlay);	
 		}

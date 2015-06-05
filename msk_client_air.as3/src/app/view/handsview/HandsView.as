@@ -1,10 +1,8 @@
 package app.view.handsview
 {	
 	import app.AppSettings;
-	import app.contoller.events.InteractiveEvent;
 	import app.contoller.events.InteractiveRemoteEvent;
 	import app.services.interactive.gestureDetector.ChargeButtonDetector;
-	import app.services.interactive.gestureDetector.DisplayListHelper;
 	import app.services.interactive.gestureDetector.GestureEvent;
 	import app.services.interactive.gestureDetector.HandDownDetector;
 	import app.services.interactive.gestureDetector.HandFingerDetector;
@@ -13,16 +11,8 @@ package app.view.handsview
 	import app.services.interactive.gestureDetector.HandUpDetector;
 	import app.services.interactive.gestureDetector.PushDetector;
 	import app.services.interactive.gestureDetector.StretchOutDetector;
-	import com.greensock.TweenLite;
-	import flash.data.EncryptedLocalStore;
 	import flash.display.Sprite;
-	import flash.display.Stage;
-	import flash.events.TimerEvent;
 	import flash.geom.Point;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormat;
-	import flash.utils.Timer;
 	
 	/**
 	 * ...
@@ -198,20 +188,14 @@ package app.view.handsview
 		}
 		
 		public function updateHand(x:Number, y:Number, z:Number, ht:String):void
-		{
-			
-			if (ht == activeHand._handType)
-			{
-				interactiveLHandler(x, y, z);
-			}
+		{			
+			if (ht == activeHand._handType)			
+				interactiveLHandler(x, y, z);			
 		}
 		
 		public function checkHand():Boolean
 		{
-			if (activeHand.x < 10 || activeHand.x > AppSettings.WIDTH  || activeHand.y > AppSettings.HEIGHT || activeHand.y < 0 )
-			return true;
-			else return false;
-			
+			return (activeHand.x < 10 || activeHand.x > AppSettings.WIDTH  || activeHand.y > AppSettings.HEIGHT || activeHand.y < 0 );			
 		}
 		
 		public function upHand():void
@@ -246,8 +230,7 @@ package app.view.handsview
 		}		
 		
 		private function interactiveLHandler(x:Number, y:Number, z:Number):void
-		{
-			
+		{			
 			if (pushDetector.percent)
 			{
 				if (magneteToCenter)

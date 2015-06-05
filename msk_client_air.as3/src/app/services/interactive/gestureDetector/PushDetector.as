@@ -15,35 +15,32 @@ package app.services.interactive.gestureDetector
 	 * @author metalcorehero
 	 */
 	public class PushDetector extends EventDispatcher
-	{		
+	{
+		private static const maxDiffInMetters:Number = 0.1;
+		private static const minDiffInMetters:Number = 0.05;
+		private static const HAND_SPEED_LIMIT:int = 10;
+		
 		private var frameCounter:int = 0;
 		public  var percent:Number = 0;	
 		private var startZ:Number = Number.MIN_VALUE;
 		private var lastZ:Number  = -100;
-		
-		private var maxDiffInMetters:Number = 0.08;
-		private var minDiffInMetters:Number = 0.05;
-		private static const HAND_SPEED_LIMIT:int = 5;
+		private var _isAllowed:Boolean = true;
+		private var part:int = 1;
+		private var _pushButton:InteractiveButton;				
 		
 		public var blockUpdate:Boolean = false;	
 		
-		private var _isAllowed:Boolean = true;
-		private var part:int = 1;
-		private var _pushButton:InteractiveButton;		
-		
 		public function get isAllowed():Boolean
 		{
-			 return _isAllowed;
+			return _isAllowed;
 		}
 		
 		public function set isAllowed(allow:Boolean):void
 		{
 			_isAllowed = allow;	
 			
-			if (!allow) 
-			{
+			if (!allow) 			
 				stopInteract();					
-			}
 		}	
 		
 		public function set pushButton(pb:InteractiveButton):void
@@ -85,31 +82,35 @@ package app.services.interactive.gestureDetector
 		
 		public function update(x:Number, y:Number, z:Number, stage:Stage):void		
 		{
-			if (!AppSettings.CONTROLL_BY_KINECT) return;
+			if (!AppSettings.CONTROLL_BY_KINECT) return;				
 			
 			if ( !_isAllowed ) 
 			{
 				resetData();
 				return;
-			}
+			}			
+			
 			if (HandSpeed.getInstance().averageSpeedMax > HAND_SPEED_LIMIT) 
 			{
 				stopInteract();
 				return;
 			}
 			
-			var ib:InteractiveButton = checkForInteractiveButton(x, y, stage);
-			if (ib == null) 
+			var ibutton:InteractiveButton = checkForInteractiveButton(x, y, stage);
+			
+			if (ibutton == null) 			
 			{
 				stopInteract();
 				return;
 			}
 			
-			if (ib != _pushButton) 
+			if (ibutton != _pushButton) 
 			{
 				resetData();
-				_pushButton = ib;
-			}				
+				_pushButton = ibutton;
+			}
+			
+			var diff:Number = startZ - z - minDiffInMetters;					
 			
 			if (z > startZ && part == 1)			
 			{
@@ -117,26 +118,22 @@ package app.services.interactive.gestureDetector
 				resetData();				
 			}
 			else if (part == 1)	
-			{
-				if (startZ - z - minDiffInMetters>= maxDiffInMetters)
+			{				
+				if (diff >= maxDiffInMetters)				
 				{
 					part = 2;
-					//_isAllowed = false;
 					percent = 100;					
 					dispatchEvent(new GestureEvent(GestureEvent.PUSH, false, false, percent));		
-					lastZ = startZ = z;						
-					//TweenLite.killDelayedCallsTo(pushOK);
-					//TweenLite.delayedCall(0.5, pushOK);					
+					lastZ = startZ = z;					
 				}
-				else if  (startZ - z <= minDiffInMetters )
+				else if (diff <= 0)
 				{
-					//lastZ = startZ = z;
 					//resetData();
 					return;
-				}
+				}	
 				else
 				{				
-					percent = 100 * (startZ - z - minDiffInMetters) / (maxDiffInMetters );					
+					percent = 100 * diff / (maxDiffInMetters );					
 					dispatchEvent(new GestureEvent(GestureEvent.PUSH, false, false, percent));
 				}
 				
@@ -150,12 +147,12 @@ package app.services.interactive.gestureDetector
 				
 				//if (z - startZ > minDiffInMetters)			
 				{				
-					_isAllowed = false;	
-						
+					_isAllowed = false;							
 					lastZ = startZ = z;			
 					resetData();
 					TweenLite.killDelayedCallsTo(pushOK);
 					TweenLite.delayedCall(0.5, pushOK);
+					trace("-------------------------------PUSH OK----------------------------");
 				}
 			}
 		}
@@ -166,26 +163,21 @@ package app.services.interactive.gestureDetector
 			
 			_isAllowed = true;
 			
-			if (!_pushButton) return;
-			
-			var push:InteractiveEvent = new InteractiveEvent(InteractiveEvent.HAND_PUSH, false, false );
-			_pushButton.dispatchEvent(push);
-			
+			if (_pushButton) 
+			{
+				var push:InteractiveEvent = new InteractiveEvent(InteractiveEvent.HAND_PUSH, false, false );
+				_pushButton.dispatchEvent(push);	
+			}				
 		}
 		
 		private function checkForInteractiveButton(x:Number, y:Number, stage:Stage):InteractiveButton 		
 		{
-			var interactiveArray:Vector.<InteractiveObject>	= DisplayListHelper.getTopDisplayButtonUnderPoint( new Point (x, y ), stage) ;	
-			if (interactiveArray)
-			{
-				for (var i:int = 0; i< interactiveArray.length; i++)
-				{
-					if(interactiveArray[i] is InteractiveButton)
-					{						
-						return interactiveArray[i] as InteractiveButton ;
-					}
-				}
-			}
+			var interactiveArray:Vector.<InteractiveObject>	= DisplayListHelper.getTopDisplayButtonUnderPoint( new Point (x, y ), stage);	
+			
+			if (interactiveArray)			
+				for (var i:int = 0; i< interactiveArray.length; i++)				
+					if(interactiveArray[i] is InteractiveButton)										
+						return interactiveArray[i] as InteractiveButton;					
 				
 			return null;
 		}
@@ -206,7 +198,7 @@ package app.services.interactive.gestureDetector
 			if (ib)
 			{
 				var push:InteractiveEvent = new InteractiveEvent(InteractiveEvent.HAND_PUSH, true, false );
-					ib.dispatchEvent(push);				
+				ib.dispatchEvent(push);				
 			}
 		}
 		
@@ -214,7 +206,7 @@ package app.services.interactive.gestureDetector
 		
 		public function PushDetector() 
 		{
-			 if( _instance ) throw new Error( "Singleton and can only be accessed through Singleton.getInstance()" ); 
+			if( _instance ) throw new Error( "Singleton and can only be accessed through Singleton.getInstance()" ); 
 		}
 		
 		public static function getInstance():PushDetector 

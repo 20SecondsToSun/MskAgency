@@ -25,4 +25,3 @@ package app.services.ipad
 		function get isIpadConnect():Boolean;		
     }
 }
-

@@ -11,7 +11,11 @@ package app.view.page
 	import com.greensock.TweenLite;
 	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.events.AsyncErrorEvent;
 	import flash.geom.Rectangle;
+	import flash.media.Video;
+	import flash.net.NetConnection;
+	import flash.net.NetStream;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
@@ -94,7 +98,46 @@ package app.view.page
 			setVolume("100");*/
 			
 			
+			
+			
+			
+			var vid:Video;
+			nc = new NetConnection();
+			nc.connect(null);
+			
+			
+			ns = new NetStream(nc);
+			
+			//ns.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
+			var customClient:Object = new Object();
+			//customClient.onMetaData = metaDataHandler;
+			ns.client = customClient;
+			ns.play("Moskva24Live.flv");
+						
+			vid = new Video();
+			vid.attachNetStream(ns);
+			splash.addChild(vid);
+			
+			vid.width = stage.stageWidth;
+			vid.scaleY = vid.scaleX;
+			vid.y = -35;
+			//vid.height = stage.stageHeight;
+			//vid.scaleX = vid.scaleY;
+			//vid.x = 0.5 * (stage.stageWidth -vid.width );			
+			
 		}
+		public var nc:NetConnection;
+		public var ns:NetStream ;
+		//public function setVolume(volume:String):void
+		//{
+		
+		
+		public function kill():void
+		{
+			nc.close();
+			ns.close();
+		}
+		
 		public function setVolume(volume:String):void
 		{
 			/*mainTitle.text = volume;
@@ -107,8 +150,7 @@ package app.view.page
 		{
 			img = Assets.create("broadcastPage");
 			img.x = AppSettings.WIDTH;
-			addChild(img);
-		
+			addChild(img);		
 		}
 		
 		override public function expand():void

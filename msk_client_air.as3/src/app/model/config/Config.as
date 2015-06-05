@@ -23,8 +23,8 @@ package app.model.config
 		protected var __currentDate:Date;
 		protected var _previousDate:String = "21.09.2003";
 		protected var _nextDate:String = "21.09.2003";
-		public static const rubrics:Array = [{name:"Общество", id:"7"},{name:"Политика", id:"5"},{name:"Экономика", id:"3"},{name:"Происшествия", id:"11"},{name:"Культура", id:"10"},{name:"Спорт", id:"9"}];			
-		public static const mapRrubrics:Array = [{name:"Город", id:"01",group_id: 1},{name:"Происшествия", id:"02",group_id: 3},{name:"Власть", id:"03",group_id: 2},{name:"Досуг", id:"04",group_id: 4},{name:"Важное", id:"05",group_id: 5}];			
+		public static const rubrics:Array = [{name: "Общество", id: "7"}, {name: "Политика", id: "5"}, {name: "Экономика", id: "3"}, {name: "Происшествия", id: "11"}, {name: "Культура", id: "10"}, {name: "Спорт", id: "9"}];
+		public static const mapRrubrics:Array = [{name: "Город", id: "01", group_id: 1}, {name: "Происшествия", id: "02", group_id: 3}, {name: "Власть", id: "03", group_id: 2}, {name: "Досуг", id: "04", group_id: 4}, {name: "Важное", id: "05", group_id: 5}];
 		
 		public function Config()
 		{
@@ -32,7 +32,7 @@ package app.model.config
 			__currentDate = curDate;
 			_currentDate = TextUtil.getFormatDatePubl(curDate);
 			
-			TextUtil.currentDate = __currentDate;		
+			TextUtil.currentDate = __currentDate;
 		}
 		
 		public function init(initDate:Date):void
@@ -49,20 +49,15 @@ package app.model.config
 			date2.setHours(0, 0, 0);
 			
 			var millisecondDifference:int = date2.valueOf() - curDate.valueOf();
-			var seconds:int = millisecondDifference / 1000 +1;
-			//trace("_currentDate!!!!!" , _currentDate);
-			//TweenLite.delayedCall(9 + counter, reloadDayChanges);
+			var seconds:int = millisecondDifference / 1000 + 1;
+			
 			TweenLite.delayedCall(seconds, reloadDayChanges);
-			
-			
 		}
-		//private var counter:int = 0;
-		private function reloadDayChanges():void 
+		
+		private function reloadDayChanges():void
 		{
-			//trace("gooooooooooooooo!!!!!" );
-			//counter += 100;
 			__currentDate.date += 1;
-			init(__currentDate);			
+			init(__currentDate);
 			dispatch(new DataChangedEvent(DataChangedEvent.DATA_CHANGED));
 		}
 		
@@ -98,9 +93,9 @@ package app.model.config
 		
 		public function get previousDate():String
 		{
-			var prev:Date = new Date(__currentDate.fullYear, __currentDate.getMonth(), __currentDate.getDate());			
-			prev.date -= 1;					
-			return  TextUtil.getFormatDatePubl(prev);
+			var prev:Date = new Date(__currentDate.fullYear, __currentDate.getMonth(), __currentDate.getDate());
+			prev.date -= 1;
+			return TextUtil.getFormatDatePubl(prev);
 		}
 		
 		public function set previousDate(value:String):void
@@ -112,36 +107,35 @@ package app.model.config
 		{
 			var prev:Date = new Date(__currentDate.fullYear, __currentDate.getMonth(), __currentDate.getDate());
 			prev.date += 1;
-			return  TextUtil.getFormatDatePubl(prev);
+			return TextUtil.getFormatDatePubl(prev);
 		}
 		
-		public function  getShiftDate(value:int):String
+		public function getShiftDate(value:int):String
 		{
 			var date:Date = new Date(__currentDate.fullYear, __currentDate.getMonth(), __currentDate.getDate());
-			//var date:Date = new Date("2013", "10", "2");
 			date.date += value;
-			return  TextUtil.getFormatDatePubl(date);
+			return TextUtil.getFormatDatePubl(date);
 		}
 		
-		public function  getprevDate(value:Date):String
+		public function getprevDate(value:Date):String
 		{
-			var date:Date = new Date(value.fullYear, value.getMonth(), value.getDate());			
+			var date:Date = new Date(value.fullYear, value.getMonth(), value.getDate());
 			date.date -= 1;
-			return  TextUtil.getFormatDatePubl(date);
-		}
-		public function  getnextDate(value:Date):String
-		{
-			var date:Date = new Date(value.fullYear, value.getMonth(), value.getDate());			
-			date.date += 1;
-			return  TextUtil.getFormatDatePubl(date);
+			return TextUtil.getFormatDatePubl(date);
 		}
 		
-		public function  compareDate(value:String):String
-		{			
+		public function getnextDate(value:Date):String
+		{
+			var date:Date = new Date(value.fullYear, value.getMonth(), value.getDate());
+			date.date += 1;
+			return TextUtil.getFormatDatePubl(date);
+		}
+		
+		public function compareDate(value:String):String
+		{
 			var dateArr:Array = value.split(".");
 			var date:Date = new Date(dateArr[2], dateArr[1] - 1, dateArr[0]);
 			
-		
 			date.setHours(0, 0, 0, 0);
 			__currentDate.setHours(0, 0, 0, 0);
 			
@@ -149,13 +143,11 @@ package app.model.config
 			if (date < __currentDate) return "PAST";
 			
 			return "CURRENT";
-			
 		}
 		
 		public function set nextDate(value:String):void
 		{
 			_nextDate = value;
 		}
-	
 	}
 }

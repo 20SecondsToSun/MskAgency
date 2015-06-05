@@ -6,5 +6,4 @@ package app.services.dataloading
         function stop():void;
         function resume():void;
 	}
-
 }

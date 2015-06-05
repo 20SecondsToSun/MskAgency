@@ -261,7 +261,7 @@ package app.services.ipad
 		{
 			if (!message.type)
 				return;
-			trace("PPPPPPPPPPPPPPPP=======================",message.type);
+		
 			switch (message.type)
 			{
 				case "NAVIGATION": 
@@ -330,9 +330,7 @@ package app.services.ipad
 					break;
 					
 				default: 
-			}
-			
-			//setCoundownIpadTime();			
+			}	
 		}
 		
 		private function setCoundownIpadTime():void 

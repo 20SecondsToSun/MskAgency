@@ -56,13 +56,10 @@ package app.view.favorites
 		public function Favorites()
 		{
 			visible = false;
-			//services = Assets.create("fav");
-			//addChild(services);
 			
 			colors.push(0x1a1b1f);
 			colors.push(0x0f0f12);
-			colors.push(0x509338);
-			
+			colors.push(0x509338);			
 			
 			for (var i:int = 0; i < 3; i++) 
 			{
@@ -160,11 +157,6 @@ package app.view.favorites
 			setPhotoCount(0);
 			setVideoCount(0);
 			setEventsCount(0);
-			
-			
-			//var s:Sprite = Assets.create("screenshot3");
-			//addChild(s);
-			//s.alpha = 0.3;
 		}
 		
 		private function createSplash(hintTxt:Sprite,starColor:uint,txt1:String,color1:uint,txt2:String,color2:uint):void
@@ -317,11 +309,11 @@ package app.view.favorites
 		{
 			if (list == null || list.length == 0 ) return;
 			eventsCountInt = list.length;
-			setEventsCount(eventsCountInt);
-			
+			setEventsCount(eventsCountInt);	
 			
 			var offset:Number = 0;	
 			list = list.reverse();
+			
 			for (var i:int = 0; i < list.length; i++)
 			{
 				var hn:Fact = new Fact();
@@ -333,10 +325,9 @@ package app.view.favorites
 				
 				sliderEvents.addElement(oneHour);
 			}
-			sliderEvents.dragZoneFix();
 			
-			sliderEvents.startInteraction();			
-			
+			sliderEvents.dragZoneFix();			
+			sliderEvents.startInteraction();				
 		}
 		
 		private function setTxtCount(value:int):void
@@ -438,6 +429,7 @@ package app.view.favorites
 				
 				default:
 			}
+			
 			for (var i:int = 0; i < slider.elemensArray.length; i++) 
 			{
 				if (id == slider.elemensArray[i].id)
@@ -464,8 +456,7 @@ package app.view.favorites
 				break;
 				
 				default:
-			}
-			
+			}		
 			
 			var offset:Number = 0;		
 			for (var j:int = 0; j < slider.elemensArray.length; j++)
@@ -476,9 +467,9 @@ package app.view.favorites
 				else
 					offset +=  slider.elemensArray[j].height + shift;				
 			}
-			slider.dragZoneFix(offset);
-			
+			slider.dragZoneFix(offset);			
 		}
+		
 		public function refreshData():void
 		{
 		

@@ -22,6 +22,8 @@ package app.view.facts
 		
 		private var blist:Vector.<Bitmap>;
 		private var index:int = 0;
+		private var prev:Bitmap;
+		private var cur:Bitmap;
 		
 		public function FactAnimator(list:Vector.<FactsGraphic>)
 		{
@@ -55,16 +57,14 @@ package app.view.facts
 		{
 			TweenLite.delayedCall(ANIMATION_DELAY_TIME, change);
 		}
-		private var prev:Bitmap;
-		private var cur:Bitmap;
 		
 		private function change():void
-		{	
-			if (prev && contains(prev))			
-				removeChild(prev);			
+		{
+			if (prev && contains(prev))
+				removeChild(prev);
 			
-			if (cur && contains(cur))			
-				removeChild(cur);			
+			if (cur && contains(cur))
+				removeChild(cur);
 			
 			prev = blist[index];
 			index = nextIndex();
@@ -73,31 +73,30 @@ package app.view.facts
 			
 			cur.y = -400;
 			
-			addChild(cur);			
+			addChild(cur);
 			addChild(prev);
 			
-			TweenLite.to(prev, 0.8, {y: 450,  ease: Quart.easeInOut, onComplete: function():void
-				{
-					wait();
-				}});
-				
+			TweenLite.to(prev, 0.8, {y: 450, ease: Quart.easeInOut, onComplete: function():void
+			{
+				wait();
+			}});
+			
 			TweenLite.to(cur, 0.8, {y: 0, ease: Quart.easeInOut});
 		}
-
 		
 		public function kill():void
 		{
 			TweenLite.killDelayedCallsTo(change);
-		
-			for (var i:int = 0; i < blist.length; i++)			
-				blist[i].bitmapData.dispose();			
 			
-			InteractiveObject.removeAllChildren(this);			
+			for (var i:int = 0; i < blist.length; i++)
+				blist[i].bitmapData.dispose();
+			
+			InteractiveObject.removeAllChildren(this);
 		}
 		
 		private function nextIndex():int
 		{
 			return (index + 1) % blist.length;
-		}	
+		}
 	}
 }

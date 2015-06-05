@@ -236,7 +236,6 @@ package app.view.facts
 				TweenLite.killTweensOf(screenshot);
 				screenshot.dispose();
 			}	
-		}
-		
+		}		
 	}
 }

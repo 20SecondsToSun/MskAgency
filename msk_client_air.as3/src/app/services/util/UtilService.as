@@ -56,8 +56,7 @@ package app.services.util
 			{
 				loc = view.getChildByName(invisibleForScr[i]._name) as invisibleForScr[i]._class; 
 				if (loc) loc.visible = true;
-			}		
-			
+			}				
 		}
 	}
 }

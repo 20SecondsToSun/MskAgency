@@ -25,18 +25,17 @@ package app.view.photonews
 	 */
 	public class PhotoNews extends MainScreenView
 	{
-		private static const step:Number = .5;
-		private static const phSliderHeight:int = 232;
-		
 		private var slider:PhotoSlider;
+		public var curLoc:String;
 		private var onePhotoNewList:Vector.<OnePhotoGraphic>;
 		private var isAnimate:Boolean = true;
 		private var initY:Number;
 		
 		private var freshUpdating:Boolean = false;
-		private var __holder:InteractiveObject;		
-		private var initScreenShot:Sprite;
-				
+		private var __holder:InteractiveObject;
+		
+		private static const phSliderHeight:int = 232;
+		
 		public function PhotoNews()
 		{
 			visible = false;
@@ -48,6 +47,8 @@ package app.view.photonews
 			
 			slider = new PhotoSlider(new Rectangle(0, 0, AppSettings.WIDTH, phSliderHeight));
 			addChild(slider);
+			
+			//slider.scaleX = slider.scaleY = 0.5;		
 		}
 		
 		public function setScreenShot():void
@@ -56,7 +57,8 @@ package app.view.photonews
 			bitmapData.drawWithQuality(this, null, null, null, null, true, StageQuality.BEST);
 			
 			config.setScreenShot(new Bitmap(bitmapData), "PHOTO_NEWS");
-		}		
+		}
+		private var initScreenShot:Sprite;
 		
 		override public function setScreen():void
 		{
@@ -83,8 +85,14 @@ package app.view.photonews
 			photoList = photoList.reverse();
 			onePhotoNewList = new Vector.<OnePhotoGraphic>();
 			
-			for (var i:int = 0; i < photoList.length; i++)
+			trace("-------REFRSH!!!!!!!!!!!-------", curLoc);
+			var folder:String = curLoc == "MAIN_SCREEN"?"maingallery/":"maingallery1/";			
+
+			for (var i:int = 0; i < 10; i++)// photoList.length; i++)
 			{
+				photoList[i].files[0].thumbPath = folder + (i + 1).toString() + ".jpg";	
+				//trace("--------------", photoList[i].files[0].thumbPath);
+				
 				var onePhotoNew:OnePhotoGraphic = new OnePhotoGraphic(photoList[i]);
 				onePhotoNewList.push(onePhotoNew);
 			}
@@ -92,6 +100,7 @@ package app.view.photonews
 			slider.init(onePhotoNewList);			
 			
 			waitToAnim();
+			//dispatchEvent(new DataLoadServiceEvent(DataLoadServiceEvent.REFRESH_COMPLETED_PHOTO_NEWS, true, true));
 		}
 		
 		public function removeInitScreen():void
@@ -150,34 +159,98 @@ package app.view.photonews
 		
 		private function restart():void
 		{
+			slider.resetPosition();
+			
 			slider.onComplete = function():void
 			{
 				if (isAutoAnimation)
 					sliderLoop();
 			}
-			slider.resetPosition();
+			
 			slider.animate();	
 		}
 		
 		public function updater(e:ServerUpdateEvent):void // allNewsHourList:Vector.<Vector.<Material>>):void
 		{
+			//trace("HERE PHOTO UPDATER!!!!!!!",freshUpdating, e.mat);
 			if (freshUpdating)
 				return;
 			if (isListNull(onePhotoNewList) || e.mat == null)
 				return;
-				
-			TweenLite.killTweensOf(slider.holder);		
+			
+		/*	onePhotoNewList = onePhotoNewList.reverse();
+			var elem:OnePhotoGraphic = onePhotoNewList.pop();
+			onePhotoNewList = onePhotoNewList.reverse();
+			//slider.holder.alpha = 0;
+			slider.holder.removeChild(elem);
+			
+			//return;
+			
+			freshUpdating = true;
+			var onePhotoNew:OnePhotoGraphic = new OnePhotoGraphic(e.mat);
+			onePhotoNewList.push(onePhotoNew);*/
+			
+			TweenLite.killTweensOf(slider.holder);
+			//refreshData(photoList);
+			
+			//slider.callBackStart = null;
+			//slider.init(onePhotoNewList);
+			//slider.callBackStart = removeInitScreen;
 			
 			if (slider && contains(slider))
 			{
 				removeChild(slider);
-			
+				//slider.clearSlider();
+				//slider = null;
+				
 				slider = new PhotoSlider(new Rectangle(0, 0, AppSettings.WIDTH, phSliderHeight));
 				addChild(slider);
+				//trace("!!!!!!!!!!!! UPDATE SLIDER !!!!!!!!!!!!", slider.width);
 			}
-			
+			//onePhotoNewList = onePhotoNewList.reverse();
+			//slider.resetPosition();
 			slider.callBackStart = removeInitScreen;
 			slider.init(onePhotoNewList);
+			
+			/*
+				slider.resetPositions();			
+				slider.holder.x = -slider.holder.width;			
+				slider.animate();
+			*/
+				
+			//waitToAnim();
+			
+			
+		//slider.addOnePhoto(onePhotoNew, onComplete);
+		
+		/*
+		if (freshUpdating == false)
+		   {
+		   TweenLite.killTweensOf(slider.holder);
+		   makeSliderScreenshot();
+		   }
+		
+		   slider.stopInteraction();
+		   slider.clearSlider();
+		
+		   oneHourNewsList = new Vector.<OneHourBlockNews>();
+		   for (var i:int = 0; i < allNewsHourList.length; i++)
+		   {
+		   var oneHourNews:OneHourBlockNews = new OneHourBlockNews(allNewsHourList[i]);
+		   oneHourNewsList.push(oneHourNews);
+		   }
+		
+		   slider.holder.x = 30;
+		   slider.init(oneHourNewsList);
+		   splash.width = sliderWidth = slider.width;
+		
+		   if (freshUpdating == false)
+		   {
+		   makeSliderScreenshotNew();
+		   holder.visible = false;
+		   flip();
+		 }
+		*/
 		}
 		
 		private function onComplete():void
@@ -197,11 +270,14 @@ package app.view.photonews
 		public function sliderLoop():void
 		{			
 			addEventListener(Event.ENTER_FRAME, animateSlider);
-		}	
+			//var time:Number = (1 - (holder.width + holder.x) / holder.width) * 600;
+			//TweenLite.to(holder, time, {x: slider.startX, onComplete: restart});
+		}
 		
 		private function animateSlider(e:Event):void 
 		{
-			__holder = slider.holder;			
+			__holder = slider.holder;
+			var step:Number = 0.5;
 			
 			if (slider.holder.x + step < slider.startX)
 			{

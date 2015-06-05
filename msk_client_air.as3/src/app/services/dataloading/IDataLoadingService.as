@@ -33,4 +33,3 @@ package app.services.dataloading
 		function addToFavs(mat:*, type:String):void;
     }
 }
-
