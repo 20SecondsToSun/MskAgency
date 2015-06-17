@@ -38,6 +38,4 @@ package app.view.page
 			view.setVolume(vol);
 		}
 	}
-
 }
-

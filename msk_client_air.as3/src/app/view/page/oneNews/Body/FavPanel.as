@@ -18,17 +18,14 @@ package app.view.page.oneNews.Body
 	 * @author metalcorehero
 	 */
 	public class FavPanel extends InteractiveObject
-	{
-		
+	{		
 		public function FavPanel()
 		{
 			var panel:Sprite = Assets.create("favpanel");
 			addChild(panel);
 			
 			var  over:Shape = Tool.createShape(622, 268, 0x3b4c5c);
-			addChild(over);
-			
-			
+			addChild(over);			
 			
 			var favhand:Sprite = Assets.create("favhand");
 			favhand.x = .5 * (width - favhand.width);
@@ -98,5 +95,4 @@ package app.view.page.oneNews.Body
 				}});
 		}
 	}
-
 }

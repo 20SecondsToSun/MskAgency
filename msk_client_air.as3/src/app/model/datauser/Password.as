@@ -10,8 +10,6 @@ package app.model.datauser
 		public function Password(pswd:String)
         {
             super(pswd);
-        }
-		
+        }		
 	}  
-
 }

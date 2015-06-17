@@ -86,7 +86,17 @@ package app.services.dataloading
 		[Inject]
 		public var employ:IEmployModel;
 		
+		static public const FACTS_NEWS_LIMIT_MAIN_PAGE:int = 20;
+		static public const VIDEO_LIMIT_MAIN_PAGE:int = 10;
+		static public const PHOTO_LIMIT_MAIN_PAGE:int = 20;
+		static public const MAIN_NEWS_LIMIT_MAIN_PAGE:int = 10;
+		
 		protected var loaders:Vector.<URLLoader> = new Vector.<URLLoader>();
+		
+		private var loaderDictionary:Dictionary = new Dictionary();
+		private var factsMainTries:int = 0;
+		private var counter:int = 0;
+		private var isBadRequest:Boolean = false;
 		
 		public function flush():void
 		{
@@ -149,7 +159,6 @@ package app.services.dataloading
 				
 				if (filterModel.daysNewsFilters.to)
 					variables.to = filterModel.daysNewsFilters.to;
-				
 			}
 			else
 			{
@@ -201,8 +210,6 @@ package app.services.dataloading
 			isBadRequest = false;
 		}
 		
-		private var isBadRequest:Boolean = false;
-		
 		private function ioErrorHandler(e:IOErrorEvent):void
 		{
 			if (isBadRequest == false)
@@ -226,8 +233,6 @@ package app.services.dataloading
 		//  Breaking News Data
 		//
 		//--------------------------------------------------------------------------
-		
-		static public const MAIN_NEWS_LIMIT_MAIN_PAGE:int = 10;
 		
 		public function loadMainNews(filtersOff:Boolean = false):void
 		{
@@ -265,8 +270,6 @@ package app.services.dataloading
 		//  Photo Data
 		//
 		//--------------------------------------------------------------------------
-		
-		static public const PHOTO_LIMIT_MAIN_PAGE:int = 20;
 		
 		public function loadPhotoNews():void
 		{
@@ -308,7 +311,6 @@ package app.services.dataloading
 			variables.type = type;
 			variables.id = mat;
 			request.data = variables;
-			//trace('maaaaaaaaaaaaaaaaaaaaaaaaaaaaaat', mat);
 			
 			loader.addEventListener(Event.COMPLETE, on_complete_removing_favorites);
 			loader.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
@@ -321,16 +323,10 @@ package app.services.dataloading
 		{
 			var loader:URLLoader = URLLoader(event.target);
 			var data:Object = JSON.parse(loader.data);
-			//trace("FAVORITES", data.success);
-			if (data.success)
-			{
-				//	trace("REMOVE FAVORITES SUCCESS");
-			}
 		}
 		
 		public function addToFavs(mat:*, type:String):void
 		{
-			//trace("FAVORITES SUCCESS", type, mat.id);
 			var loader:URLLoader = new URLLoader();
 			var request:URLRequest = new URLRequest(server + "/add_to_favorites");
 			request.method = URLRequestMethod.POST;
@@ -341,33 +337,30 @@ package app.services.dataloading
 			request.data = variables;
 			
 			loader.addEventListener(Event.COMPLETE, function():void
+			{
+				var data:Object = JSON.parse(loader.data);
+				//	trace("FAVORITES", data.success);
+				if (data.success)
 				{
-					var data:Object = JSON.parse(loader.data);
-					//	trace("FAVORITES", data.success);
-					if (data.success)
-					{
-						if (type == "material")
-							fav.insertMaterial(mat);
-						else if (type == "activity")
-							fav.insertFact(mat);
-						
-						loader_success()
-					}
-					else
-					{
-						dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-					}
-				});
+					if (type == "material")
+						fav.insertMaterial(mat);
+					else if (type == "activity")
+						fav.insertFact(mat);
+					
+					loader_success()
+				}
+				else
+					dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
+			});
 			
 			loader.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-			
 			loaders.push(loader);
 			loader.load(request);
 		}
 		
 		public function loadWeather():void
 		{
-			var _urlDate:String = "http://informer.gismeteo.ru/xml/27612_1.xml"; //"http://export.yandex.ru/weather-ng/forecasts/27612.xml";
+			var _urlDate:String = "http://informer.gismeteo.ru/xml/27612_1.xml";
 			var _urlRequest:URLRequest = new URLRequest(_urlDate);
 			var _loader:URLLoader = new URLLoader();
 			_loader.addEventListener(Event.COMPLETE, loader_complete_weather);
@@ -402,9 +395,9 @@ package app.services.dataloading
 			var _urlRequest:URLRequest = new URLRequest(_urlDate);
 			var _loader:URLLoader = new URLLoader();
 			_loader.addEventListener(Event.COMPLETE, loader_complete_msk);
-			_loader.addEventListener(IOErrorEvent.IO_ERROR, function ():void 
+			_loader.addEventListener(IOErrorEvent.IO_ERROR, function():void
 			{
-				trace("ERROOOOOOOOOOOOOOR!!!!!!!!!!!! M 24 info");
+				trace("Error! M_24_info");
 			});
 			_loader.load(_urlRequest);
 			
@@ -412,7 +405,7 @@ package app.services.dataloading
 			{
 				var __loaderMsk:URLLoader = URLLoader(_evt.target);
 				var str:String = __loaderMsk.data;
-
+				
 				var obj:Object = JSON.parse(str.substring(13).slice(0, -3));
 				
 				var inf:Informer = new Informer();
@@ -420,13 +413,13 @@ package app.services.dataloading
 				inf.eur_current = obj.eur_current;
 				inf.usd_change = obj.usd_change;
 				inf.usd_current = obj.usd_current;
-				inf.probki_city = obj.probki_city;		
+				inf.probki_city = obj.probki_city;
 				
 				employ.informer = inf;
-			}		
+			}
 		}
 		
-		public function loadFavoritesMaterials():void		
+		public function loadFavoritesMaterials():void
 		{
 			var loader:URLLoader = new URLLoader();
 			var request:URLRequest = new URLRequest(server + "/get_favorites");
@@ -468,16 +461,14 @@ package app.services.dataloading
 		{
 			var loader:URLLoader = URLLoader(event.target);
 			var data:Object = JSON.parse(loader.data);
-			//trace("FAVORITES LENGTH", data.data.length);
+			
 			if (data.success)
 			{
 				fav.newsList = parseMaterial(data.data);
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_favorites_facts(event:Event):void
@@ -491,9 +482,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		//--------------------------------------------------------------------------
@@ -501,7 +490,6 @@ package app.services.dataloading
 		// Video Data
 		//
 		//--------------------------------------------------------------------------
-		static public const VIDEO_LIMIT_MAIN_PAGE:int = 10;
 		
 		public function loadVideoNews():void
 		{
@@ -530,7 +518,6 @@ package app.services.dataloading
 		//  Facts Data
 		//
 		//--------------------------------------------------------------------------
-		static public const FACTS_NEWS_LIMIT_MAIN_PAGE:int = 20;
 		
 		public function loadFactsDataMainNews(isMain:Boolean = true, useFilters:Boolean = true):void
 		{
@@ -541,7 +528,7 @@ package app.services.dataloading
 			var variables:URLVariables = new URLVariables();
 			variables.limit = FACTS_NEWS_LIMIT_MAIN_PAGE;
 			variables.offset = 0;
-			variables.day =  conf.currentDate;
+			variables.day = conf.currentDate;
 			variables.status = "Published";
 			
 			if (isMain)
@@ -549,19 +536,14 @@ package app.services.dataloading
 			
 			facts.notema = false;
 			if (useFilters)
-			{
 				setVariables(variables, user.getfilters());
-			}
 			else
-			{
 				facts.notema = true;
-			}
 			
-			request.data = variables;		
+			request.data = variables;
 			
 			loader.addEventListener(Event.COMPLETE, on_complete_loading_facts_main);
 			loader.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-			
 			loaders.push(loader);
 			loader.load(request);
 		}
@@ -574,9 +556,6 @@ package app.services.dataloading
 			
 			var variables:URLVariables = new URLVariables();
 			variables.status = "Published";
-			
-			//variables.limit = 100;
-			//variables.offset = 0;
 			
 			if (filterModel.factsNewsFilters.isFilter)
 			{
@@ -923,7 +902,7 @@ package app.services.dataloading
 		{
 			var loader:URLLoader = URLLoader(event.target);
 			var data:Object = JSON.parse(loader.data);
-			//trace("PHOTO LOADED", data.error.code);
+			
 			if (data.success)
 			{
 				photoNews.count = data.info.count;
@@ -933,9 +912,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_days_news_final(event:Event):void
@@ -952,9 +929,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_days_news(event:Event):void
@@ -975,9 +950,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_filters_data(event:Event):void
@@ -1015,13 +988,12 @@ package app.services.dataloading
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
 			}
 		}
-		private var counter:int = 0;
 		
 		private function on_complete_loading_main_news(event:Event):void
 		{
 			var loader:URLLoader = URLLoader(event.target);
 			var data:Object = JSON.parse(loader.data);
-			//trace("LOADDDDDDDDDDDDDDDEEEEEEEEEEEEEEEEEEEEED", data.success, data.data.length);
+			
 			if (data.success)
 			{
 				if (data.data.length == 0)
@@ -1036,12 +1008,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
-		
-			//
-			//if (counter++ % 2 == 0) ioErrorHandler(null);			
 		}
 		
 		private function on_complete_loading_day_facts(event:Event):void
@@ -1057,20 +1024,16 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
-		private var factsMainTries:int = 0;
 		
 		private function on_complete_loading_facts_main(event:Event):void
 		{
 			var loader:URLLoader = URLLoader(event.target);
 			var data:Object = JSON.parse(loader.data);
-			//trace("data loading ", data.error.code, data.error.message);
+			
 			if (data.success)
 			{
-				
 				if (data.data == undefined || data.data.length == 0)
 				{
 					factsMainTries++;
@@ -1100,9 +1063,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_all_facts(event:Event):void
@@ -1121,9 +1082,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_geo(event:Event):void
@@ -1141,9 +1100,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_geo_filtered(event:Event):void
@@ -1161,9 +1118,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_video_news(event:Event):void
@@ -1181,9 +1136,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_check_facts(event:Event):void
@@ -1200,10 +1153,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
-				
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_check_news(event:Event):void
@@ -1221,9 +1171,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_near_news(event:Event):void
@@ -1241,9 +1189,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		private function on_complete_loading_all_news(event:Event):void
@@ -1261,9 +1207,7 @@ package app.services.dataloading
 				loader_success();
 			}
 			else
-			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED, data.error.code, data.error.message));
-			}
 		}
 		
 		//--------------------------------------------------------------------------
@@ -1271,6 +1215,7 @@ package app.services.dataloading
 		//     PARSING
 		//
 		//--------------------------------------------------------------------------
+		
 		protected function parseFact(data:Object):Vector.<Fact>
 		{
 			var materialList:Vector.<Fact> = new Vector.<Fact>();
@@ -1307,7 +1252,6 @@ package app.services.dataloading
 			
 			for (var i:int = 0; i < data.length; i++)
 			{
-				//trace('PUBLISHED AT::::::', data[i].published_at, data[i].id);
 				if (data[i].published_at == null)
 					continue;
 				materialList.push(parseOneMaterial(data[i]));
@@ -1343,10 +1287,7 @@ package app.services.dataloading
 				material.pushRubric(data.rubrics[k]);
 			
 			for (var j:int = 0; j < data.files.length; j++)
-			{
 				material.pushFile(data.files[j]);
-					//if (material.type == "photo") trace(data.files[j].thumbnail );
-			}
 			
 			for each (var tag:String in data.tags)
 				material.tags.push(tag);
@@ -1370,7 +1311,6 @@ package app.services.dataloading
 				return;
 			
 			var material:Material = parseOneMaterial(data.data[0]);
-
 			
 			trace("material.type", material.type);
 			
@@ -1385,19 +1325,17 @@ package app.services.dataloading
 			{
 				switch (material.type)
 				{
-					case "video": 
-						var videoEvent:ServerUpdateEvent = new ServerUpdateEvent(ServerUpdateEvent.VIDEO_NEWS);
-						videoEvent.mat = material;
-						dispatch(videoEvent);
-						break;
-					
-					case "photo": 
-						var photoEvent:ServerUpdateEvent = new ServerUpdateEvent(ServerUpdateEvent.PHOTO_NEWS);
-						photoEvent.mat = material;
-						dispatch(photoEvent);
-						//trace("HERE!!!!!!!!!!");
-						break;
-					default: 
+				case "video": 
+					var videoEvent:ServerUpdateEvent = new ServerUpdateEvent(ServerUpdateEvent.VIDEO_NEWS);
+					videoEvent.mat = material;
+					dispatch(videoEvent);
+					break;
+				
+				case "photo": 
+					var photoEvent:ServerUpdateEvent = new ServerUpdateEvent(ServerUpdateEvent.PHOTO_NEWS);
+					photoEvent.mat = material;
+					dispatch(photoEvent);
+					break;
 				}
 			}
 			
@@ -1409,7 +1347,7 @@ package app.services.dataloading
 				mainEvent.mat = material;
 				dispatch(mainEvent);
 			}
-			loader_success();		
+			loader_success();
 		}
 		
 		public function allNewsSend(mat:Material):void
@@ -1426,9 +1364,7 @@ package app.services.dataloading
 		//
 		// 
 		//
-		//--------------------------------------------------------------------------	
-		
-		private var loaderDictionary:Dictionary = new Dictionary();
+		//--------------------------------------------------------------------------		
 		
 		public function loadPhoto(_path:String, _id:int, _view:DisplayObject):void
 		{
@@ -1451,7 +1387,6 @@ package app.services.dataloading
 		private function loadPhotoComplete(e:Event):void
 		{
 			var id:int = int(e.target.parameters.id);
-			
 			var evt:LoadPhotoEvent = new LoadPhotoEvent(LoadPhotoEvent.PHOTO_LOADED);
 			evt.photo = e.target.content as Bitmap;
 			

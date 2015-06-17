@@ -20,6 +20,9 @@ package app.view.facts
 	 */
 	public class FactsSlider extends Slider
 	{
+		public static const startInteractPullOutEvent:SliderEvent = new SliderEvent(SliderEvent.START_INTERACTION_PULL_OUT);
+		public static const stopInteractPullOutEvent:SliderEvent = new SliderEvent(SliderEvent.STOP_INTERACTION_PULL_OUT);
+		
 		private static const oneFactWidth:int = 410;
 		private static const MARGIN:int = 400;
 		public const shiftX:int = 410 + 690;
@@ -31,13 +34,11 @@ package app.view.facts
 		private var splash:Shape;
 		private var screenshot:BigCanvas;
 		private var time:Number;
+		private var completeFactSlider:Function;		
 		
-		public static const startInteractPullOutEvent:SliderEvent = new SliderEvent(SliderEvent.START_INTERACTION_PULL_OUT);
-		public static const stopInteractPullOutEvent:SliderEvent = new SliderEvent(SliderEvent.STOP_INTERACTION_PULL_OUT);
 		public const startDragSliderEvent:SliderEvent = new SliderEvent(SliderEvent.FACT_SLIDER_START_DRAG)
-		public const stopSliderType:String = SliderEvent.FACT_SLIDER_STOP_DRAG;
-		
-		public var screenshotArea:Rectangle = new Rectangle(0, 0, AppSettings.WIDTH - oneFactWidth, 500);
+		public const stopSliderType:String = SliderEvent.FACT_SLIDER_STOP_DRAG;		
+		public var screenshotArea:Rectangle = new Rectangle(0, 0, AppSettings.WIDTH - oneFactWidth, 500);		
 		
 		public function FactsSlider(_viewPort:Rectangle = null)
 		{
@@ -162,7 +163,7 @@ package app.view.facts
 				TweenLite.to(screenshot, time, {x: holder.x - screenshot.width, ease: sliderEasing});
 			}
 		}
-		private var completeFactSlider:Function;
+		
 		public function initFactSliderPosition(completeFactSlider:Function = null):void		
 		{
 			this.completeFactSlider = completeFactSlider;

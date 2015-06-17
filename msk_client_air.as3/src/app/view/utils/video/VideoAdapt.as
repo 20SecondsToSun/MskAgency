@@ -47,19 +47,14 @@
 			connection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
 			
 			connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
-			connection.connect(null);
-		
+			connection.connect(null);		
 		}
 		
 		public function initBroadcast(str_URL:String):void
 		{
-			//trace("INIT VIDEO broadcast = " + str_URL);
 			info = null;
-			type = "broadcast";	
-			
+			type = "broadcast";				
 			videoURL = "11058.sdp";
-			
-			
 			
 			var params:Array = str_URL.split("/");
 			
@@ -71,43 +66,11 @@
 					break;
 				}
 			}
-		//	trace("VIDEO URL!!!!!!!", videoURL);
-			
-			//videoURL = "rtp_m24_sq";
-			//	rtmp://vgtrk.cdnvideo.ru"	
+		
 			connection = new NetConnection();
 			connection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);			
-			connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
-			//connection.connect("rtmp://moscowmedia.cdnvideo.ru/moscowmedia-live/");
-			//http://hls.ccube.ru/showmepro/033-136-731.m3u8
-			//connection.connect("rtmp://vgtrk.cdnvideo.ru/rr2/?auth=vh&cast_id=1661/");
-			
+			connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		public function get stream():NetStream
 		{
@@ -173,9 +136,6 @@
 			_stream.client = customClient;
 			
 			timer.start();
-			//_stream.videoSampleAccess = true;
-			//trace("PLAY!!!");
-			//_stream.play(videoURL);
 			_stream.play(videoURL);
 			_stream.bufferTime = 3;
 			if (type == "video")
@@ -223,8 +183,7 @@
 				
 				playing = true;
 				//mute();
-			}
-		
+			}		
 		}
 		
 		public function pause():void
@@ -253,8 +212,7 @@
 		{
 			volume = vol;
 			var audioTransform:SoundTransform = new SoundTransform(vol);
-			_stream.soundTransform = audioTransform;
-		
+			_stream.soundTransform = audioTransform;		
 		}
 		
 		public function unMute():void
@@ -278,5 +236,4 @@
 				return false;
 		}
 	}
-
 }

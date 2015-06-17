@@ -28,5 +28,4 @@ package app.model.materials
 			return pathToSource1 + scale.toString() + pathToSource2;
 		}
 	}
-
 }

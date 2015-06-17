@@ -32,13 +32,13 @@ package app.view.popup
 		
 		public function IpadPopup()
 		{
-			visible = false;			
+			visible = false;
 			
 			var tintFill:Shape = Tool.createShape(AppSettings.WIDTH, AppSettings.HEIGHT, 0x1a1b1f);
-			tint.alpha = 0;			
+			tint.alpha = 0;
 			
 			addChild(tint);
-			tint.addChild(tintFill);			
+			tint.addChild(tintFill);
 			
 			closeBtn = new CloseButton();
 			closeBtn.x = AppSettings.WIDTH - closeBtn.width - 110;
@@ -47,19 +47,20 @@ package app.view.popup
 			
 			screenshot = new Sprite();
 			screenshot.x = 311;
-			addChild(screenshot);		
+			addChild(screenshot);
 		}
 		
 		public function show(event:IpadEvent):void
 		{
 			var isMaterial:Boolean = false;
+			
 			if (event.data.type == "Material")
 				isMaterial = true;
 			else
 				isMaterial = false;
-				
+			
 			if (isOpen == false)
-			{				
+			{
 				newsHolder = new IpadNewBody();
 				newsHolder.x = 311;
 				addChild(newsHolder);
@@ -69,13 +70,9 @@ package app.view.popup
 				newsHolder.y = AppSettings.HEIGHT;
 				
 				if (isMaterial)
-				{
 					newsHolder.refreshAsMaterial(event.data.value as Material);
-				}
 				else
-				{					
 					newsHolder.refreshAsFact(event.data.value as Fact);
-				}
 				
 				TweenLite.to(tint, 0.5, {alpha: 0.80});
 				TweenLite.to(newsHolder, 0.8, {y: 0, ease: Back.easeOut});
@@ -108,13 +105,15 @@ package app.view.popup
 		
 		public function hide(e:ChangeLocationEvent = null):void
 		{
-			if (!isOpen ) return;
+			if (!isOpen)
+				return;
+			
 			isOpen = false;
 			TweenLite.to(tint, 0.5, {alpha: 0, onComplete: function():void
-				{
-					visible = false;					
-					dispatchEvent(new ChangeLocationEvent(ChangeLocationEvent.IPAD_POPUP_IS_HIDDEN));
-				}});
+			{
+				visible = false;
+				dispatchEvent(new ChangeLocationEvent(ChangeLocationEvent.IPAD_POPUP_IS_HIDDEN));
+			}});
 			
 			screenshot.y = 0;
 			
@@ -125,7 +124,7 @@ package app.view.popup
 			TweenLite.to(screenshot, 0.8, {y: -AppSettings.HEIGHT, ease: Back.easeOut});
 			removeChild(newsHolder);
 			
-			TweenLite.to(closeBtn, 0.5, {alpha: 0});		
-		}	
+			TweenLite.to(closeBtn, 0.5, {alpha: 0});
+		}
 	}
 }

@@ -10,7 +10,7 @@ package app.contoller.commadns
     {
       
 		[Inject]
-        public var navigationService:INavigationService;		
+       public var navigationService:INavigationService;		
 		
 		[Inject]
         public var animEvent:AnimationEvent;

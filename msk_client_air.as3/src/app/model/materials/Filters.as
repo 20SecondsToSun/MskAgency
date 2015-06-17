@@ -15,27 +15,24 @@ package app.model.materials
 		public var rubric:String = "";
 		public var has_point:String = "";
 		public var type:String = "";
-		
 		public var offset:int = 0;
-		public var limit :int = 10;
-		
+		public var limit:int = 10;
 		public var names:Array = ["criteria", "status", "from", "to", "tag", "rubric", "has_point", "type"];
 		
-		public function addFilter(name:String, value:String):void		
+		public function addFilter(name:String, value:String):void
 		{
-			this[name] = value;	
+			this[name] = value;
 		}
 		
-		public function removeFilter(name:String):void		
+		public function removeFilter(name:String):void
 		{
-			this[name] = "";	
-		}		
+			this[name] = "";
+		}
 		
-		public function removeAllFilters():void		
+		public function removeAllFilters():void
 		{
-			for (var i:int = 0; i < names.length; i++) 
+			for (var i:int = 0; i < names.length; i++)
 				this[names[i]] = "";
 		}
-	
 	}
 }

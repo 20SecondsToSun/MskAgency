@@ -14,5 +14,4 @@ package app.view.page.fact.onedayfactslider
 			super.onRegister();		
 		}	
 	}
-
 }

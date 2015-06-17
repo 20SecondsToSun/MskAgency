@@ -62,6 +62,12 @@ package app.view.page
 		protected var resolution:Number;
 		
 		private var animateType:String = "None";
+		private var splash:Shape = Tool.createShape(AppSettings.WIDTH, AppSettings.HEIGHT, 0xD9E1D6);
+		private var lastZ:Number = 0; //Infinity;
+		private var delta:Number = 0;
+		private var firstXY:Object = {x: 0, y: 0};
+		private var isNeedUpdate:Boolean = true;
+		private var lastCluster:GeoMarker;
 		
 		public function MapPage()
 		{
@@ -80,8 +86,6 @@ package app.view.page
 		{
 		
 		}
-		
-		private var splash:Shape = Tool.createShape(AppSettings.WIDTH, AppSettings.HEIGHT, 0xD9E1D6);
 		
 		override public function flip():void
 		{
@@ -184,9 +188,6 @@ package app.view.page
 				geoMarker.out();
 		}
 		
-		private var isNeedUpdate:Boolean = true;
-		private var lastCluster:GeoMarker;
-		
 		public function mapPopupOpen(e:GraphicInterfaceEvent):void
 		{
 			var geoMarker:GeoMarker = e.target as GeoMarker;
@@ -263,16 +264,10 @@ package app.view.page
 			if (animateType != "EXPAND")
 				map.setCenterZoom(new Location(INITIAL_LAT, INITIAL_LONG), INITIAL_ZOOM);
 			markerList = new Vector.<GeoObject>();
-			map.markerClip.removeAllMarkers();
-			
-			
-			
-			
+			map.markerClip.removeAllMarkers();			
 			map.addEventListener(MouseEvent.MOUSE_WHEEL, map.onMouseWheel);
 			map.addEventListener(MapEvent.STOP_ZOOMING, cluster);
-			//map.addEventListener(MapEvent.EXTENT_CHANGED, cluster);
 			map.addEventListener(MapEvent.STOP_PANNING, cluster);
-			
 			
 			if (!matList || matList.length == 0) return;
 			
@@ -290,10 +285,7 @@ package app.view.page
 			}
 			
 			cluster(null);
-		}
-		private var lastZ:Number = 0; //Infinity;
-		private var delta:Number = 0;
-		private var firstXY:Object = {x: 0, y: 0};
+		}		
 		
 		public function setCenterPoint(x:Number, y:Number, z:Number):void
 		{
@@ -325,8 +317,7 @@ package app.view.page
 		}
 		
 		protected function cluster(event:MapEvent):void
-		{
-			
+		{			
 			if (isNeedUpdate == false)
 			{
 				isNeedUpdate = true;
@@ -493,8 +484,6 @@ package app.view.page
 			cluster.cluster.push(feature);
 			
 			return cluster;
-		}
-	
+		}	
 	}
-
 }

@@ -182,8 +182,7 @@ package app.view.favorites
 				point.x = 0;
 			}
 			
-			return new Rectangle(point.x, point.y, finWidth * scale_X, height * scale_Y);
-			
+			return new Rectangle(point.x, point.y, finWidth * scale_X, height * scale_Y);			
 		}		
 	}
 }

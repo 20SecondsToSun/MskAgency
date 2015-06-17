@@ -42,10 +42,7 @@ package app.view.filters
 			
 			var shape:Shape = Tool.createShape(width, height, 0x000000);
 			shape.alpha = 0;
-			addChild(shape);
-			
-		}
-		
+			addChild(shape);			
+		}		
 	}
-
 }

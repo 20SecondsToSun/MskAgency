@@ -8,7 +8,6 @@ package app.view.page
 	import flash.geom.Rectangle;
 	import org.robotlegs.mvcs.Mediator;
 	
-	
 	/**
 	 * ...
 	 * @author metalcorehero
@@ -40,24 +39,24 @@ package app.view.page
 			addContextListener(ChangeLocationEvent.EXPAND_MODE, expand, ChangeLocationEvent);
 			addContextListener(ChangeLocationEvent.STRETCH_MODE, stretch, ChangeLocationEvent);
 			addContextListener(ChangeLocationEvent.STRETCH_IN, stretchIN, ChangeLocationEvent);
-			addContextListener(ChangeLocationEvent.BACK_FROM_ONE_NEW_START, backFromOneNew, ChangeLocationEvent);			
-			addContextListener(ChangeLocationEvent.MAIN_SCREEN_MENU_MODE, flip, ChangeLocationEvent); 			
-			addContextListener(ChangeLocationEvent.REMOVE_PAGE, removeAllListeners, ChangeLocationEvent);		
+			addContextListener(ChangeLocationEvent.BACK_FROM_ONE_NEW_START, backFromOneNew, ChangeLocationEvent);
+			addContextListener(ChangeLocationEvent.MAIN_SCREEN_MENU_MODE, flip, ChangeLocationEvent);
+			addContextListener(ChangeLocationEvent.REMOVE_PAGE, removeAllListeners, ChangeLocationEvent);
 		}
 		
-		protected function pageAnimFinish(e:AnimationEvent):void 
+		protected function pageAnimFinish(e:AnimationEvent):void
 		{
 			dispatch(e.clone());
 		}
 		
-		protected function stretchIN(e:ChangeLocationEvent):void 
+		protected function stretchIN(e:ChangeLocationEvent):void
 		{
-			
+		
 		}
 		
 		protected function backFromOneNew(e:ChangeLocationEvent):void
 		{
-	
+		
 		}
 		
 		protected function stretch(e:ChangeLocationEvent):void
@@ -66,7 +65,7 @@ package app.view.page
 		}
 		
 		protected function expand(e:ChangeLocationEvent):void
-		{	
+		{
 			activeView.expand_rectangle = mainmodel.getChoosenField().rec;
 			activeView.expand();
 		}
@@ -74,7 +73,7 @@ package app.view.page
 		private function flip(e:ChangeLocationEvent):void
 		{
 			activeView.flip();
-		}	
+		}
 		
 		private function refreshData(e:DataLoadServiceEvent):void
 		{
@@ -93,13 +92,13 @@ package app.view.page
 			removeContextListener(ChangeLocationEvent.EXPAND_MODE, expand, ChangeLocationEvent);
 			removeContextListener(ChangeLocationEvent.STRETCH_MODE, stretch, ChangeLocationEvent);
 			removeContextListener(ChangeLocationEvent.BACK_FROM_ONE_NEW_START, backFromOneNew, ChangeLocationEvent);
-			removeContextListener(ChangeLocationEvent.MAIN_SCREEN_MENU_MODE, flip, ChangeLocationEvent);			
-			removeContextListener(ChangeLocationEvent.STRETCH_IN, stretchIN, ChangeLocationEvent);			
+			removeContextListener(ChangeLocationEvent.MAIN_SCREEN_MENU_MODE, flip, ChangeLocationEvent);
+			removeContextListener(ChangeLocationEvent.STRETCH_IN, stretchIN, ChangeLocationEvent);
 		}
+		
 		override public function preRemove():void
 		{
 			activeView.remove();
 		}
 	}
-
 }

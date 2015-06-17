@@ -21,8 +21,7 @@ package app.view.page.fact.leftpanel
 			Tool.changecolor(fon, 0x509338);
 			Tool.changecolor(backToDates, 0xede706);
 			addDateTitle();			
-		}	
-	
+		}		
 		
 		protected function addDateTitle():void
 		{
@@ -76,10 +75,10 @@ package app.view.page.fact.leftpanel
 			if (all.length > 3)			
 			slider.startInteraction();
 		}
+		
 		override public function outbackToDates():void
 		{
 			TweenMax.to(backToDates, 0.3, {colorTransform: {tint: 0xede706, tintAmount: 1}});		
 		}
 	}
-
 }

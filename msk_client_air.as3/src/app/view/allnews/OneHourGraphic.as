@@ -105,8 +105,7 @@ package app.view.allnews
 			if (photoVideoSign)
 				main.x = photoVideoSign.x + photoVideoSign.width + iconOffset;
 			else
-				main.x = timeTitle.x + timeTitle.width + iconOffset;
-		
+				main.x = timeTitle.x + timeTitle.width + iconOffset;		
 		}
 		
 		private function addIsLive():void
@@ -120,8 +119,7 @@ package app.view.allnews
 			else if (photoVideoSign)
 				live.x = photoVideoSign.x + photoVideoSign.width + iconOffset;
 			else
-				live.x = timeTitle.x + timeTitle.width + iconOffset;
-		
+				live.x = timeTitle.x + timeTitle.width + iconOffset;		
 		}
 		
 		private function addOverLine():void
@@ -190,14 +188,10 @@ package app.view.allnews
 		
 		private function addIcon():void
 		{
-			if (oneNewData.type == "video")
-			{
-				photoVideoSign = Assets.create("playImg");
-			}
-			else if (oneNewData.type == "photo")
-			{
-				photoVideoSign = Assets.create("photoImg");
-			}
+			if (oneNewData.type == "video")			
+				photoVideoSign = Assets.create("playImg");			
+			else if (oneNewData.type == "photo")			
+				photoVideoSign = Assets.create("photoImg");			
 			
 			if (photoVideoSign)
 			{
@@ -216,11 +210,9 @@ package app.view.allnews
 					previewContainer.addChild(fon);
 					
 					var shiftX:Number = previewContainer.x + previewContainer.width + 30;
-					///if (timeHoursTitleBmp)
-					//{
+					
 					timeHoursTitleBmp.x = shiftX;
-					timeHoursTitle.x = shiftX;
-					//}
+					timeHoursTitle.x = shiftX;					
 					
 					timeTitleBmp.x = timeHoursTitle.x + timeHoursTitle.width + 5;
 					photoVideoSign.x = timeTitleBmp.x + timeTitleBmp.width + 20;
@@ -297,7 +289,6 @@ package app.view.allnews
 			TweenMax.to(bmpText, 0.4, {y: 56, colorTransform: {tint: overColor, tintAmount: 0}});
 			TweenMax.to(timeTitleBmp, 0.4, {colorTransform: {tint: overColor, tintAmount: 0}});
 			overLine.visible = false;
-			//	if (isLast) overLine.width = this.width - 35;
 			
 			if (isFirstNew || isShowFullTime)
 				TweenMax.to(timeHoursTitleBmp, 0.4, {colorTransform: {tint: overColor, tintAmount: 0}});
@@ -339,10 +330,7 @@ package app.view.allnews
 		
 		public function kill():void
 		{
-			//trace("HERE!!!!!!");
-			//TweenMax.killAll();
+		
 		}		
-	
 	}
-
 }

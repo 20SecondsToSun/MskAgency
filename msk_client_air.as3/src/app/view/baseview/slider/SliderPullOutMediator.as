@@ -56,13 +56,10 @@ package app.view.baseview.slider
 		}
 		
 		private function stopDragSliderPullOutMode(e:InteractiveEvent):void 
-		{	
-			
+		{				
 			eventMap.unmapListener(_view, InteractiveEvent.HAND_UPDATE, _view.updateDragPullOutSlider);
 			removeViewListener(InteractiveEvent.HAND_UP, stopDragSliderPullOutMode);			
-			_view.stopDragSliderPullOutMode(e);
-			
-			//eventMap.mapListener(_view, InteractiveEvent.HAND_DOWN, startDragSliderPullOutMode);
+			_view.stopDragSliderPullOutMode(e);			
 		}		
 		
 		override public function onRemove():void

@@ -6,13 +6,10 @@ package app.model.datauser.server
 	 * @author metalcorehero
 	 */
 	public class Server extends StringVO
-	{
-		
+	{		
 		public function Server(server:String)
         {
             super(server);
-        }
-		
+        }		
 	}  
-
 }

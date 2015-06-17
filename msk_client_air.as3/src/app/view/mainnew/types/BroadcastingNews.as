@@ -6,12 +6,7 @@ package app.view.mainnew.types
 	 * @author metalcorehero
 	 */
 	public class BroadcastingNews extends MainType
-	{		
-		public function BroadcastingNews() 
-		{
-			
-		}
-		
+	{
 		override  public function show(mat:Material):void
 		{
 			this.mat = mat;

@@ -230,32 +230,24 @@ package app.view.filters
 		{
 			circle.hide();
 			dateChoose.hide();
-			centerBtn.hide();
-			
+			centerBtn.hide();			
 			
 			overlay.alpha = 0;
 			screenShotHolder.alpha = 0;
 			circle.alpha = 0;
 			clearBtn.alpha = 0;
 			refreshBtn.alpha = 0;
-			/*TweenLite.to(overlay, 0.3, {alpha: 0, ease: Quint.easeInOut});
-			TweenLite.to(screenShotHolder, 0.3, {alpha: 0, ease: Quint.easeInOut});
-			TweenLite.to(circle, 0.3, {alpha: 0, ease: Quint.easeInOut});
-			TweenLite.to(clearBtn, 0.3, {alpha: 0, ease: Quint.easeInOut});
-			TweenLite.to(refreshBtn, 0.3, {alpha: 0, ease: Quint.easeInOut});*/
 			
 			screenshot.dispose();
-				screenshotBottom.dispose();
+			screenshotBottom.dispose();
 				
-				if (screenShotHolder.contains(screenshot))
-					screenShotHolder.removeChild(screenshot);
-				if (screenShotHolder.contains(screenshotBottom))
-					screenShotHolder.removeChild(screenshotBottom);
+			if (screenShotHolder.contains(screenshot))
+				screenShotHolder.removeChild(screenshot);
+			if (screenShotHolder.contains(screenshotBottom))
+				screenShotHolder.removeChild(screenshotBottom);
 			
 			TweenLite.to(fon, 0.3, {alpha: 0, onComplete: function():void
-			{
-				
-				
+			{				
 				isOpen  = false;
 				visible = false;
 			}});

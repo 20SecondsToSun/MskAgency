@@ -444,8 +444,7 @@ package app.view.map
 			var prev:Bitmap = new Bitmap(bitmapData);			
 		
 			anim.addChild(cur);
-			anim.addChild(prev);
-			
+			anim.addChild(prev);			
 			
 			cur.y = -HEIGHT;			
 			

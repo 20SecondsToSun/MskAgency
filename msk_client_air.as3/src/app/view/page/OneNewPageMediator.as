@@ -17,26 +17,24 @@ package app.view.page
 		[Inject]
 		public var model:IAllNewsModel;
 		
-		
 		override public function onRegister():void
 		{
 			activeView = pageView;
-			activeModel = model;			
+			activeModel = model;
 			
-			super.onRegister();			
-			addContextListener(FilterEvent.SET_NULL, gotoDays, FilterEvent);	
+			super.onRegister();
+			addContextListener(FilterEvent.SET_NULL, gotoDays, FilterEvent);
 			addViewListener(Event.REMOVED_FROM_STAGE, removeHandler);
-		}	
+		}
 		
-		private function removeHandler(e:Event):void 
+		private function removeHandler(e:Event):void
 		{
 			removeViewListener(Event.REMOVED_FROM_STAGE, removeHandler);
 			removeContextListener(FilterEvent.SET_NULL, gotoDays, FilterEvent);
-			
 		}
 		
-		private function gotoDays(e:FilterEvent):void 
-		{			
+		private function gotoDays(e:FilterEvent):void
+		{
 			dispatch(new ChangeLocationEvent(ChangeLocationEvent.NEWS_PAGE_DAY));
 		}
 		

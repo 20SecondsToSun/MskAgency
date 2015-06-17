@@ -7,8 +7,6 @@ package app.services.util
 	import app.view.MainView;
 	import app.view.menu.MenuView;
 	import app.view.utils.BigCanvas;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;

@@ -1,15 +1,9 @@
 package app.model.dataemploy
 {
-	import app.AppSettings;
 	import app.contoller.events.ChangeModelOut;
 	import app.contoller.events.DataLoadServiceEvent;
-	import app.model.materials.Fact;
 	import app.model.materials.Informer;
-	import app.model.materials.Material;
-	import app.model.materials.MaterialModel;
 	import app.model.materials.Weather;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
 	import org.robotlegs.mvcs.Actor;
 	
 	/**
@@ -17,11 +11,10 @@ package app.model.dataemploy
 	 * @author metalcorehero
 	 */
 	public class EmployModel extends Actor implements IEmployModel
-	{	
-		private var _isAnimate:Boolean =  true;
+	{
+		private var _isAnimate:Boolean = true;
 		private var _weather:Vector.<Weather> = new Vector.<Weather>();
 		private var _informer:Informer = new Informer();
-		
 		
 		public function get informer():Informer
 		{
@@ -30,10 +23,9 @@ package app.model.dataemploy
 		
 		public function set informer(value:Informer):void
 		{
-			_informer = value;			
+			_informer = value;
 			dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_IFORMER_COMPLETED));
-		}		
-		
+		}
 		
 		public function get weather():Vector.<Weather>
 		{
@@ -42,10 +34,9 @@ package app.model.dataemploy
 		
 		public function set weather(value:Vector.<Weather>):void
 		{
-			_weather = value;			
+			_weather = value;
 			dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_COMPLETED_WEATHER));
-		}	
-		
+		}
 		
 		public function get isAnimate():Boolean
 		{
@@ -55,40 +46,27 @@ package app.model.dataemploy
 		public function set isAnimate(value:Boolean):void
 		{
 			_isAnimate = value;
-		}	
+		}
+		
 		public function setModel(value:ChangeModelOut):void
 		{
-			//if (_newsList == null || _newsList.length == 0)
-			//	return;
-			
-			//_isAnimate = false;
-			//data = _newsList;
-			
 			switch (value.type)
 			{
-				case ChangeModelOut.MAIN_SCREEN:
-					
-					break;
-				case ChangeModelOut.CUSTOM_SCREEN:
-					
-					break;
-				case ChangeModelOut.STORY_SCREEN:
-					
-					break;
-					
-				case ChangeModelOut.MAIN_SCREEN_SCREENSHOT: 
-				case ChangeModelOut.STORY_SCREEN_SCREENSHOT: 
-				case ChangeModelOut.CUSTOM_SCREEN_SCREENSHOT: 
-					_isAnimate = false;
-					//data = _newsList.slice(0, 2);
-					break;
-				
-				default: 
+			case ChangeModelOut.MAIN_SCREEN: 
+				break;
+			
+			case ChangeModelOut.CUSTOM_SCREEN: 
+				break;
+			
+			case ChangeModelOut.STORY_SCREEN: 
+				break;
+			
+			case ChangeModelOut.MAIN_SCREEN_SCREENSHOT: 
+			case ChangeModelOut.STORY_SCREEN_SCREENSHOT: 
+			case ChangeModelOut.CUSTOM_SCREEN_SCREENSHOT: 
+				_isAnimate = false;
+				break;
 			}
 		}
-	
-	
-	
 	}
-
 }

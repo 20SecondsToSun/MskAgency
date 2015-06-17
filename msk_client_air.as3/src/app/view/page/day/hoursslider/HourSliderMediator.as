@@ -10,8 +10,7 @@ package app.view.page.day.hoursslider
 	public class HourSliderMediator extends VerticalHorizontalSliderMediator
 	{
 		[Inject]
-		public var view:HourSlider;		
-		
+		public var view:HourSlider;			
 		
 		override public function onRegister():void
 		{			
@@ -38,6 +37,4 @@ package app.view.page.day.hoursslider
 			removeContextListener(AnimationEvent.LEFT_PANEL_OUT, outLeftPanel, AnimationEvent);
 		}
 	}
-
 }
-

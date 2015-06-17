@@ -1,11 +1,9 @@
 package app.model.dataphoto
 {
-	import app.AppSettings;
 	import app.contoller.events.ChangeModelOut;
 	import app.contoller.events.DataLoadServiceEvent;
 	import app.model.materials.Material;
 	import app.model.materials.MaterialModel;
-	import flash.geom.Rectangle;
 	
 	/**
 	 * ...
@@ -18,8 +16,7 @@ package app.model.dataphoto
 		
 		public function PhotoNewsModel()
 		{
-			//addUserFilter("rubric", "01.09.2013");
-			//addUserFilter("to", "05.09.2013");
+			
 		}
 		
 		public function get isAnimate():Boolean
@@ -60,14 +57,13 @@ package app.model.dataphoto
 			
 			switch (value.type)
 			{
-				case ChangeModelOut.MAIN_SCREEN:
-					
+				case ChangeModelOut.MAIN_SCREEN:					
 					break;
-				case ChangeModelOut.CUSTOM_SCREEN:
 					
+				case ChangeModelOut.CUSTOM_SCREEN:					
 					break;
-				case ChangeModelOut.STORY_SCREEN:
 					
+				case ChangeModelOut.STORY_SCREEN:					
 					break;
 				
 				case ChangeModelOut.MAIN_SCREEN_SCREENSHOT: 
@@ -75,11 +71,7 @@ package app.model.dataphoto
 				case ChangeModelOut.CUSTOM_SCREEN_SCREENSHOT: 
 					_isAnimate = false;
 					break;
-				
-				default: 
 			}
-		}
-	
+		}	
 	}
-
 }

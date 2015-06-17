@@ -138,8 +138,7 @@ package app.contoller.bootstraps
 	import app.view.videonews.VideoNewsMediator;
 	import app.view.videonews.VideoSlider;
 	import app.view.videonews.VideoSliderMediator;
-	import org.robotlegs.core.IMediatorMap;
-	
+	import org.robotlegs.core.IMediatorMap;	
 	
 	public class BootstrapViewMediators extends Object
 	{
@@ -161,21 +160,18 @@ package app.contoller.bootstraps
 			mediatorMap.mapView(PhotoSlider, PhotoSliderMediator);
 			mediatorMap.mapView(Slider, SliderMediator);
 			mediatorMap.mapView(AllNewsSlider, AllNewsSliderMediator);
-			mediatorMap.mapView(Favorites, FavoritesMediator);			
-			
+			mediatorMap.mapView(Favorites, FavoritesMediator);				
 			
 			mediatorMap.mapView(OneFactGraphic, OneFactGraphicMediator);
 			mediatorMap.mapView(OnePhotoGraphic, OnePhotoGraphicMediator);
 			mediatorMap.mapView(OneHourGraphic, OneHourGraphicMediator);
 			
-			mediatorMap.mapView(HelpScreen, HelpScreenMediator);			
-			
+			mediatorMap.mapView(HelpScreen, HelpScreenMediator);				
 			
 			mediatorMap.mapView(OneDayNewPage, OneDayNewPageMediator);
 			mediatorMap.mapView(OneNewFactPage, OneNewFactPageMediator);
 			mediatorMap.mapView(DaysNewPage, DaysNewPageMediator);
-			mediatorMap.mapView(OneNewPreview, OneNewPreviewMediator);
-			
+			mediatorMap.mapView(OneNewPreview, OneNewPreviewMediator);			
 			
 			mediatorMap.mapView(OneNewPage, OneNewPageMediator);
 			mediatorMap.mapView(FactPage, FactPageMediator);
@@ -193,8 +189,7 @@ package app.contoller.bootstraps
 			mediatorMap.mapView(LeftPanel, LeftPanelMediator);
 			mediatorMap.mapView(LeftPanelSlider, LeftPanelSliderMediator);
 			mediatorMap.mapView(MenuButton, MenuButtonMediator);
-			mediatorMap.mapView(NewsBody, NewsBodyMediator);
-			
+			mediatorMap.mapView(NewsBody, NewsBodyMediator);			
 			
 			mediatorMap.mapView(VerticalNewsSlider, VerticalSliderMediator);
 			mediatorMap.mapView(Gallery, GalleryMediator);
@@ -205,8 +200,7 @@ package app.contoller.bootstraps
 			mediatorMap.mapView(VideoContainer, VideoContainerMediator);
 			mediatorMap.mapView(TextContainer, TextContainerMediator);
 			
-			mediatorMap.mapView(OnePhoto, OnePhotoMediator);
-			
+			mediatorMap.mapView(OnePhoto, OnePhotoMediator);			
 			
 			mediatorMap.mapView(GallerySlider, GallerySliderMediator);
 			mediatorMap.mapView(PreviewSlider, PreviewSliderMediator);
@@ -230,8 +224,7 @@ package app.contoller.bootstraps
 			
 			mediatorMap.mapView(ServicePopup, ServicePopupMediator);
 			
-			mediatorMap.mapView(FactAnimator, FactAnimatorMediator);
-			
+			mediatorMap.mapView(FactAnimator, FactAnimatorMediator);			
 			
 		//--------------------------------------------------------------------------
 		//
@@ -245,7 +238,6 @@ package app.contoller.bootstraps
 			mediatorMap.mapView(OneVideoNewGraphic, OneVideoNewGraphicMediator);
 			mediatorMap.mapView(VideoAnimator, VideoAnimatorMediator);
 			
-				
 		//--------------------------------------------------------------------------
 		//
 		//     IPAD
@@ -253,15 +245,10 @@ package app.contoller.bootstraps
 		//--------------------------------------------------------------------------
 			
 			mediatorMap.mapView(IpadPopup, IpadPopupMediator);		
-			mediatorMap.mapView(IpadNewBody, IpadNewBodyMediator);
-			
-			
+			mediatorMap.mapView(IpadNewBody, IpadNewBodyMediator);			
 			
 			mediatorMap.mapView(FavPreview, FavPreviewMediator);
-			mediatorMap.mapView(FavFactGraphic, FavFactGraphicMediator);
-			
-			
-		
+			mediatorMap.mapView(FavFactGraphic, FavFactGraphicMediator);		
 		}
 	}
 }

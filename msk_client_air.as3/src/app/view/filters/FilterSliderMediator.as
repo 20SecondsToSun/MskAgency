@@ -19,6 +19,7 @@ package app.view.filters
 			addViewListener(SliderEvent.STOP_INTERACTION, stopInteraction, SliderEvent);
 			startInteraction();
 		}
+		
 		override public function onRemove():void
 		{			
 			removeViewListener(SliderEvent.START_INTERACTION, startInteraction, SliderEvent);		
@@ -26,6 +27,7 @@ package app.view.filters
 			removeViewListener(InteractiveEvent.HAND_UP, stopDragSlider);
 			eventMap.unmapListeners();
 		}
+		
 		private function stopInteraction(e:SliderEvent):void 
 		{
 			stopDragSlider();

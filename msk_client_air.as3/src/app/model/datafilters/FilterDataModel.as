@@ -124,8 +124,6 @@ package app.model.datafilters
 					_factsNewsFilters.isFilter = true;			
 					_factsNewsFilters.rubrics = value.rubrics;						
 					break;
-					
-				default: 
 			}
 			return loadEvent;
 		}

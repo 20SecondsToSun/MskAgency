@@ -22,19 +22,19 @@ package app.view.videonews
 	 * @author metalcorehero
 	 */
 	public class OneVideoNewGraphic extends InteractiveButton
-	{		
+	{
 		private static const MAX_LINES:int = 3;
 		
-		private var billet:Shape;	
+		private var billet:Shape;
 		private var textTitle:TextField;
 		private var timeTitle:TextField;
 		private var dateTitle:TextField;
 		
 		public var videoBackground:Sprite;
-		public var holder:Sprite;			
-		public var mat:Material;		
-		public var id:int;		
-		public var thumbPath:String;		
+		public var holder:Sprite;
+		public var mat:Material;
+		public var id:int;
+		public var thumbPath:String;
 		
 		public function OneVideoNewGraphic(mat:Material, isFirst:Boolean = false)
 		{
@@ -45,7 +45,7 @@ package app.view.videonews
 			holder = new Sprite();
 			addChild(holder);
 			
-			addBackground();		
+			addBackground();
 			addTimeTitle();
 			addTextTitle();
 			addThumb();
@@ -57,33 +57,33 @@ package app.view.videonews
 			holder.mask = __mask;
 		}
 		
-		private function addFooter():void 
+		private function addFooter():void
 		{
 			var footer:Shape = Tool.createShape(this.width, 77, 0x02a7df);
-			footer.y = 500;			
+			footer.y = 500;
 			holder.addChild(footer);
 			
 			var icon:Sprite = Assets.create("playOver");
 			icon.y = 0.5 * (77 - icon.height) + 500;
 			icon.x = 0.5 * (77 - icon.height);
-			holder.addChild(icon);			
+			holder.addChild(icon);
 			
-			var textFormat:TextFormat = new TextFormat("Tornado", 16, 0Xffffff);			
-			var watch:TextField = TextUtil.createTextField(0, 0);			
-			watch.text = "СМОТРЕТЬ ВИДЕО";			
+			var textFormat:TextFormat = new TextFormat("Tornado", 16, 0Xffffff);
+			var watch:TextField = TextUtil.createTextField(0, 0);
+			watch.text = "СМОТРЕТЬ ВИДЕО";
 			watch.setTextFormat(textFormat);
 			
 			watch.y = 0.5 * (77 - watch.height) + 500;
-			watch.x = icon.x + icon.width +15;
-			holder.addChild(watch);			
+			watch.x = icon.x + icon.width + 15;
+			holder.addChild(watch);
 		}
 		
-		private function addThumb():void 
+		private function addThumb():void
 		{
 			var thumb:OnePhoto = new OnePhoto(mat.files[0].thumbPath, mat.files[0].id);
 			thumb._scaleMode = ScaleMode.STRETCH;
 			thumb._width = videoBackground.width;
-			thumb._height = 297;			
+			thumb._height = 297;
 			holder.addChild(thumb);
 			addBillet();
 		}
@@ -99,10 +99,10 @@ package app.view.videonews
 			var line:Shape = new Shape();
 			line.graphics.lineStyle(2, 0xdcd6d8, 1);
 			line.graphics.moveTo(this.width, 0);
-			line.graphics.lineTo( this.width,this.height-1);
+			line.graphics.lineTo(this.width, this.height - 1);
 			holder.addChild(line);
-		}		
-			
+		}
+		
 		private function addTimeTitle():void
 		{
 			var textFormat:TextFormat = new TextFormat("TornadoL", 33, 0X000000);
@@ -113,13 +113,13 @@ package app.view.videonews
 			
 			textFormat.color = 0xa5a5a5;
 			textFormat.size = 14;
-			textFormat.font = "TornadoMedium";			
+			textFormat.font = "TornadoMedium";
 			
-			dateTitle = TextUtil.createTextField(timeTitle.x +timeTitle.width + 13, 341);			
-			dateTitle.text = TextUtil.formatDate1(mat.publishedDate);			
+			dateTitle = TextUtil.createTextField(timeTitle.x + timeTitle.width + 13, 341);
+			dateTitle.text = TextUtil.formatDate1(mat.publishedDate);
 			dateTitle.setTextFormat(textFormat);
-			holder.addChild(dateTitle);			
-		}		
+			holder.addChild(dateTitle);
+		}
 		
 		public function changeDate():void
 		{
@@ -128,7 +128,7 @@ package app.view.videonews
 			{
 				dateTitle.text = "";
 				dateTitle.setTextFormat(textFormat);
-			}			
+			}
 		}
 		
 		private function addTextTitle():void
@@ -139,55 +139,58 @@ package app.view.videonews
 			textTitle.multiline = true;
 			textTitle.wordWrap = true;
 			textTitle.width = 310;
-			textTitle.text = mat.title;			
-			TextUtil.truncate(textTitle, MAX_LINES, textFormat);				
+			textTitle.text = mat.title;
+			TextUtil.truncate(textTitle, MAX_LINES, textFormat);
 			holder.addChild(textTitle);
 		}
 		
 		private function addBillet():void
 		{
-			billet = Tool.createShape(width, height, 0xFFFF00);		
+			billet = Tool.createShape(width, height, 0xFFFF00);
 			billet.alpha = 0;
-			addChild(billet);			
+			addChild(billet);
 		}
 		
 		public function overState():void
-		{				
-			TweenLite.delayedCall(0.3, readyToOver);			
+		{
+			TweenLite.delayedCall(0.3, readyToOver);
 		}
 		
-		private function readyToOver():void 
+		private function readyToOver():void
 		{
-			if(holder)
-			TweenLite.to(holder, 0.5, { y: -77 , ease:Cubic.easeInOut} );
+			if (holder)
+				TweenLite.to(holder, 0.5, {y: -77, ease: Cubic.easeInOut});
 		}
 		
 		public function outState():void
 		{
-			TweenLite.killDelayedCallsTo( readyToOver);
-			TweenLite.to(holder, 0.5, { y: 0 , ease:Cubic.easeInOut } );				
+			TweenLite.killDelayedCallsTo(readyToOver);
+			TweenLite.to(holder, 0.5, {y: 0, ease: Cubic.easeInOut});
 		}
 		
 		override public function getSelfRec():Rectangle
-		{	
+		{
 			var point:Point = parent.localToGlobal(new Point(x, 0));
 			var finWidth:Number = width;
+			
 			if (point.x + width > AppSettings.WIDTH)
 			{
 				finWidth = AppSettings.WIDTH - point.x;
 			}
-			if (point.x <0)
+			
+			if (point.x < 0)
 			{
 				finWidth = width + point.x;
 				point.x = 0;
 			}
-			return new Rectangle(point.x - 2, point.y, finWidth + 4, height);			
+			
+			return new Rectangle(point.x - 2, point.y, finWidth + 4, height);
 		}
 		
 		public function kill():void
 		{
-			TweenLite.killDelayedCallsTo( readyToOver);
+			TweenLite.killDelayedCallsTo(readyToOver);
 			TweenLite.killTweensOf(holder);
-		}		
+		}
 	}
 }

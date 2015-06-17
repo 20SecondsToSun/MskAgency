@@ -38,6 +38,7 @@ package app.view.page.map
 		private var interBtn:InteractiveButton;
 		public var slider:Sprite;
 		private var billet:Shape;
+		private var _select:Boolean = false;
 		
 		public function ButtonBlock(data:Object)
 		{
@@ -122,11 +123,9 @@ package app.view.page.map
 		
 		public function open():void
 		{
-			if (hasSubTypes)
-			{
+			if (hasSubTypes)			
 				TweenLite.delayedCall(0.7, maskGo);
-				
-			}
+			
 			Tool.changecolor(bckgrnd, _color);
 		}
 		
@@ -147,9 +146,7 @@ package app.view.page.map
 				TweenLite.killDelayedCallsTo(maskGo);
 			}
 			Tool.changecolor(bckgrnd, 0x1a1b1f);
-		}
-		
-		private var _select:Boolean = false;
+		}	
 		
 		public function set select(value:Boolean):void
 		{
@@ -163,17 +160,11 @@ package app.view.page.map
 		}
 		
 		public function moveLeft():void
-		{
-			//trace(buttons.x);
-			//return;
+		{			
 			if (buttons.x - 0.1 > ((AppSettings.WIDTH - 365) - buttons.width) + WIDTH + 10)
 				buttons.x -= 0.1;
 			else
-				buttons.x = ((AppSettings.WIDTH - 365) - buttons.width) + WIDTH + 10;
-			// buttons.x -0.01 ;
-			//trace(buttons.x);
-		
-			//else buttons.x = -((AppSettings.WIDTH - 365) - buttons.width)- WIDTH;
+				buttons.x = ((AppSettings.WIDTH - 365) - buttons.width) + WIDTH + 10;		
 		}
 		
 		public function moveRight():void
@@ -184,5 +175,4 @@ package app.view.page.map
 				buttons.x = WIDTH;
 		}
 	}
-
 }

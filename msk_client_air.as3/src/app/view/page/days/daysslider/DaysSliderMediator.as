@@ -122,9 +122,7 @@ package app.view.page.days.daysslider
 				
 				var event:ChangeLocationEvent = new ChangeLocationEvent(ChangeLocationEvent.NEWS_PAGE_HOUR);
 				event.mode = "STRETCH_IN";
-				dispatch(event);
-				
-				
+				dispatch(event);				
 			}
 		}
 		
@@ -136,10 +134,7 @@ package app.view.page.days.daysslider
 			removeViewListener(InteractiveEvent.HAND_OVER, over, InteractiveEvent, true);
 			removeViewListener(InteractiveEvent.HAND_OUT, out, InteractiveEvent, true);
 			removeViewListener(InteractiveEvent.HAND_PUSH, push, InteractiveEvent, true);			
-			removeViewListener(DataLoadServiceEvent.LOAD_DAYS_DATA, startLoadNews, DataLoadServiceEvent);	
-			
+			removeViewListener(DataLoadServiceEvent.LOAD_DAYS_DATA, startLoadNews, DataLoadServiceEvent);			
 		}
 	}
-
 }
-

@@ -106,8 +106,6 @@ package app.view.utils.video
 		private function overVideo(e:InteractiveEvent):void 
 		{			
 			view.overState();
-		}	
-		
+		}			
 	}
-
 }

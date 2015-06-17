@@ -25,4 +25,3 @@ package app.view.filters
 		}
 	}	
 }
-

@@ -14,7 +14,8 @@ package app.view.page.fact
 	public class FactPageMediator extends PageMediator
 	{
 		[Inject]
-		public var view:FactPage;		
+		public var view:FactPage;	
+		
 		[Inject]
 		public var model:IAllNewsModel;
 		
@@ -31,8 +32,6 @@ package app.view.page.fact
 		override protected function backFromOneNew(e:ChangeLocationEvent):void 
 		{			
 			view.backFromOneNew();
-		}
-		
-	
+		}	
 	}
 }

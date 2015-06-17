@@ -2,6 +2,7 @@ package app.view.page.oneNews.Body
 {
 	import app.AppSettings;
 	import app.model.materials.MaterialFile;
+	import app.PresentationHelper;
 	import app.view.baseview.io.InteractiveObject;
 	import app.view.baseview.photo.OnePhoto;
 	import app.view.utils.Tool;
@@ -29,13 +30,11 @@ package app.view.page.oneNews.Body
 		
 		private static var FIELD_WIDTH:Number = 1298;
 		private static var FIELD_HEIGHT:Number = 668;
-
+		
 		private var countPreview:int = 0;
 		
 		private var isPreviewOpen:Boolean = false;
-		
 		public var isWaitUpdate:Boolean;
-	
 		
 		public function init(_files:Vector.<MaterialFile>):void
 		{
@@ -81,29 +80,28 @@ package app.view.page.oneNews.Body
 			var num:Array = [];
 			for (var i:int = 0; i < 10; i++)
 			{
-				//onePhoto = new OnePhoto(files[i].pathToSource, files[i].id, false);
-				var s:String = AppSettings.getNum().toString();
+				var s:String = PresentationHelper.getNum().toString();
 				num.push(s);
-				onePhoto = new OnePhoto("photos/"+ s+".jpg", i, false);
+				onePhoto = new OnePhoto("photos/" + s + ".jpg", i, false);
 				onePhoto._height = FIELD_HEIGHT;
 				onePhoto._scaleMode = ScaleMode.HEIGHT_ONLY;
 				slider.addElement(onePhoto);
 			}
 			
-			slider.loadOneByOne();			
+			slider.loadOneByOne();
 			
-			if (filesLength == 1) return;	
+			if (filesLength == 1) return;
 			
 			//EDIT_PRES
 			
 			for (var j:int = 0; j < 10; j++)// filesLength; j++)
 			{
-				onePhoto = new OnePhoto("photos/"+num[j] +".jpg", j, false);// files[j].pathToSource, files[j].id, false);
+				onePhoto = new OnePhoto("photos/" + num[j] + ".jpg", j, false);// files[j].pathToSource, files[j].id, false);
 				onePhoto._height = 150;
 				onePhoto._width = 150;
 				onePhoto._scaleMode = ScaleMode.NONE;
 				previewSlider.addElement(onePhoto);
-			}			
+			}
 			previewSlider.loadOneByOne();
 		}
 		
@@ -114,10 +112,10 @@ package app.view.page.oneNews.Body
 				slider.stopInteraction();
 				TweenLite.to(previewMask, 0.5, {height: 0, y: FIELD_HEIGHT, ease: Quart.easeOut});
 				TweenLite.to(slider, 0.5, {y: 0, ease: Quart.easeOut, colorTransform: {tint: 0x000000, tintAmount: 0}, onComplete: function():void
-					{
-						Tool.changecolor(fon, 0x000000);
-						slider.startInteraction();
-					}});
+				{
+					Tool.changecolor(fon, 0x000000);
+					slider.startInteraction();
+				}});
 			}
 			else
 			{
@@ -137,10 +135,10 @@ package app.view.page.oneNews.Body
 				slider.stopInteraction();
 				TweenLite.to(previewMask, 0.5, {height: 0, y: FIELD_HEIGHT, ease: Quart.easeOut});
 				TweenLite.to(slider, 0.5, {y: 0, ease: Quart.easeOut, colorTransform: {tint: 0x000000, tintAmount: 0}, onComplete: function():void
-					{
-						Tool.changecolor(fon, 0x000000);
-						slider.startInteraction();
-					}});
+				{
+					Tool.changecolor(fon, 0x000000);
+					slider.startInteraction();
+				}});
 				isPreviewOpen = false;
 			}
 		}
@@ -171,5 +169,4 @@ package app.view.page.oneNews.Body
 			Tool.removeAllChildren(this);
 		}
 	}
-
 }

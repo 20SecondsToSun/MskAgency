@@ -28,31 +28,17 @@ package app.view.employes
 			addContextListener(DataLoadServiceEvent.LOAD_IFORMER_COMPLETED, refreshInformer, DataLoadServiceEvent);
 			
 			addViewListener(AnimationEvent.EMPLOY_ANIMATION_FINISHED, dispatch, AnimationEvent);			
-			addViewListener(Event.REMOVED_FROM_STAGE, removeHandler);
+			addViewListener(Event.REMOVED_FROM_STAGE, removeHandler);			
 			
-			
-			
-			
-			if (model.weather && model.weather.length)
-			{
-				view.setWeather(model.weather);
-			}
-			else
-			{
+			if (model.weather && model.weather.length)			
+				view.setWeather(model.weather);			
+			else			
 				dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_WEATHER));
-			}
-			
-			if (model.informer.probki_city)
-			{
-				view.setInformer(model.informer);
-			}
-			else
-			{
-				dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_IFORMER));
-			}
 		
-			
-			//view.show(model.isAnimate);
+			if (model.informer.probki_city)			
+				view.setInformer(model.informer);			
+			else			
+				dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_IFORMER));
 		}
 		
 		private function refreshInformer(e:DataLoadServiceEvent):void 

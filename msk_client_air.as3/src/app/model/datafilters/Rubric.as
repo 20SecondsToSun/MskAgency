@@ -7,8 +7,6 @@ package app.model.datafilters
 	public class Rubric 
 	{
 		public var title:String;
-		public var id:int;
-		
+		public var id:int;		
 	}
-
 }

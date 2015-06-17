@@ -11,6 +11,7 @@ package app.view.handsview
 	import app.services.interactive.gestureDetector.HandUpDetector;
 	import app.services.interactive.gestureDetector.PushDetector;
 	import app.services.interactive.gestureDetector.StretchOutDetector;
+	import com.greensock.TweenLite;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	
@@ -68,8 +69,7 @@ package app.view.handsview
 			pushDetector.isAllowed = true;
 			handDownDetector.isAllowed = true;
 			chargeButtonDetector.isAllowed = true;
-			handUpDetector.isAllowed = true;
-		
+			handUpDetector.isAllowed = true;		
 		}
 		
 		public function HandsView()
@@ -119,8 +119,7 @@ package app.view.handsview
 		}
 		
 		public function loseHand(ht:String):void
-		{
-			
+		{			
 			activeHand.handType = HandType.NONE;
 			activeHand.clear();
 			
@@ -241,8 +240,9 @@ package app.view.handsview
 			}
 			else
 			{
-				activeHand.x = x - activeHand.width * 0.5;
-				activeHand.y = y - activeHand.height * 0.5;
+				TweenLite.to(activeHand, 0.35, { x :x - activeHand.width * 0.5, y :y- activeHand.height * 0.5} );
+				//activeHand.x = (x - activeHand.width * 0.5;
+				//activeHand.y = y - activeHand.height * 0.5;
 				
 				lastXYZ.x = x;
 				lastXYZ.y = y;
@@ -260,52 +260,30 @@ package app.view.handsview
 			//--------------------------------------------------------------------------
 			
 			var point:Point = new Point(activeHand.x + activeHand.width * 0.5, activeHand.y + activeHand.height * 0.5);
-			handOverOutDetector.update(point.x, point.y, z, stage);
-			
-			//-----------------------------------------------------------------------
-			//
-			// 
-			//
-			//--------------------------------------------------------------------------			
+			handOverOutDetector.update(point.x, point.y, z, stage);			
 			
 			//--------------------------------------------------------------------------
 			//
 			//  Push Detection
 			//
 			//--------------------------------------------------------------------------
-			pushDetector.update(point.x, point.y, z, stage);
 			
-			//--------------------------------------------------------------------------
-			//
-			// 
-			//
-			//--------------------------------------------------------------------------
+			pushDetector.update(point.x, point.y, z, stage);			
 			
 			//--------------------------------------------------------------------------
 			//
 			//  Charge Detection
 			//
 			//--------------------------------------------------------------------------
-			chargeButtonDetector.update(point.x, point.y, z, stage);
-		
-			//--------------------------------------------------------------------------
-			//
-			// 
-			//
-			//--------------------------------------------------------------------------	
+			
+			chargeButtonDetector.update(point.x, point.y, z, stage);		
 			
 			//--------------------------------------------------------------------------
 			//
 			//  Charge Detection
 			//
 			//--------------------------------------------------------------------------
-			stretchDetector.update(point.x, point.y, z, stage);
-		
-			//--------------------------------------------------------------------------
-			//
-			// 
-			//
-			//--------------------------------------------------------------------------		
+			stretchDetector.update(point.x, point.y, z, stage);	
 		}
 	}
 }

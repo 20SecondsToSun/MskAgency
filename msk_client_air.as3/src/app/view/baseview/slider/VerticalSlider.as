@@ -55,41 +55,22 @@ package app.view.baseview.slider
 		{
 			container.addChild(el);
 			elemensArray.push(el);
-		}
-		
+		}		
 		
 		public function dragZoneFix(offsetY:Number = -1):void
 		{
-			if (offsetY == -1)
-			{				
-				fonSlider.height = this.height;		
-			}
-			else
-			{
+			if (offsetY == -1)						
+				fonSlider.height = this.height;			
+			else			
 				fonSlider.height = offsetY;	
-			}
+			
 			fonSlider.width = this.width;		
 			
 		}
+		
 		public function focusSlider(id:int,offsetInit:Number):void
-		{
-			
-			/*var offsetY:Number;
-			for (var i:int = 0; i < elemensArray.length; i++) 
-			{
-				if (elemensArray[i].id == id)
-				{					
-					offsetY = elemensArray[i].y;
-					break;
-				}
-			}	
-			
-			var time:Number = (this.height - ( this.y - offsetY + offsetInit)) / this.height;
-			var finalY:Number =  this.y - offsetY + offsetInit ;
-			if (finalY <  - this.height + AppSettings.HEIGHT) finalY =  - this.height +AppSettings.HEIGHT;			
-			if (container.height < AppSettings.HEIGHT) finalY =  0;			
-			
-			TweenLite.to(this, time, { y:finalY} );			*/
+		{			
+		
 		}		
 		
 		public function startInteraction():void
@@ -142,11 +123,7 @@ package app.view.baseview.slider
 			{
 				if (dynamicLoad)
 				{					
-					var finalY:Number = loadNews("TO_PAST");	
-					/*if ( isNaN(finalY)) finalY =  maxBorder - height;		
-					var time:Number = correctTime(Math.abs(y - finalY) / 100);
-					TweenLite.killTweensOf(this);
-					TweenLite.to(this, time , { y: 0, ease: sliderEasing, onComplete: finishDraggingAnimation } );	*/				
+					var finalY:Number = loadNews("TO_PAST");								
 					return;
 				}
 					
@@ -198,13 +175,7 @@ package app.view.baseview.slider
 		}
 		
 		public function animatetoFinishY():void
-		{
-			/*if (elemensArray.length < 3 )
-			{
-				animatetoStartY();
-				return;
-			}*/
-			
+		{		
 			TweenLite.killTweensOf(this);
 			TweenLite.to(this, Math.abs(y - (maxBorder - height)) / 500, {y: maxBorder - height, ease: sliderEasing, onComplete: finishDraggingAnimation});
 		}

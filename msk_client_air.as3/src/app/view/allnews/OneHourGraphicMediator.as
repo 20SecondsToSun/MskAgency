@@ -1,17 +1,11 @@
-
 package app.view.allnews
-{
-	
+{	
 	import app.contoller.events.ChangeLocationEvent;
 	import app.contoller.events.InteractiveEvent;
 	import app.model.dataall.IAllNewsModel;
 	import flash.events.Event;
-	import org.robotlegs.mvcs.Mediator;
-	
-	/**
-	 * ...
-	 * @author metalcorehero
-	 */
+	import org.robotlegs.mvcs.Mediator;	
+
 	public class OneHourGraphicMediator extends Mediator
 	{
 		[Inject]
@@ -24,8 +18,7 @@ package app.view.allnews
 		{
 			addViewListener(InteractiveEvent.HAND_OVER, view.overState, InteractiveEvent);
 			addViewListener(InteractiveEvent.HAND_OUT, view.outState, InteractiveEvent);
-			addViewListener(InteractiveEvent.HAND_PUSH, pushView, InteractiveEvent);
-			
+			addViewListener(InteractiveEvent.HAND_PUSH, pushView, InteractiveEvent);			
 			addViewListener(Event.REMOVED_FROM_STAGE, removeHandler);
 		}
 		
@@ -34,10 +27,8 @@ package app.view.allnews
 			removeViewListener(Event.REMOVED_FROM_STAGE, removeHandler);
 			removeViewListener(InteractiveEvent.HAND_OVER, view.overState, InteractiveEvent);
 			removeViewListener(InteractiveEvent.HAND_OUT, view.outState, InteractiveEvent);
-			removeViewListener(InteractiveEvent.HAND_PUSH, pushView, InteractiveEvent);		
-			
-			view.kill();
-			
+			removeViewListener(InteractiveEvent.HAND_PUSH, pushView, InteractiveEvent);				
+			view.kill();			
 		}		
 		
 		private function pushView(e:InteractiveEvent):void
@@ -50,6 +41,4 @@ package app.view.allnews
 			dispatch(event);
 		}	
 	}
-
 }
-

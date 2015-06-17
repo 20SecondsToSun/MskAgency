@@ -174,5 +174,4 @@ package app.view.menu
 				TweenLite.to(fingimg, 0.5, {removeTint: true});
 		}
 	}
-
 }

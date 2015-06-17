@@ -21,10 +21,10 @@ package app.view.page.fact.leftpanel
 		{			
 			addViewListener(InteractiveEvent.HAND_OVER, overView,	InteractiveEvent);
 			addViewListener(InteractiveEvent.HAND_OUT, outView,	InteractiveEvent);			
-			addViewListener(InteractiveEvent.HAND_PUSH, pushView, InteractiveEvent);
-			
+			addViewListener(InteractiveEvent.HAND_PUSH, pushView, InteractiveEvent);			
 			addContextListener(ChangeLocationEvent.SHOW_NEW_BY_ID, setActive, ChangeLocationEvent);		
-		}		
+		}	
+		
 		override public function preRemove():void
 		{			
 			removeViewListener(InteractiveEvent.HAND_OVER, overView,	InteractiveEvent);
@@ -40,11 +40,12 @@ package app.view.page.fact.leftpanel
 		
 		private function pushView(e:InteractiveEvent):void 
 		{
-			if (view.isActive) return; 
-			
-			var event:ChangeLocationEvent = new ChangeLocationEvent(ChangeLocationEvent.SHOW_NEW_BY_ID);
-			event.obj = view.fact;				
-			dispatch(event);
+			if (!view.isActive) 
+			{
+				var event:ChangeLocationEvent = new ChangeLocationEvent(ChangeLocationEvent.SHOW_NEW_BY_ID);
+				event.obj = view.fact;				
+				dispatch(event);
+			}			
 		}	
 		
 		private function outView(e:InteractiveEvent):void 
@@ -57,6 +58,4 @@ package app.view.page.fact.leftpanel
 			view.over();
 		}	
 	}
-	
-
 }

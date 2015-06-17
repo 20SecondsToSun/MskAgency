@@ -38,6 +38,8 @@ package app.view.page.days.onedayslider
 		private var offset:int = 0;	
 		
 		private var initY:Number = 0;
+		private var minHeight:int = 279;
+		private var maxHeight:int = 405;
 		
 		public function OneDaySlider(_day:Vector.<Material>, isDarkColor:Boolean, id:int) 		
 		{
@@ -59,20 +61,13 @@ package app.view.page.days.onedayslider
 			NOW_NUM_SHOWING = ALL_NUM > INIT_NUM_TO_SHOW ? INIT_NUM_TO_SHOW : ALL_NUM;	
 			addBlockElements(0, NOW_NUM_SHOWING);			
 			
-			addLine();
-			
-			/*var mini:MiniSlider = new MiniSlider();
-			addChild(mini);
-			mini.x = 50;
-			mini.y = 50;*/
-			
+			addLine();			
 			initY = this.y;			
 		}
 		
 		public function setY( _y:Number):void
 		{
 			initY = _y;
-			//trace("y:::::::::::::::::",this.y) ;
 		}
 		
 		private function addBlockElements(_offset:int, _limit:int):void
@@ -115,16 +110,10 @@ package app.view.page.days.onedayslider
 			setChildIndex(line, 1);
 			
 			return true;		
-		}	
-		
-		private var minHeight:int = 279;
-		private var maxHeight:int = 405;
+		}
 		
 		public function stretch(percent:Number):void
-		{
-			//trace("LOCAL GLOBAL::",parent.parent.y);
-			
-			
+		{			
 			parent.setChildIndex(this, parent.numChildren - 1);
 			
 			var changeHeight:Number = minHeight + (maxHeight - minHeight) * percent * 1.2;			
@@ -147,9 +136,7 @@ package app.view.page.days.onedayslider
 		private function endStretch():void
 		{
 			holder.visible = false;
-			//trace("END STRETCH");
 			dateButton.push();
-			//dispatchEvent(new AnimationEvent(AnimationEvent.STRETCH, "", this));
 		}
 		
 		public function addElements(_day:Vector.<Material>):void
@@ -182,7 +169,6 @@ package app.view.page.days.onedayslider
 			line.graphics.lineTo(width + 35, 33 + SHIFT_Y);			
 			addChild(line);
 			setChildIndex(line, 1);
-		}		
-		
+		}			
 	}
 }

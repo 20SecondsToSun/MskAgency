@@ -16,8 +16,10 @@ package app.view.facts
 	{
 		[Inject]
 		public var view:OneFactGraphic;
+		
 		[Inject]
 		public var model:IAllNewsModel;
+		
 		[Inject]
 		public var fmodel:IFactsModel;
 		

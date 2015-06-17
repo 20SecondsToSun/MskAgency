@@ -11,20 +11,13 @@ package app.view.baseview.io
 	{		
 		public var downEnabled:Boolean = true;
 		public var pushEnabled:Boolean = true;
-		public var chargeEnabled:Boolean = true;
-		
+		public var chargeEnabled:Boolean = true;		
 		public var isStretch:Boolean = false;
-		public var enabled:Boolean = true;		
-		
-		public function InteractiveObject() 
-		{
-			
-		}
+		public var enabled:Boolean = true;	
 		
 		public function remove():void
 		{			
-			removeAllChildren(this);		
-	
+			removeAllChildren(this);	
 		}
 		
 		public static function removeAllChildren(_do:Sprite):void 

@@ -6,7 +6,6 @@ package app.assets
 	import flash.utils.ByteArray;
 	import flash.utils.getDefinitionByName;
 
-
 	/**
 	 * ...
 	 * @author metalcorehero

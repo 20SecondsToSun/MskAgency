@@ -7,23 +7,19 @@ package app.services.state
 	
     public interface INavigationService
     {
+		function get getCurrentLocation():String;
+		
         function location(event:ChangeLocationEvent):void;
         function start():void;
 		function animationFinished(event:AnimationEvent):void;
 		function checkForStartLocation(event:GraphicInterfaceEvent):void;
-		function checkForReadyAnimation_3():void;
-		
+		function checkForReadyAnimation_3():void;		
 		function showFilters():void;
-		function showMenu():void;
-		
+		function showMenu():void;		
 		function hideMenu():void;
 		function hideFilters():void;
-		function hideIpadPopup():void;
-		
-		function get getCurrentLocation():String;
-		
+		function hideIpadPopup():void;		
 		function openPopup(data:*):void;
 		function returnToMainScreen(value:Boolean):void;
     }
 }
-

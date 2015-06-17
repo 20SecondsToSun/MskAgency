@@ -1,6 +1,5 @@
 package  app
 {
-	import app.contoller.bootstraps.BootstrapClasses;
 	import app.contoller.bootstraps.BootstrapCommands;
 	import app.contoller.bootstraps.BootstrapConfigValues;
 	import app.contoller.bootstraps.BootstrapModels;
@@ -13,8 +12,7 @@ package  app
 	/**
 	 * ...
 	 * @author metalcorehero
-	 */
-	
+	 */	
 	
 	public class InteractiveStendContext extends Context
     {
@@ -24,33 +22,22 @@ package  app
         }
 
         override public function startup():void
-        {
-			
-			
-	
-           /* 
-             new BootstrapTileSupplyCommands(commandMap);*/
-            new BootstrapClasses(injector);
+        {           
 			new BootstrapServices(injector);
 			new BootstrapModels(injector);
-			new BootstrapConfigValues(injector);
-			
+			new BootstrapConfigValues(injector);			
 			new BootstrapCommands(commandMap);
             new BootstrapViewMediators(mediatorMap);
 
-            addRootView();
-            
-			// and we're done
-            super.startup();
+            addRootView();            
+		    super.startup();
         }
 
         protected function addRootView():void
         {
-           // var tileFactory:ITileFactory = new TileFactory(20, 0x333333);
             var mainView:MainView = new MainView(injector);
 			mainView.name = "mainView";
             contextView.addChild(mainView);			
         }
     }
-
 }

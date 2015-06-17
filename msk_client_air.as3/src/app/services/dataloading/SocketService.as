@@ -57,15 +57,16 @@ package app.services.dataloading
 				trace("Unable to load requested URL.");
 			}
 		}
+		
 		public function stop():void
 		{			
 			if (stream && stream.connected)
 			{
 				removeListeners(stream);
 				stream.close();
-			}
-			
+			}		
 		}
+		
 		public function resume():void
 		{
 			configureListeners(stream);
@@ -91,6 +92,7 @@ package app.services.dataloading
 			dispatcher.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
 			dispatcher.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
 		}
+		
 		private function parseHeader():void
 		{			
 			var ba:ByteArray = new ByteArray();
@@ -115,8 +117,7 @@ package app.services.dataloading
 			}	
 		
 			stream.close();
-			stream.load(request);	
-			
+			stream.load(request);				
 			loader_success();		
 		}
 		

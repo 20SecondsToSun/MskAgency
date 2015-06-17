@@ -70,8 +70,7 @@ package app.model.config
 					screenShotSaver[index ].bitmapData.dispose();
 				
 				screenShotSaver[index] = new Bitmap(bmp);
-			}
-		
+			}		
 		}
 		
 		public function getShadow(value:int):Sprite
@@ -89,8 +88,7 @@ package app.model.config
 		public function getScreenShot(value:String, activePage:int = -1):Sprite
 		{
 			var sprite:Sprite = new Sprite();
-			var bmp:BitmapData = new BitmapData(screenShotSaver[value].width, screenShotSaver[value].height);
-			
+			var bmp:BitmapData = new BitmapData(screenShotSaver[value].width, screenShotSaver[value].height);			
 			var mat:Matrix = new Matrix();
 			
 			switch (value)
@@ -120,9 +118,9 @@ package app.model.config
 					
 					mat.translate(0, AppSettings.HEIGHT - 69);
 					bmp.draw(screenShotSaver["EMPLOY_NEWS" + value], mat);
-					mat.identity();
-					
+					mat.identity();					
 					break;
+					
 				case "3": 
 					if (activePage != 3)
 						screenShotSaver["3"] = Assets.createBitmap("screenshot3");
@@ -130,12 +128,10 @@ package app.model.config
 					bmp.draw(screenShotSaver[value]);
 					break;
 				
-				default:
-					
-					if (MainBase.curLoc != 3)
-					{
+				default:					
+					if (MainBase.curLoc != 3)					
 						bmp.draw(screenShotSaver[value + MainBase.curLoc.toString()]);
-					}
+					
 			}
 			
 			sprite.addChild(new Bitmap(bmp));

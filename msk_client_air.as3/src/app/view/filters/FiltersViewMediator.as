@@ -113,10 +113,8 @@ package app.view.filters
 				(e.target as CenterButton).out();
 				view.circle.startRotate();
 			}
-			else if (e.target.name == "close")
-			{
-				(e.target.parent as DateChoose).out();
-			}		
+			else if (e.target.name == "close")			
+				(e.target.parent as DateChoose).out();					
 		}
 		
 		private function over(e:InteractiveEvent):void
@@ -127,10 +125,8 @@ package app.view.filters
 				view.circle.stopRotate();
 				
 			}			
-			else if (e.target.name == "close")
-			{
-				(e.target.parent as DateChoose).over();
-			}			
+			else if (e.target.name == "close")			
+				(e.target.parent as DateChoose).over();						
 		}
 		
 		private function updateView(e:DataLoadServiceEvent):void
@@ -166,20 +162,14 @@ package app.view.filters
 				
 				if (event == DataLoadServiceEvent.LOAD_ALL_FACTS_DATA && nav.getCurrentLocation == ChangeLocationEvent.ONE_NEW_FACT_PAGE)
 				{
-					//dispatch(new ChangeLocationEvent(ChangeLocationEvent.FACT_PAGE));
 					dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.CHECK_FOR_FILTER_FACTS));	
 					return;
 				}
 				
-				if (event == DataLoadServiceEvent.LOAD_ALL_MATERIAL_NEAR_NEWS)	
-				{
-					dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.CHECK_FOR_FILTER_NEWS));								
-				}
-				else	
-				{					
-					dispatch(new DataLoadServiceEvent(event));
-				}	
-				
+				if (event == DataLoadServiceEvent.LOAD_ALL_MATERIAL_NEAR_NEWS)				
+					dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.CHECK_FOR_FILTER_NEWS));					
+				else								
+					dispatch(new DataLoadServiceEvent(event));				
 			}
 			else if (e.target is CenterButton)
 			{
@@ -220,14 +210,10 @@ package app.view.filters
 					return;
 				}
 				
-				if (event == DataLoadServiceEvent.LOAD_ALL_MATERIAL_NEAR_NEWS)
-				{
-					dispatch(new ChangeLocationEvent(ChangeLocationEvent.NEWS_PAGE_DAY));
-				}
-				else
-				{					
-					dispatch(new DataLoadServiceEvent(event));
-				}
+				if (event == DataLoadServiceEvent.LOAD_ALL_MATERIAL_NEAR_NEWS)				
+					dispatch(new ChangeLocationEvent(ChangeLocationEvent.NEWS_PAGE_DAY));				
+				else								
+					dispatch(new DataLoadServiceEvent(event));				
 			}
 		}
 		

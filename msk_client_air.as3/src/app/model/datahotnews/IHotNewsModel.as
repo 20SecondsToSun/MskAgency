@@ -10,9 +10,7 @@ package app.model.datahotnews
 	public interface IHotNewsModel 
 	{
 		function get isAnimate():Boolean;		
-		function set isAnimate(value:Boolean):void;	
-		
+		function set isAnimate(value:Boolean):void;			
 		function  setModel(value:ChangeModelOut):void;
-	}
-	
+	}	
 }

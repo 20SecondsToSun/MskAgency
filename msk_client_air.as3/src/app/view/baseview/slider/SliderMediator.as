@@ -24,6 +24,7 @@ package app.view.baseview.slider
 			eventMap.unmapListener(_view, InteractiveEvent.HAND_UPDATE,_view.updateDragSlider);
 			removeViewListener(InteractiveEvent.HAND_UP, stopDragSlider);
 		}
+		
 		override public function onRemove():void
 		{
 			eventMap.unmapListeners();
@@ -44,10 +45,10 @@ package app.view.baseview.slider
 			removeViewListener(InteractiveEvent.HAND_UP, stopDragSlider)
 			
 			_view.stopDragSlider(e);
-		}		
+		}
+		
 		private function startDragSlider(e:InteractiveEvent):void 
-		{
-			
+		{			
 			_view.startDragSlider(e);
 			
 			eventMap.mapListener(_view, InteractiveEvent.HAND_UPDATE, _view.updateDragSlider);
@@ -60,5 +61,4 @@ package app.view.baseview.slider
 			_view.tryUpdateChilds(new DisplayObject());
 		}
 	}
-
 }

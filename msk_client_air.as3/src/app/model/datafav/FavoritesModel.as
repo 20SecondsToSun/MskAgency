@@ -27,7 +27,8 @@ package app.model.datafav
 		public function get textList():Vector.<Material>
 		{
 			return _textList;
-		}		
+		}
+		
 		public function set textList(value:Vector.<Material>):void
 		{
 			_textList = value;
@@ -36,7 +37,8 @@ package app.model.datafav
 		public function get photoVideoList():Vector.<Material>
 		{
 			return _photoVideoList;
-		}		
+		}
+		
 		public function set photoVideoList(value:Vector.<Material>):void
 		{
 			_photoVideoList = value;
@@ -55,41 +57,42 @@ package app.model.datafav
 		
 		override public function set newsList(value:Vector.<Material>):void
 		{
-			_newsList = value;			
+			_newsList = value;
 			if (_newsList.length == 0) return;
 			
 			createLists();
 			dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.FAVORITES_MATERIALS_LOADED));
-		}		
+		}
 		
 		public function get photoCount():int
 		{
 			return _photoCount;
-		}		
+		}
+		
 		public function set photoCount(value:int):void
 		{
 			_photoCount = value;
-		}		
+		}
 		
 		public function get videoCount():int
 		{
 			return _videoCount;
-		}		
+		}
+		
 		public function set videoCount(value:int):void
 		{
 			_videoCount = value;
-		}	
+		}
 		
-		
-		private function createLists():void 
+		private function createLists():void
 		{
 			_textList = new Vector.<Material>();
 			_photoVideoList = new Vector.<Material>();
 			_photoCount = _videoCount = 0;
-			for (var i:int = 0; i <_newsList.length ; i++) 
+			for (var i:int = 0; i < _newsList.length; i++)
 			{
-				if (_newsList[i].type == "text")_textList.push(_newsList[i]);
-				else if (_newsList[i].type == "photo") 
+				if (_newsList[i].type == "text") _textList.push(_newsList[i]);
+				else if (_newsList[i].type == "photo")
 				{
 					_photoCount++;
 					_photoVideoList.push(_newsList[i]);
@@ -101,51 +104,53 @@ package app.model.datafav
 				}
 			}
 		}
-		public function insertMaterial(mat:Material):void		
+		
+		public function insertMaterial(mat:Material):void
 		{
 			_newsList.push(mat);
-			if (mat.type == "text")_textList.push(mat);
-				else if (mat.type == "photo") 
-				{
-					_photoCount++;
-					_photoVideoList.push(mat);
-				}
-				else if (mat.type == "video")
-				{
-					_videoCount++;
-					_photoVideoList.push(mat);
-				}
+			if (mat.type == "text") _textList.push(mat);
+			else if (mat.type == "photo")
+			{
+				_photoCount++;
+				_photoVideoList.push(mat);
+			}
+			else if (mat.type == "video")
+			{
+				_videoCount++;
+				_photoVideoList.push(mat);
+			}
 			dispatch(new FavoriteEvent(FavoriteEvent.UPDATE_FAVORITES_LIST));
 		}
-		public function insertFact(mat:Fact):void		
+		
+		public function insertFact(mat:Fact):void
 		{
 			_factsList.push(mat);
 			dispatch(new FavoriteEvent(FavoriteEvent.UPDATE_FAVORITES_LIST));
-		}			
-		
+		}
 		
 		public function isFavorite(id:int, type:String):void
 		{
 			var data:Object = new Object();
 			
-			switch (type) 
+			switch (type)
 			{
-				case "material":				
-					data.isFavorite = isFavoritesMaterial(id);
-					dispatch(new FavoriteEvent(FavoriteEvent.IS_FAVORITES_ANSWER, true, false, data));					
+			case "material": 
+				data.isFavorite = isFavoritesMaterial(id);
+				dispatch(new FavoriteEvent(FavoriteEvent.IS_FAVORITES_ANSWER, true, false, data));
 				break;
-				
-				case "activity":
-					data.isFavorite = isFavoritesFact(id);
-					dispatch(new FavoriteEvent(FavoriteEvent.IS_FAVORITES_ANSWER, true, false, data));			
+			
+			case "activity": 
+				data.isFavorite = isFavoritesFact(id);
+				dispatch(new FavoriteEvent(FavoriteEvent.IS_FAVORITES_ANSWER, true, false, data));
 				break;
-				
-				default:
+			
+			default: 
 			}
 		}
+		
 		public function isFavoritesMaterial(id:int):Boolean
 		{
-			for (var i:int = 0; i <_newsList.length ; i++) 			
+			for (var i:int = 0; i < _newsList.length; i++)
 				if (id == _newsList[i].id) return true;
 			
 			return false;
@@ -153,10 +158,10 @@ package app.model.datafav
 		
 		public function isFavoritesFact(id:int):Boolean
 		{
-			for (var i:int = 0; i <_factsList.length ; i++) 			
+			for (var i:int = 0; i < _factsList.length; i++)
 				if (id == _factsList[i].id) return true;
 			
 			return false;
-		}		
+		}
 	}
 }

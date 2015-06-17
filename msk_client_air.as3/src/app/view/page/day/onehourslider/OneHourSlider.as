@@ -45,8 +45,7 @@ package app.view.page.day.onehourslider
 			var offset:int = 0;
 			const shift:int = 30;
 			const WIDTH_BLOCK:int = 377;
-			var _widthBlock:int = 377;
-			
+			var _widthBlock:int = 377;			
 			
 			for (var i:int = 0; i < _hour.length; i++) 
 			{
@@ -64,9 +63,9 @@ package app.view.page.day.onehourslider
 			}
 			
 			addLine();			
-			setChildIndex(line, 1);
-			
+			setChildIndex(line, 1);			
 		}
+		
 		private function addHourTitle():void
 		{
 			var textFormat:TextFormat = new TextFormat("TornadoL", 72 , 0X7b8193);			
@@ -104,8 +103,6 @@ package app.view.page.day.onehourslider
 			line.graphics.moveTo(SHIFT_X, 33 + SHIFT_Y);					
 			line.graphics.lineTo(width + 35, 33 + SHIFT_Y);			
 			addChild(line);
-		}
-		
+		}		
 	}
-
 }

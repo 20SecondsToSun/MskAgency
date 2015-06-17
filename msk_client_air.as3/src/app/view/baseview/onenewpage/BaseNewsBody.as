@@ -83,25 +83,16 @@ package app.view.baseview.onenewpage
 			{				
 				refresh(mat);
 			});
-			
-			
 		}
 		
 		public function starOver():void
 		{
 			if (isFavorite == false)			
-			{
-				star.over();
-			}
-			else
-			{
-				
-			}
+				star.over();	
 		}		
 		
 		public function setFavState(value:Boolean):void
 		{
-			//trace("IS FAVORITES:::::::", value);
 			isFavorite = value;
 			star.fav(isFavorite);
 		}		
@@ -111,8 +102,7 @@ package app.view.baseview.onenewpage
 			if (_mat == null) return;
 			
 			mat = _mat;			
-			activeID = mat.id;
-			
+			activeID = mat.id;			
 			
 			textNews.refresh();
 			textNews.textTitle = mat.title;
@@ -136,8 +126,7 @@ package app.view.baseview.onenewpage
 		
 		public function addFavShot(bmp:BigCanvas):void
 		{
-			shot = bmp;
-			
+			shot = bmp;			
 			shot.alpha  = 0.5;
 			shot.scaleX = shot.scaleY = 0.6;
 			addChild(shot);			
@@ -168,7 +157,6 @@ package app.view.baseview.onenewpage
 		public function removeFavShot():void
 		{		
 			if (contains(shot)) removeChild(shot);
-		}
-		
+		}		
 	}
 }

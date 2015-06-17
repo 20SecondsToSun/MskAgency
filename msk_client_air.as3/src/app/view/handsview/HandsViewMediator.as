@@ -2,6 +2,7 @@ package app.view.handsview
 {
 	import app.AppSettings;
 	import app.contoller.events.ChangeLocationEvent;
+	import app.contoller.events.GesturePostEvent;
 	import app.contoller.events.InteractiveEvent;
 	import app.contoller.events.InteractiveRemoteEvent;
 	import app.contoller.events.IpadEvent;
@@ -69,19 +70,19 @@ package app.view.handsview
 			
 			switch (e.type)
 			{
-				case "HAND_ONE_FINGER": 
+				case "HAND_ONE_FINGER":
+					dispatch( new GesturePostEvent(GesturePostEvent.HAND_ONE_FINGER));
 					dispatch( new ChangeLocationEvent(ChangeLocationEvent.MAIN_SCREEN));
 					break;
 					
-				case "HAND_TWO_FINGERS":					
+				case "HAND_TWO_FINGERS":
+					dispatch( new GesturePostEvent(GesturePostEvent.HAND_TWO_FINGERS));
 					dispatch( new ChangeLocationEvent(ChangeLocationEvent.CUSTOM_SCREEN));
 					break;
 					
 				case "HAND_THREE_FINGERS": 
 					dispatch( new ChangeLocationEvent(ChangeLocationEvent.STORY_SCREEN));
 					break;
-					
-				default: 
 			}
 		}
 		
@@ -108,9 +109,7 @@ package app.view.handsview
 		private function updateHandPosition(e:InteractiveRemoteEvent):void 
 		{	
 			if (user.is_active == false) return;
-			
-			//trace(e.stageX, e.stageY);
-			
+				
 			view.updateHand(e.stageX, e.stageY, e.stageZ, e.handType);	
 			
 			if (view.checkHand())

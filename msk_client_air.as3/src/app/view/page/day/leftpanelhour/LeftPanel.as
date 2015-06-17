@@ -26,6 +26,8 @@ package app.view.page.day.leftpanelhour
 	 */
 	public class LeftPanel extends InteractiveObject
 	{
+		private static const MAX_WIDTH:int = 182;
+		
 		private var billet:InteractiveObject;
 		private var fon:Shape;
 		
@@ -46,11 +48,49 @@ package app.view.page.day.leftpanelhour
 		
 		private var sortBy:String = "all";
 		
+		private var buttonArray:Array = new Array();
+		private var allButton:InteractiveChargeButton;
+		private var photoButton:InteractiveChargeButton;
+		private var videoButton:InteractiveChargeButton;
+		private var backButton:InteractiveChargeButton;		
+		private var liveButton:InteractiveChargeButton;		
+		
+		private var _backToDates:Sprite;
+		
+		private var line1:Shape;
+		private var line2:Shape;
+		private var line3:Shape;
+		private var line4:Shape;
+		
+		private var allNewsTitle:TextField;
+		private var photoNewsTitle:TextField;
+		private var videoNewsTitle:TextField;
+		private var liveNewsTitle:TextField;
+		
+		private var _backToDatesTitle:TextField;
+		private var textTitle:TextField;
+		private var monthTitle:TextField;
+		private var textFormat:TextFormat;
+		
+		private var allCount:TextField;
+		private var videoCount:TextField;
+		private var photoCount:TextField;
+		private var liveCount:TextField;
+		
+		private var allCountClip:Sprite;
+		private var videoCountClip:Sprite;
+		private var photoCountClip:Sprite;
+		private var liveCountClip:Sprite;
+		private var dateClip:Sprite;
+		
+		private var oneHourNewsList:Vector.<OneHourBlockNews>;
+		private var isOverStarting:Boolean = false;	
+		
+		
 		public function LeftPanel()
 		{
 			fon = Tool.createShape(98, AppSettings.HEIGHT, 0x02a7df);
-			addChild(fon);		
-			
+			addChild(fon);				
 			
 			_all = new Sprite();
 			_allIcon = Assets.create("allIcon");
@@ -71,8 +111,7 @@ package app.view.page.day.leftpanelhour
 			_photo.addChild(_photoIcon);
 			
 			_photoIcon.width = 36;
-			_photoIcon.height = 31;
-			
+			_photoIcon.height = 31;			
 			
 			_live = new Sprite();
 			_liveIcon = Assets.create("liveIcon");
@@ -96,8 +135,7 @@ package app.view.page.day.leftpanelhour
 			addChild(_all);
 			addChild(_video);
 			addChild(_photo);
-			addChild(_live);
-			
+			addChild(_live);			
 			
 			dateClip = new Sprite();
 			addChild(dateClip);
@@ -121,10 +159,7 @@ package app.view.page.day.leftpanelhour
 			dateClip.addChild(monthTitle);
 			monthTitle.y = textTitle.height + 10;
 			
-			
-			
 			textFormat = new TextFormat("TornadoMedium", 49, 0Xffffff);
-		
 			
 			allCountClip = new Sprite();
 			videoCountClip = new Sprite();
@@ -247,15 +282,12 @@ package app.view.page.day.leftpanelhour
 			liveNewsTitle.setTextFormat(textFormat);
 			addChild(liveNewsTitle);
 			liveNewsTitle.y = 750;
-			liveNewsTitle.x = 52;
-			
+			liveNewsTitle.x = 52;			
 			
 			photoNewsTitle.alpha = 0;
 			videoNewsTitle.alpha = 0;
 			allNewsTitle.alpha = 0;
-			liveNewsTitle.alpha = 0;
-			
-			
+			liveNewsTitle.alpha = 0;			
 			
 			_backToDates = Assets.create("backToDates");
 			addChild(_backToDates);
@@ -278,12 +310,8 @@ package app.view.page.day.leftpanelhour
 			_backToDatesTitle.x = _backToDates.x;
 			
 			_backToDatesTitle.alpha = 0;
-			_backToDates.alpha = 0;
-			
-		//	_backToDatesTitle.visible = false;
-		//	_backToDates.visible = false;	
-			
-			
+			_backToDates.alpha = 0;			
+		
 			allButton = new InteractiveChargeButton();
 			allButton.name = "all";
 			allButton.visible = false;
@@ -356,14 +384,10 @@ package app.view.page.day.leftpanelhour
 		public function init(allNewsList:Vector.<Vector.<Material>>, all:Number, phl:Number, vl:Number, lv:Number):void
 		{
 			if (!allNewsList || allNewsList.length == 0)
-				return;
+				return;			
 			
-			//if (allNewsList && allNewsList.length != 0)
-			//{
-				setDayTitle(allNewsList[0][0].publishedDate);
-			//}
+			setDayTitle(allNewsList[0][0].publishedDate);
 			
-			//setDayTitle(allNewsList[0][0].publishedDate);
 			textFormat.size = 14;
 			textFormat.color = 0x101114;
 			textFormat.font = "TornadoMedium";
@@ -389,21 +413,18 @@ package app.view.page.day.leftpanelhour
 			liveCount.setTextFormat(textFormat);
 			liveCountClip.x = (98 - liveCountClip.width) * 0.5;
 		}	
-		private var buttonArray:Array = new Array();
 		
 		public function pushPanelBtn(e:InteractiveEvent):void
 		{
 			if (sortBy == e.target.name) return;
 			
-			videoButton.enabled = videoCount.text != "0" ;	
-			allButton.enabled = allCount.text != "0" ;	
-			photoButton.enabled = photoCount.text != "0" ;	
-			liveButton.enabled = liveCount.text != "0" ;	
-			
-			//for (var i:int = 0; i < buttonArray.length; i++) 			
-			//	buttonArray[i].enabled = true;
+			videoButton.enabled = videoCount.text != "0";	
+			allButton.enabled = allCount.text != "0";	
+			photoButton.enabled = photoCount.text != "0";	
+			liveButton.enabled = liveCount.text != "0" ;		
 			
 			var event:FilterEvent;	
+			
 			switch (e.target.name) 
 			{
 				case "all":					
@@ -443,43 +464,7 @@ package app.view.page.day.leftpanelhour
 				
 				default:
 			}		
-		}			
-		
-		private var allButton:InteractiveChargeButton;
-		private var photoButton:InteractiveChargeButton;
-		private var videoButton:InteractiveChargeButton;
-		private var backButton:InteractiveChargeButton;		
-		private var liveButton:InteractiveChargeButton;		
-		
-		private var _backToDates:Sprite;
-		
-		private var line1:Shape;
-		private var line2:Shape;
-		private var line3:Shape;
-		private var line4:Shape;
-		
-		private var allNewsTitle:TextField;
-		private var photoNewsTitle:TextField;
-		private var videoNewsTitle:TextField;
-		private var liveNewsTitle:TextField;
-		
-		private var _backToDatesTitle:TextField;
-		private var textTitle:TextField;
-		private var monthTitle:TextField;
-		private var textFormat:TextFormat;
-		
-		private var allCount:TextField;
-		private var videoCount:TextField;
-		private var photoCount:TextField;
-		private var liveCount:TextField;
-		
-		private var allCountClip:Sprite;
-		private var videoCountClip:Sprite;
-		private var photoCountClip:Sprite;
-		private var liveCountClip:Sprite;
-		private var dateClip:Sprite;
-		
-		private var oneHourNewsList:Vector.<OneHourBlockNews>;
+		}				
 		
 		public function refreshData(allNewsList:Vector.<Vector.<Material>>, all:Number, phl:Number, vl:Number, lv:Number):void
 		{
@@ -523,10 +508,7 @@ package app.view.page.day.leftpanelhour
 		public function overState():void
 		{
 			TweenLite.delayedCall(0.3, startOver);
-		}		
-		
-		private var isOverStarting:Boolean = false;	
-		private static const MAX_WIDTH:int = 182;		
+		}	
 		
 		public function startOver():void
 		{
@@ -664,7 +646,5 @@ package app.view.page.day.leftpanelhour
 			TweenLite.to(_photo, 0.5, {width: 36, height: 31, x: 33, y: 425, onComplete: onCompleteNums});
 			TweenLite.to(_live, 0.5, {width: 36, height: 31, x: 33, y: 547});
 		}
-	
 	}
-
 }

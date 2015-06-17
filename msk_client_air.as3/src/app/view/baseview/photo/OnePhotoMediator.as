@@ -17,11 +17,13 @@ package app.view.baseview.photo
 			addViewListener(LoadPhotoEvent.PHOTO_LOADED, setPhoto, LoadPhotoEvent);		
 			addViewListener(LoadPhotoEvent.LOAD_PHOTO, dispatch, LoadPhotoEvent);
 			view.loadAtOnce();
-		}		
+		}	
+		
 		private function setPhoto(e:LoadPhotoEvent):void 
 		{
 			view.setPhoto(e.photo);
 		}
+		
 		override public function onRemove():void
 		{
 			removeViewListener(LoadPhotoEvent.PHOTO_LOADED, setPhoto, LoadPhotoEvent);		
@@ -30,4 +32,3 @@ package app.view.baseview.photo
 		}
 	}
 }
-

@@ -51,6 +51,8 @@ package app.view.allnews
 		
 		private var __holder:InteractiveObject;
 		private var step:Number = 0.5;
+		private var initScreenShot:Sprite;
+		private var thatsAll:Boolean = false;
 		
 		public function AllNews()
 		{
@@ -83,8 +85,7 @@ package app.view.allnews
 			bitmapData.drawWithQuality(holder, null, null, null, null, true, StageQuality.BEST);
 			
 			config.setScreenShot(new Bitmap(bitmapData), "ALL_NEWS");
-		}
-		private var initScreenShot:Sprite;
+		}		
 		
 		override public function setScreen():void
 		{
@@ -151,7 +152,7 @@ package app.view.allnews
 			this.x = 0;
 			dispatchEvent(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_ALL_DATA));
 		}
-		private var thatsAll:Boolean = false;
+		
 		public function stretch(percent:Number):void
 		{
 			if (thatsAll) return;

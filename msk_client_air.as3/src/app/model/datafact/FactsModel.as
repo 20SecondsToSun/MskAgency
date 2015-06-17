@@ -56,6 +56,8 @@ package app.model.datafact
 		private var savePrevDate:String = "";
 		private var saveFutureDate:String = "";
 		private var _notema:Boolean = false;
+		private var _isStop:Boolean = false;
+		private var _isInitLoad:Boolean = true;
 		
 		public function set notema(value:Boolean):void
 		{
@@ -65,8 +67,7 @@ package app.model.datafact
 		public function get notema():Boolean
 		{
 			return _notema;
-		}
-		
+		}		
 		
 		public function set nextDate(value:String):void
 		{
@@ -107,9 +108,6 @@ package app.model.datafact
 		{
 			return _isInitLoad;
 		}
-		
-		private var _isStop:Boolean = false;
-		private var _isInitLoad:Boolean = true;
 		
 		public function allInit():void
 		{
@@ -311,22 +309,15 @@ package app.model.datafact
 			{				
 				if (_direction == "TO_PAST")
 				{
-					if (_prevDate != "0")
-					{					
-						_loadingDate = _prevDate;
-					}
-					else
-					{					
-						_loadingDate = conf.getprevDate(TextUtil.convertStringToDate(_loadingDate));						
-					}
-					
+					if (_prevDate != "0")									
+						_loadingDate = _prevDate;					
+					else										
+						_loadingDate = conf.getprevDate(TextUtil.convertStringToDate(_loadingDate));	
 				}
 				else if (_direction == "TO_FUTURE")
 				{
-					if (_nextDate != "0")
-					{						
-						_loadingDate = _nextDate;
-					}
+					if (_nextDate != "0")										
+						_loadingDate = _nextDate;					
 					else
 						_loadingDate = conf.getnextDate(TextUtil.convertStringToDate(_loadingDate));
 				}
@@ -388,13 +379,9 @@ package app.model.datafact
 		
 		public function getMaterialByID(id:Number):Fact
 		{
-			for (var i:int = 0; i < _newsList.length; i++)
-			{
-				if (_newsList[i].id == id)
-				{
-					return _newsList[i];
-				}
-			}
+			for (var i:int = 0; i < _newsList.length; i++)			
+				if (_newsList[i].id == id)				
+					return _newsList[i];					
 			return null;
 		}
 		

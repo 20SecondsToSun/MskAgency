@@ -16,5 +16,4 @@
 			return "[time: "+time+", type: "+type+"]"
 		}
 	}
-
 }

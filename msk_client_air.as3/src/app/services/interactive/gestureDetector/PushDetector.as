@@ -16,19 +16,21 @@ package app.services.interactive.gestureDetector
 	 */
 	public class PushDetector extends EventDispatcher
 	{
-		private static const maxDiffInMetters:Number = 0.1;
-		private static const minDiffInMetters:Number = 0.05;
-		private static const HAND_SPEED_LIMIT:int = 10;
+		private static const maxDiffInMetters:Number = 0.08;
+		private static const minDiffInMetters:Number = 0.02;
+		private static const HAND_SPEED_LIMIT:int = 25;
 		
 		private var frameCounter:int = 0;
 		public  var percent:Number = 0;	
-		private var startZ:Number = Number.MIN_VALUE;
-		private var lastZ:Number  = -100;
+		private var startZ:Number  = Number.MIN_VALUE;
+		private var lastZ:Number   = -100;
 		private var _isAllowed:Boolean = true;
 		private var part:int = 1;
 		private var _pushButton:InteractiveButton;				
 		
 		public var blockUpdate:Boolean = false;	
+		
+		private static var _instance:PushDetector = new PushDetector();			
 		
 		public function get isAllowed():Boolean
 		{
@@ -54,9 +56,12 @@ package app.services.interactive.gestureDetector
 		
 		public function getCenter():Point
 		{
-			if (!_pushButton)	return null;	
+			if (!_pushButton)	
+				return null;	
+				
 			var centerX:Number = _pushButton.localToGlobal(new Point(0, 0)).x + _pushButton.width * 0.5;
 			var centerY:Number = _pushButton.localToGlobal(new Point(0, 0)).y + _pushButton.height * 0.5;
+			
 			return new Point(centerX,centerY);			
 		}
 		
@@ -74,15 +79,33 @@ package app.services.interactive.gestureDetector
 		
 		private function resetValues():void
 		{
-			lastZ = startZ = Number.MIN_VALUE;
+			lastZ = startZ = Number.MAX_VALUE;
 			frameCounter  = 1;
 			percent = 0;
+			state = BEGIN;
 			dispatchEvent(new GestureEvent(GestureEvent.PUSH, false, false, 0));
+		}	
+		
+		private function resetData():void 
+		{
+			state = BEGIN;
+			startZ = Number.MAX_VALUE;
+			frameCounter = 0;
+			percent = 0;
+			part = 1;
+			blockUpdate = false;										
+			dispatchEvent(new GestureEvent(GestureEvent.PUSH, false, false, 200));	
 		}		
+		
+		private static const BEGIN:int = 1;
+		private static const CONTINUE:int = 2;
+		private static const FINISH:int = 3;
+		private var state:int;
 		
 		public function update(x:Number, y:Number, z:Number, stage:Stage):void		
 		{
-			if (!AppSettings.CONTROLL_BY_KINECT) return;				
+			if (!AppSettings.CONTROLL_BY_KINECT) 
+				return;				
 			
 			if ( !_isAllowed ) 
 			{
@@ -100,6 +123,7 @@ package app.services.interactive.gestureDetector
 			
 			if (ibutton == null) 			
 			{
+				resetData();
 				stopInteract();
 				return;
 			}
@@ -107,10 +131,58 @@ package app.services.interactive.gestureDetector
 			if (ibutton != _pushButton) 
 			{
 				resetData();
-				_pushButton = ibutton;
+				_pushButton = ibutton;				
+			}		
+			//
+			if (z <= startZ)	
+			{
+				//trace("state:::::::::::::::::::::::  ", state);
+				switch (state) 
+				{
+					case BEGIN:
+						startZ = z;
+						state = CONTINUE;
+						//trace("-----------------BEGIN--------------------- ");
+					break;
+					
+					case CONTINUE:
+						var diff:Number = startZ - z - minDiffInMetters;
+						
+						//trace("diff:::::::::::::::::::::::  ", diff);
+						
+						if (diff >= maxDiffInMetters)				
+						{
+							part = 2;
+							percent = 100;					
+							dispatchEvent(new GestureEvent(GestureEvent.PUSH, false, false, percent));		
+							state = FINISH;			
+						}
+						else if (diff > 0)
+						{
+							percent = 100 * diff / (maxDiffInMetters);							
+							dispatchEvent(new GestureEvent(GestureEvent.PUSH, false, false, percent));
+						}
+					break;
+					
+					case FINISH:
+						percent = 100 + 100;// * (startZ - z) / z;
+						dispatchEvent(new GestureEvent(GestureEvent.PUSH, false, false, percent));					
+						_isAllowed = false;							
+						resetData();
+						TweenLite.killDelayedCallsTo(pushOK);
+						TweenLite.delayedCall(0.2, pushOK);				
+					break;
+				}				
 			}
+			else			
+				resetData();			
 			
-			var diff:Number = startZ - z - minDiffInMetters;					
+			
+			/*prevZ = z;
+			
+			
+			
+			
 			
 			if (z > startZ && part == 1)			
 			{
@@ -128,12 +200,14 @@ package app.services.interactive.gestureDetector
 				}
 				else if (diff <= 0)
 				{
-					//resetData();
+					lastZ = startZ = z + minDiffInMetters;//  + 0.01;
+					resetData();		
 					return;
 				}	
 				else
 				{				
-					percent = 100 * diff / (maxDiffInMetters );					
+					percent = 100 * diff / (maxDiffInMetters);	
+					trace("percent:::::::::::::::::::::::  ", percent);
 					dispatchEvent(new GestureEvent(GestureEvent.PUSH, false, false, percent));
 				}
 				
@@ -154,7 +228,7 @@ package app.services.interactive.gestureDetector
 					TweenLite.delayedCall(0.5, pushOK);
 					trace("-------------------------------PUSH OK----------------------------");
 				}
-			}
+			}*/
 		}
 		
 		private function pushOK():void 
@@ -165,8 +239,9 @@ package app.services.interactive.gestureDetector
 			
 			if (_pushButton) 
 			{
-				var push:InteractiveEvent = new InteractiveEvent(InteractiveEvent.HAND_PUSH, false, false );
+				var push:InteractiveEvent = new InteractiveEvent(InteractiveEvent.HAND_PUSH, false, false);
 				_pushButton.dispatchEvent(push);	
+				resetValues();	
 			}				
 		}
 		
@@ -182,14 +257,7 @@ package app.services.interactive.gestureDetector
 			return null;
 		}
 		
-		private function resetData():void 
-		{
-			frameCounter = 0;
-			percent = 0;
-			part = 1;
-			blockUpdate = false;										
-			dispatchEvent(new GestureEvent(GestureEvent.PUSH, false, false, 200));	
-		}
+		
 		
 		public function checkPUSH(x:Number, y:Number, z:Number, stage:Stage):void		
 		{
@@ -200,9 +268,7 @@ package app.services.interactive.gestureDetector
 				var push:InteractiveEvent = new InteractiveEvent(InteractiveEvent.HAND_PUSH, true, false );
 				ib.dispatchEvent(push);				
 			}
-		}
-		
-		private static var _instance:PushDetector = new PushDetector();	
+		}	
 		
 		public function PushDetector() 
 		{

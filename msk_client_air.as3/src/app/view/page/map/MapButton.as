@@ -45,22 +45,22 @@ package app.view.page.map
 			circleMC.graphics.drawCircle(0, ButtonBlock.HEIGHT * 0.5, 5);
 			addChild(circleMC);
 		}
+		
 		public function setColor(_color:uint):void
 		{
 			this._color = _color;
 			Tool.changecolor(fon, _color);
 			fon.alpha = 0;
 		}
+		
 		public function over():void
 		{
-			fon.alpha = 1;
-			
+			fon.alpha = 1;			
 		}
+		
 		public function out():void
 		{
 			fon.alpha = 0;
-		}
-	
+		}	
 	}
-
 }

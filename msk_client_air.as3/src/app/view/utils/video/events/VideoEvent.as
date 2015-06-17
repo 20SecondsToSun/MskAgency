@@ -1,6 +1,5 @@
 ﻿package app.view.utils.video.events
-{
-	
+{	
 	// IMPORTS
 	import flash.events.Event;
 	

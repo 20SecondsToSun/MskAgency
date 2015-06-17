@@ -8,19 +8,19 @@ package app.view.baseview
 	import flash.utils.Timer;
 	
 	public class MainScreenView extends BaseView
-	{		
-		protected var startRotatorTimer:Timer = new Timer(4000, 1);
-		public var isAutoAnimation:Boolean =  false;
-		public var isAllowAnimation:Boolean = true;
-		
+	{	
 		protected var waitTimeToAnimt:int = 4;
+		protected var startRotatorTimer:Timer = new Timer(4000, 1);
 		
+		public var isAutoAnimation:Boolean =  false;
+		public var isAllowAnimation:Boolean = true;		
 		public var config:ScreenShots;
 		
 		public function setScreen():void
 		{
 			
 		}
+		
 		public function waitToAnim():void
 		{
 			if (isAllowAnimation && !isAutoAnimation) 
@@ -46,9 +46,7 @@ package app.view.baseview
 		{			
 			startRotatorTimer.addEventListener(TimerEvent.TIMER_COMPLETE, completeTimer);
 			startRotatorTimer.reset();
-			startRotatorTimer.start();		
-			
-			//isAllowAnimation = true;
+			startRotatorTimer.start();	
 		}
 		
 		public function kill():void
@@ -63,25 +61,24 @@ package app.view.baseview
 		}
 		
 		public function startRotator():void 
-		{	
-			//trace("activeView.isAllowAnimation ", isAllowAnimation );
-		
+		{				
 			if (!isAllowAnimation) return;// = true;
 			if (isAutoAnimation) return;				
 			startRotatorTimer.reset();
-			startRotatorTimer.start();
-			
+			startRotatorTimer.start();			
 		}
 		
 		public function stopRotator():void 
 		{
 			isAllowAnimation = false;
-			if (!isAutoAnimation) return;
-			//trace("STOP ROTATOR");
-			startRotatorTimer.stop();
-			stopAutoAnimation();
 			
+			if (isAutoAnimation)
+			{
+				startRotatorTimer.stop();
+				stopAutoAnimation();
+			}			
 		}
+		
 		override public function hideView():void
 		{			
 			super.hideView();			

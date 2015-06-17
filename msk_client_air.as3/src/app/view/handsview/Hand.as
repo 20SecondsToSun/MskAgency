@@ -1,7 +1,6 @@
 package app.view.handsview
 {
 	import app.assets.Assets;
-	import app.contoller.bootstraps.BootstrapClasses;
 	import app.services.interactive.gestureDetector.GestureEvent;
 	import app.view.utils.DrawingShapes;
 	import app.view.utils.Tool;
@@ -140,13 +139,13 @@ package app.view.handsview
 			progressClip.graphics.lineStyle(5, 0xb4244c, 1, false, "normal", CapsStyle.NONE);
 			point = DrawingShapes.drawArc(progressClip.graphics,145, 75, 70, endDegree, 0, 70);
 			
-			if (endDegree == 360)		
+			if (endDegree >= 360)		
 			{			
 				dispatchEvent(new GestureEvent(fingerType));
 				fingerShowFinished();
 				progressClip.graphics.clear();
 			}
-			fingerPercent++;
+			fingerPercent += 2;
 		}
 		
 		private function fingerShowFinished():void 

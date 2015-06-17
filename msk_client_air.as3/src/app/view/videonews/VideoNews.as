@@ -30,6 +30,8 @@ package app.view.videonews
 		public static const WIDTH:int = 410;
 		public static const HEIGHT:int = 500;		
 		
+		public var slider:VideoSlider;
+		
 		private var videoNewsGraphicList:Vector.<OneVideoNewGraphic>;
 		private var matList:Vector.<Material>;
 		
@@ -38,9 +40,7 @@ package app.view.videonews
 		private var splash:Shape;
 		private var preview:Sprite;
 		private var isInitPosition:Boolean = true;
-		private var videoAnimator:VideoAnimator;
-		
-		public var slider:VideoSlider;
+		private var videoAnimator:VideoAnimator;		
 		
 		public function VideoNews()
 		{

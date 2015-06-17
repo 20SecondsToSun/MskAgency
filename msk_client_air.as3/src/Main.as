@@ -22,7 +22,7 @@ package
 		
 		public function Main():void 
 		{		
-			stage.scaleMode 	 = StageScaleMode.NO_SCALE;
+			stage.scaleMode 	 = StageScaleMode.EXACT_FIT;
 			stage.align 	  	 = StageAlign.TOP_LEFT;
 			
 			stage.stageWidth 	 = AppSettings.WIDTH;

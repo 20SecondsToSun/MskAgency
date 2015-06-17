@@ -43,8 +43,7 @@ package app.view.page
 		private function reloadData(e:DataLoadServiceEvent):void 
 		{			
 			dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_GEO_DATA));
-		}
-		
+		}		
 		
 		private function refreshSorted(e:FilterEvent):void 
 		{			

@@ -1,9 +1,10 @@
-﻿package app.view.utils.video.events {
-	
+﻿package app.view.utils.video.events
+{	
 	// IMPORTS
 	import flash.events.Event;
 	
-	public class CustomEvent extends Event {
+	public class CustomEvent extends Event
+	{
 		// CUSTOM EVENTS 
 		public static const XML_LOADED:String = "xmlLoaded";				// xml loaded
 		public static const IMAGE_LOADED:String = "imageLoaded";			// image loaded
@@ -23,14 +24,18 @@
 		public static const ENABLE_UI:String = "enableUi";
 		public static const GALLERY:String = "GALLERY";
 		
-		
-		public function CustomEvent (type:String, bubbles:Boolean = false, cancelable:Boolean = false) {
+		public function CustomEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false)
+		{
 			super(type, bubbles, cancelable);
 		}
-		public override function clone() : Event{
+		
+		public override function clone():Event
+		{
 			return new CustomEvent(type, bubbles, cancelable);
 		}
-		public override function toString():String {
+		
+		public override function toString():String
+		{
 			return formatToString("CustomEvent", "type", "bubbles", "cancelable", "eventPhase");
 		}
 	}

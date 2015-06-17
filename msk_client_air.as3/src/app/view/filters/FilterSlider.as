@@ -141,8 +141,7 @@ package app.view.filters
 			
 			initListeners();
 			
-			currentID = activeID;
-		
+			currentID = activeID;		
 		}
 		
 		public function initIncrease(startValue:int, num:int, mode:String = "day", fonSize1:Number = 120, fonSize2:Number = 231):void
@@ -270,10 +269,8 @@ package app.view.filters
 			
 			for (var i:int = 0; i < arr.length; i++)
 			{
-				if (activeID == i)
-				{
-					return _width;
-				}
+				if (activeID == i)				
+					return _width;			
 				
 				_width += (arr[i].width + SHIFT_Y);
 				

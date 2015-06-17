@@ -13,5 +13,4 @@ package app.model.materials
 		public var title:String;
 		public var id:Number;
 	}
-
 }

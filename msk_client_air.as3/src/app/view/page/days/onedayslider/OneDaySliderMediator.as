@@ -15,10 +15,10 @@ package app.view.page.days.onedayslider
 			super.onRegister();
 			addViewListener(AnimationEvent.STRETCH, stretchPercent, AnimationEvent, true);		
 		}
+		
 		private function stretchPercent(e:AnimationEvent):void
 		{
 			view.stretch(e.percent);
 		}	
 	}
-
 }

@@ -2,6 +2,7 @@ package app.view.page.day.onehourslider
 {
 	import app.view.baseview.slider.SliderMediator;
 	import app.view.baseview.slider.Slider;
+	
 	public class OneHourSliderMediator extends SliderMediator
 	{
 		[Inject]
@@ -13,5 +14,4 @@ package app.view.page.day.onehourslider
 			super.onRegister();
 		}	
 	}
-
 }

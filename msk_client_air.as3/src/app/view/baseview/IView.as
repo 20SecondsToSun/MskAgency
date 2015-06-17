@@ -8,6 +8,5 @@ package app.view.baseview
 	public interface IView 
 	{
 		function mainViewStartAnimation():void;
-	}
-	
+	}	
 }

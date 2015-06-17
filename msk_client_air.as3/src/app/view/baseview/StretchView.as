@@ -1,27 +1,27 @@
-package app.view.BaseView 
+package app.view.baseview
 {
 	import stend.view.InteractiveObject.InteractiveStretch;
 	import stend.service.gestureDetector.GestureEvent;
+	
 	/**
 	 * ...
 	 * @author metalcorehero
-	 */	
-	public class StretchView extends InteractiveStretch  implements IView
+	 */
+	public class StretchView extends InteractiveStretch implements IView
 	{
-		
-		public function StretchView() 
+		public function StretchView()
 		{
 			addEventListener(GestureEvent.STRETCH_OUT, stretchPercentHandler);
 		}
-		public function mainViewStartAnimation():void 
+		
+		public function mainViewStartAnimation():void
 		{
-			
-		}
-		public function stretchPercentHandler(e:GestureEvent):void 
-		{
-			
+		
 		}
 		
+		public function stretchPercentHandler(e:GestureEvent):void
+		{
+		
+		}
 	}
-
 }

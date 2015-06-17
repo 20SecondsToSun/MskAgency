@@ -106,7 +106,7 @@ package app.services.auth
 		
 		private function on_error_handler(e:IOErrorEvent):void
 		{
-			if (isBadRequest == false)
+			if (!isBadRequest)
 			{
 				dispatch(new ServerErrorEvent(ServerErrorEvent.REQUEST_FAILED));
 				dispatch(new InteractiveServiceEvent(InteractiveServiceEvent.STOP_INTERACTION));

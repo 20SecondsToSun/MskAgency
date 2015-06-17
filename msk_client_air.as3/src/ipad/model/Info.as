@@ -6,15 +6,14 @@ package ipad.model
 	 * ...
 	 * @author metalcorehero
 	 */
-	public class Info  implements IInfo
-	{		
-		protected var _primaryScreen:String =  "CUSTOM_SCREEN";
+	public class Info implements IInfo
+	{
+		protected var _primaryScreen:String = "CUSTOM_SCREEN";
 		protected var _customScreenRubric:Object;
 		protected var _isKinectUser:Boolean = false;
 		protected var _isHandActive:Boolean = false;
-		protected var _playState:Boolean  = true;
-		protected var _volume:Number  = 0.8;
-		
+		protected var _playState:Boolean = true;
+		protected var _volume:Number = 0.8;
 		
 		public function get volume():Number
 		{
@@ -24,7 +23,7 @@ package ipad.model
 		public function set volume(value:Number):void
 		{
 			_volume = value;
-		}	
+		}
 		
 		public function get primaryScreen():String
 		{
@@ -34,7 +33,7 @@ package ipad.model
 		public function set primaryScreen(value:String):void
 		{
 			_primaryScreen = value;
-		}		
+		}
 		
 		public function get customScreenRubric():Object
 		{

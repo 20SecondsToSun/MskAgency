@@ -178,7 +178,6 @@ internal class WeatherGr extends Sprite
 	
 	public function WeatherGr():void
 	{
-		
 		weatherArray["4"] = {text: "Дождь", img: "wrain"};
 		weatherArray["5"] = {text: "Ливень", img: "wshower"};
 		weatherArray["6"] = {text: "Снег", img: "wsnow"};
@@ -186,7 +185,6 @@ internal class WeatherGr extends Sprite
 		weatherArray["8"] = {text: "Гроза", img: "wstorm"};
 		weatherArray["9"] = {text: "Нет данных", img: ""};
 		weatherArray["10"] = {text: "Ясно", img: "wclear"};
-	
 	}
 	
 	public function financial(inf:Informer):void
@@ -251,7 +249,7 @@ internal class WeatherGr extends Sprite
 		addChild(img2);
 		
 		img2.x = txtW2.x + txtW2.width + 10;
-		img2.y = 0.5 * (surf.height - img2.height);	
+		img2.y = 0.5 * (surf.height - img2.height);
 	}
 	
 	public function road(inf:Informer):void
@@ -305,7 +303,7 @@ internal class WeatherGr extends Sprite
 		
 		txtW2.x = img.x + img.width + 40;
 		txtW2.y = 0.5 * (surf.height - txtW2.height);
-		addChild(txtW2);	
+		addChild(txtW2);
 	}
 	
 	public function weather(w:Weather):void
@@ -355,6 +353,6 @@ internal class WeatherGr extends Sprite
 			txtW2.x = img.x + img.width + 40;
 			txtW2.y = 0.5 * (surf.height - txtW2.height);
 			addChild(txtW2);
-		}	
+		}
 	}
 }

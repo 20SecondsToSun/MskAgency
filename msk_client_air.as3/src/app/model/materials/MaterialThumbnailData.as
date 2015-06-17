@@ -14,5 +14,4 @@ package app.model.materials
 		public var bitmap:Bitmap;
 		public var date:Date;
 	}
-
 }

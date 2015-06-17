@@ -68,7 +68,7 @@ package app.view.page.days.daysslider
 			limit--;
 			
 			if (limit < 0)
-				dispatchEvent(startInteractEvent);		
+				dispatchEvent(startInteractEvent);
 		}
 		
 		public function filterData(allNewsList:Vector.<Vector.<Material>>, isClearOld:Boolean = false):void
@@ -111,21 +111,15 @@ package app.view.page.days.daysslider
 				TweenLite.to(daySlider, 0.6, {delay: 0.2 + i * 0.2, x: 0, ease: Circ.easeOut, onComplete: daySlider.startInteraction});
 			}
 			
-			if (sliders.length < DAYS_BLOCK - 1)			
-			{
-				//trace("LOAD MORE!!!!!!!!");
+			if (sliders.length < DAYS_BLOCK - 1)
 				dispatchEvent(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_DAYS_DATA));
-			}
 			else
 			{
 				if (allNewsList.length - startIndex < 3)
-				{
 					animatetoFinishY();
-				}
 				
 				dispatchEvent(startInteractEvent);
 			}
-		
 		}
 		
 		override protected function loadNews(direction:String):Number
@@ -142,40 +136,12 @@ package app.view.page.days.daysslider
 			dispatchEvent(stopInteractEvent);
 			dispatchEvent(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_DAYS_DATA));
 			
-			return -height + OneDaySlider.HEIGHT;		
+			return -height + OneDaySlider.HEIGHT;
 		}
-		
-		/*public function startShowStretchIn():void
-		   {
-		   var totalAnimate:int = sliders.length < MIN_ROW_TO_INTERACT ? sliders.length : MIN_ROW_TO_INTERACT;
-		   for (var i:int = 0; i < totalAnimate; i++)
-		   {
-		   sliders[i].x = 0;
-		   sliders[i].alpha = 0;
-		   TweenLite.to(sliders[i], 0.8, {delay: 0.2 * i, alpha: 1, ease: Expo.easeIn});
-		   }
-		   }
-		
-		   public function startShowFlip():void
-		   {
-		   var totalAnimate:int = sliders.length < MIN_ROW_TO_INTERACT ? sliders.length : MIN_ROW_TO_INTERACT;
-		   for (var i:int = 0; i < totalAnimate; i++)
-		   TweenLite.to(sliders[i], 0.6, {delay: 0.2 * i, x: 0, ease: Circ.easeOut});
-		 }*/
 		
 		public function animateOut(id:int):void
 		{
-		/*sliderContainer.setChildIndex(sliders[id], sliderContainer.numChildren - 1);
-		   var _scale:Number = 1.5;
-		   TweenLite.to(sliders[id], 0.8, { scaleX:_scale, scaleY:_scale, y: sliders[id].y + (1 - _scale) * sliders[id].height * 0.5 + 400, x: -AppSettings.WIDTH  * (_scale-1) * 0.5 } );
 		
-		   var totalAnimate:int = sliders.length < MIN_ROW_TO_INTERACT? sliders.length:MIN_ROW_TO_INTERACT;
-		   for ( var i:int = 0; i < totalAnimate; i++)
-		   {
-		   if (i == id) continue;
-		   TweenLite.to(sliders[i], 0.6, {alpha:0, ease:Circ.easeOut } );
-		 }*/
 		}
 	}
-
 }

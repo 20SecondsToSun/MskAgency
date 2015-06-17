@@ -15,6 +15,8 @@ package app.view.utils
 	 */
 	public class TextUtil
 	{
+		public static const month:Array = ["ЯНВАРЯ", "ФЕВРАЛЯ", "МАРТА", "АПРЕЛЯ", "МАЯ", "ИЮНЯ", "ИЮЛЯ", "АВГУСТА", "СЕНТЯБРЯ", "ОКТЯБРЯ", "НОЯБРЯ", "ДЕКАБРЯ"];
+		public static var currentDate:Date;
 		
 		public static function truncate(textfield:TextField, maxLines:int, format:TextFormat = null):void
 		{
@@ -41,7 +43,6 @@ package app.view.utils
 			
 			if (format)
 				textfield.setTextFormat(format);
-		
 		}
 		
 		public static function createTextField(x:Number, y:Number):TextField
@@ -72,27 +73,25 @@ package app.view.utils
 			var year:String = date.getFullYear().toString();
 			
 			return day + "." + month + "." + year;
-		
 		}
 		
 		public static function getFormatDateNext(date:String):String
 		{
 			var dateArr:Array = date.split(".");
-			var next:Date = new Date(dateArr[2],dateArr[1], dateArr[0]);
+			var next:Date = new Date(dateArr[2], dateArr[1], dateArr[0]);
 			next.date += 1;
-			return  getFormatDatePubl(next);
+			return getFormatDatePubl(next);
 		
 		}
+		
 		public static function isEqualDayDate(date1:Date, date2:Date):Boolean
 		{
 			if (date1.fullYear == date2.fullYear && date1.month == date2.month && date1.day == date2.day)
 			{
 				return true;
-			}			
-			return false;		
-		}		
-		
-		
+			}
+			return false;
+		}
 		
 		public static function getFormatDay(date:Date):String
 		{
@@ -104,7 +103,7 @@ package app.view.utils
 		
 		public static function getFormatDay1(date:Date):String
 		{
-			var day:String = date.getDate().toString();			
+			var day:String = date.getDate().toString();
 			return day;
 		}
 		
@@ -184,44 +183,30 @@ package app.view.utils
 			}
 			return hours + ":" + minutes;
 		}
-		public static const month:Array = ["ЯНВАРЯ", "ФЕВРАЛЯ", "МАРТА", "АПРЕЛЯ", "МАЯ", "ИЮНЯ", "ИЮЛЯ", "АВГУСТА", "СЕНТЯБРЯ", "ОКТЯБРЯ", "НОЯБРЯ", "ДЕКАБРЯ"];
 		
-		
-		
-		
-		
-		public static var currentDate:Date;
 		public static function formatDate(date:Date):String
-		{				
+		{
 			return date.getDate() + " " + month[date.getMonth()];
 		}
 		
 		public static function formatDate1(date:Date):String
-		{				
+		{
 			date.getMilliseconds()
 			var tempYesterday:Date = new Date();
-			tempYesterday.setMilliseconds(date.getMilliseconds());			
+			tempYesterday.setMilliseconds(date.getMilliseconds());
 			tempYesterday.date -= 1;
 			
-			if (currentDate.getFullYear() == date.getFullYear() &&
-				currentDate.getMonth() == date.getMonth() &&
-				currentDate.getDate() == date.getDate()
-			)					
-			return "";
+			if (currentDate.getFullYear() == date.getFullYear() && currentDate.getMonth() == date.getMonth() && currentDate.getDate() == date.getDate())
+				return "";
 			
-			else if (tempYesterday.getFullYear() == date.getFullYear() &&
-				tempYesterday.getMonth() == date.getMonth() &&
-				tempYesterday.getDate() == date.getDate()
-			)		
-				return "ВЧЕРА";	
-										
+			else if (tempYesterday.getFullYear() == date.getFullYear() && tempYesterday.getMonth() == date.getMonth() && tempYesterday.getDate() == date.getDate())
+				return "ВЧЕРА";
+			
 			return date.getDate() + " " + month[date.getMonth()];
-		}		
-		
+		}
 		
 		public static function calculateTimeFormat(_sec:Number):String
 		{
-			//trace("::::::::::::::  ",Math.round(46 / 60));
 			var min:String = (Math.floor(_sec / 60)).toString();
 			min = min.length <= 1 ? "0" + min : min;
 			
@@ -256,7 +241,6 @@ package app.view.utils
 			}
 			
 			return bmpText;
-		
 		}
 		
 		public static function convertStringToDate(dateStr:String):Date
@@ -269,7 +253,5 @@ package app.view.utils
 		{
 			return date.getDate() + "." + (date.getMonth() + 1).toString() + "." + date.getFullYear();
 		}
-	
 	}
-
 }

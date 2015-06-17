@@ -25,8 +25,7 @@ package app.view.map
 		public var model:IGeoModel;
 		
 		[Inject]
-		public var allmodel:IAllNewsModel;
-		
+		public var allmodel:IAllNewsModel;		
 		
 		override public function onRegister():void
 		{

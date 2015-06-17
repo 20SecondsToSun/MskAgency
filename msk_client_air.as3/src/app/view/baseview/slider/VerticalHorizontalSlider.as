@@ -18,6 +18,12 @@ package app.view.baseview.slider
 	 */
 	public class VerticalHorizontalSlider extends InteractiveObject
 	{
+		public static const startInteractEvent:SliderEvent = new SliderEvent(SliderEvent.START_INTERACTION);
+		public static const stopInteractEvent:SliderEvent = new SliderEvent(SliderEvent.STOP_INTERACTION);		
+		
+		public var dynamicLoad:Boolean = false;		
+		public var TRY_HEIGHT:Number = -1;
+		
 		protected var mouseHold:Boolean = false;
 		protected var lastY:Number = 0;
 		protected var maxBorder:int = AppSettings.HEIGHT;
@@ -35,30 +41,23 @@ package app.view.baseview.slider
 		protected static const MIN_ROW_TO_INTERACT:int = 4;
 		
 		protected var time:Number = 0;
-		protected var initY:Number = 0;
+		protected var initY:Number = 0;		
 		
-		public static const startInteractEvent:SliderEvent = new SliderEvent(SliderEvent.START_INTERACTION);
-		public static const stopInteractEvent:SliderEvent = new SliderEvent(SliderEvent.STOP_INTERACTION);
-		
-		
-		public var dynamicLoad:Boolean = false;
-		
-		public var TRY_HEIGHT:Number = -1;
+		private var isUpdated:Boolean = false;
 		
 		public function VerticalHorizontalSlider() 
 		{
-			//sliders = new Vector.<SLIDER_CLASS>;
-			
 			sliderContainer = new Sprite();			
-			addChild(sliderContainer);	
-			
+			addChild(sliderContainer);				
 		}
+		
 		public function addElement(_do:DisplayObject, isSplash:Boolean = false):void
 		{
 			sliderContainer.addChild(_do);
 			if (!isSplash) sliders.push(_do);
 			TRY_HEIGHT += _do.height;
 		}
+		
 		public function removeElement(_do:DisplayObject):void
 		{
 			sliderContainer.removeChild(_do);
@@ -68,9 +67,8 @@ package app.view.baseview.slider
 		public function startInteraction():void
 		{
 			dispatchEvent(startInteractEvent);
-			
-			//setTimerSlideShow();
 		}
+		
 		public function startDragSlider(e:InteractiveEvent):void
 		{			
 			startXY.X = e.stageX;
@@ -83,12 +81,13 @@ package app.view.baseview.slider
 			isUpdated = false;			
 			TweenLite.delayedCall(0.1, oneFrameForHandUpdate);		
 		}
-		private var isUpdated:Boolean = false;
+		
+		
 		private function oneFrameForHandUpdate():void 
 		{
-			isUpdated = true;
-			
+			isUpdated = true;			
 		}
+		
 		public function updateDragSlider(e:InteractiveEvent):void
 		{			
 			if (direction == "HORIZONTAL" || !isUpdated) return;
@@ -97,7 +96,6 @@ package app.view.baseview.slider
 			
 			if (direction == "NONE")
 			{
-				//trace(":::::::::::::::::::::::::::",  Math.abs(startXY.Y- e.stageY),	Math.abs(startXY.X- e.stageX));
 				if ( Math.abs(startXY.Y- e.stageY)<	Math.abs(startXY.X- e.stageX))
 				{
 					direction = "HORIZONTAL" ;
@@ -128,6 +126,7 @@ package app.view.baseview.slider
 			
 			var finalY:Number;
 			var time:Number;
+			
 			if (y + mLastScrollDist + initY> margin )
 			{
 				if (dynamicLoad)
@@ -231,21 +230,17 @@ package app.view.baseview.slider
 			TweenLite.killTweensOf(this);
 			TweenLite.to(this, time, {y: maxBorder -  _height() -initY, ease: sliderEasing, onComplete: finishDraggingAnimation});
 		}
+		
 		protected function finishDraggingAnimation():void
 		{
-			//dispatchEvent(new AnimationEvent(AnimationEvent.STOP));
-			//dispatchEvent(startInteractEvent);		
-			//addEventListener(InteractiveEvent.HAND_DOWN, startDragSlider);
-			
-			//setTimerSlideShow();
+
 		}
+		
 		protected function correctTime(time:Number):Number
 		{
 			if (time > 1) time = 1;
 			if (time < 0.7) time = 0.7;
 			return time;
-		}
-		
+		}		
 	}
-
 }

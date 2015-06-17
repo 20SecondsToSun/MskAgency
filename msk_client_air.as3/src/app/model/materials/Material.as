@@ -26,15 +26,15 @@ package app.model.materials
 		public var theme:String;
 		public var point:GeoPoint;
 		
+		private var standartScaleThumb:int = 232;
+		
 		public function getObject():Object
-		{			
-			var mat:Object = new Object();			
+		{
+			var mat:Object = new Object();
 			mat.id = id;
 			mat.title = title;
 			return mat;
 		}
-		
-		private var standartScaleThumb:int = 232;
 		
 		public function getFormatDatePubl():String
 		{
@@ -59,21 +59,22 @@ package app.model.materials
 				
 				if (this.type == "photo")
 				{
-					file.pathToSource = "http://" + file.host + ".mskagency.ru/c/" + file.id + ".jpg";	
-					file.pathToSource1 = "http://" + file.host + ".mskagency.ru/c/" +file.thumbnail + ".x";
+					file.pathToSource = "http://" + file.host + ".mskagency.ru/c/" + file.id + ".jpg";
+					file.pathToSource1 = "http://" + file.host + ".mskagency.ru/c/" + file.thumbnail + ".x";
 					file.pathToSource2 = "p.jpg";
-					file.thumbPath = file.pathToSource1 + standartScaleThumb +file.pathToSource2;	
+					file.thumbPath = file.pathToSource1 + standartScaleThumb + file.pathToSource2;
 					
 				}
 				else if (this.type == "video" || this.type == "broadcast")
 				{
 					file.pathToSource = "http://" + file.host + ".mskagency.ru/c/" + file.id + ".1.mp4";
-					file.thumbPath= "http://" + file.host + ".mskagency.ru/c/" + file.id + "." + file.thumbnail + ".jpg";
+					file.thumbPath = "http://" + file.host + ".mskagency.ru/c/" + file.id + "." + file.thumbnail + ".jpg";
 				}
 				
 				files.push(file);
 			}
-		}		
+		}
+		
 		public function pushTranslations(_translations:Object):void
 		{
 			if (_translations != null)
@@ -97,9 +98,8 @@ package app.model.materials
 				broadcast.user_id = _translations.user_id;
 				broadcast.subscription = _translations.subscription;
 				
-				trace("BROADCAST", broadcast.channel_src, broadcast.channel_name, broadcast.media_path );
+				trace("BROADCAST", broadcast.channel_src, broadcast.channel_name, broadcast.media_path);
 				
-					
 				translations.push(broadcast);
 			}
 		}
@@ -110,7 +110,6 @@ package app.model.materials
 			
 			if (_point != null)
 			{
-				//trace("========================");
 				point.icon = _point.icon;
 				
 				point.type = _point.type;
@@ -121,12 +120,10 @@ package app.model.materials
 				
 				point.address = _point.address;
 				point.long = _point.long;
-				point.lat = _point.lat  - 0.1792;// смещение для тайлов яндекса;*/				
+				point.lat = _point.lat - 0.1792;// смещение для тайлов яндекса;*/				
 			}
 			else
-			{
 				point = null;
-			}
 		}
 		
 		public function pushRubric(_rubric:Object):void
@@ -136,12 +133,8 @@ package app.model.materials
 				var rubric:MaterialRubric = new MaterialRubric();
 				rubric.id = _rubric.id;
 				rubric.title = _rubric.title;
-				
 				rubrics.push(rubric);
 			}
-		
 		}
 	}
-
 }
-

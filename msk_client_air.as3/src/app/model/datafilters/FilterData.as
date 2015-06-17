@@ -10,8 +10,7 @@ package app.model.datafilters
 		public var _to:String;
 		public var _rubrics:int = NaN;
 		public var _offset:int = 0;
-		public var _limit:int = 100;
-		
+		public var _limit:int = 100;		
 		public var _isFilter:Boolean = false;		
 	
 		public function resetOffsetLimit ():void
@@ -19,16 +18,11 @@ package app.model.datafilters
 			_offset = 0;
 			_limit = 100;
 		}
-		public function FilterData ()
-		{
-			
-		}
 		
 		public  function  resetDates():void
 		{
 			_from = "";
-			_to = "";	
-			
+			_to = "";				
 		}
 		
 		public function setNull():void

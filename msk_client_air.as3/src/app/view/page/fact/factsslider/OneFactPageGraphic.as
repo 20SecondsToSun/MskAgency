@@ -32,6 +32,7 @@ package app.view.page.fact.factsslider
 		private var eventDate:String;
 		private var ownHeight:Boolean;
 		private var live:Sprite;
+		private var initFT:Number;
 		
 		public function OneFactPageGraphic(_fact:Fact, _factTitleColor:uint = 0Xffffff, _eventDate:String = "", _ownHeight:Boolean = false)
 		{
@@ -46,16 +47,13 @@ package app.view.page.fact.factsslider
 				addIsMain();
 			
 			if (fact.live_broadcast != "0")
-				addIsLive();
-			
+				addIsLive();			
 			
 			addFactTime();
-			addFactTitle();
-			
-			addBillet();
-			
-			
+			addFactTitle();			
+			addBillet();			
 		}
+		
 		public function setY():void
 		{
 			this.y = -14;
@@ -64,6 +62,7 @@ package app.view.page.fact.factsslider
 				if (main || live) y = -factTime.y - 14;				
 			}
 		}
+		
 		private function addFactTime():void
 		{
 			factTime = new Sprite();
@@ -139,10 +138,9 @@ package app.view.page.fact.factsslider
 				bmp.x = factTime.width;
 				bmp.y = d2.height - d2Month.height - 3;
 				factTime.addChild(bmp);
-			}
-		
+			}		
 		}
-		private var initFT:Number;
+		
 		private function addFactTitle():void
 		{
 			var textFormat:TextFormat = new TextFormat("TornadoL", 24, factTitleColor);
@@ -152,19 +150,11 @@ package app.view.page.fact.factsslider
 			factTitle.wordWrap = true;
 			factTitle.width = 313;
 			factTitle.text = fact.title;
-			TextUtil.truncate(factTitle, MAX_LINES, textFormat);
-			
-			factTitleBmp = TextUtil.textFieldToBitmap(factTitle);
-			//if (main || live)
-			//{
+			TextUtil.truncate(factTitle, MAX_LINES, textFormat);			
+			factTitleBmp = TextUtil.textFieldToBitmap(factTitle);		
 			initFT = factTitleBmp.y = factTime.y +factTime.height +20;
-			factTitleBmp.x = factTime.x;
-			//}
-			//else			
-		//	factTitleBmp.y = 68;
-			
-			addChild(factTitleBmp);
-		
+			factTitleBmp.x = factTime.x;			
+			addChild(factTitleBmp);		
 		}
 		
 		private function addIsMain():void
@@ -214,5 +204,4 @@ package app.view.page.fact.factsslider
 			TweenLite.to(factTime, 0.4, {colorTransform: {tint: 0X193a2c, tintAmount: 1}});
 		}
 	}
-
 }

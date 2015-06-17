@@ -10,8 +10,7 @@ package app.model.dataphoto
 	public interface IPhotoNewsModel extends IMaterialModel
 	{	
 		function get data():Vector.<Material>;		
-		function set data(value:Vector.<Material>):void;
-		
+		function set data(value:Vector.<Material>):void;		
 		function get isAnimate():Boolean;		
 		function set isAnimate(value:Boolean):void;			
 	}	

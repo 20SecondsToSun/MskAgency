@@ -11,7 +11,8 @@ package app.view.page.days
 	public class DaysNewPageMediator extends PageMediator
 	{
 		[Inject]
-		public var view:DaysNewPage;		
+		public var view:DaysNewPage;
+		
 		[Inject]
 		public var model:IDaysNewsModel;
 		
@@ -21,7 +22,6 @@ package app.view.page.days
 			activeView = view;
 			activeModel = model;
 			super.onRegister();			
-		
 		}
 		
 		override protected function stretchIN(e:ChangeLocationEvent):void

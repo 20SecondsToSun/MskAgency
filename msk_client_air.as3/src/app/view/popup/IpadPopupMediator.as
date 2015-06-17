@@ -17,10 +17,9 @@ package app.view.popup
 		
 		override public function onRegister():void
 		{	
-			addContextListener(IpadEvent.SHOW_MATERIAL, view.show, IpadEvent);			
-			
-			addViewListener(InteractiveEvent.HAND_CHARGED, charged, InteractiveEvent, true);			
-			addContextListener(ChangeLocationEvent.HIDE_IPAD_POPUP, view.hide, ChangeLocationEvent);				
+			addContextListener(IpadEvent.SHOW_MATERIAL, view.show, IpadEvent);	
+			addContextListener(ChangeLocationEvent.HIDE_IPAD_POPUP, view.hide, ChangeLocationEvent);
+			addViewListener(InteractiveEvent.HAND_CHARGED, charged, InteractiveEvent, true);							
 			addViewListener(ChangeLocationEvent.IPAD_POPUP_IS_HIDDEN, dispatch, ChangeLocationEvent);			
 		}	
 		

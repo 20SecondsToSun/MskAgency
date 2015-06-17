@@ -38,8 +38,6 @@ package app.view.allnews
 			
 			addChild(line);
 			setChildIndex(line, 0);
-		}
-	
+		}	
 	}
-
 }

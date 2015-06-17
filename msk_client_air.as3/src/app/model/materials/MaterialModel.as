@@ -1,41 +1,44 @@
-﻿package app.model.materials 
+﻿package app.model.materials
 {
 	import app.contoller.events.ChangeModelOut;
 	import app.model.config.IConfig;
 	import app.model.datafilters.IFilterDataModel;
 	import app.view.utils.TextUtil;
-	//import com.adobe.utils.DictionaryUtil;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	import org.robotlegs.mvcs.Actor;
+	
 	/**
 	 * ...
 	 * @author metalcorehero
 	 */
-	public class MaterialModel extends Actor 
-	{		
+	public class MaterialModel extends Actor
+	{
 		[Inject]
-		public var config:IConfig;	
+		public var config:IConfig;
 		
 		[Inject]
 		public var filterModel:IFilterDataModel;
+		
+		public var rec:Rectangle;
 		
 		protected var _limit:String;
 		protected var _count:String;
 		protected var _offset:String;
 		
-		protected var _newsList:Vector.<Material> = new Vector.<Material>();		
-		protected var _newsListIdDictionary:Dictionary;				
+		protected var _newsList:Vector.<Material> = new Vector.<Material>();
+		protected var _newsListIdDictionary:Dictionary;
 		
 		public function get count():String
 		{
 			return _count;
 		}
-        public function set count(value:String):void
+		
+		public function set count(value:String):void
 		{
 			_count = value;
 		}
-      
+		
 		public function get limit():String
 		{
 			return _limit;
@@ -46,59 +49,59 @@
 			_limit = value;
 		}
 		
-        public function get offset():String
+		public function get offset():String
 		{
 			return _offset;
 		}
 		
-        public function set offset(value:String):void
+		public function set offset(value:String):void
 		{
 			_offset = value;
 		}
 		
-        public function get newsList():Vector.<Material>
+		public function get newsList():Vector.<Material>
 		{
 			return _newsList;
 		}
 		
-        public function set newsList(value:Vector.<Material>):void
+		public function set newsList(value:Vector.<Material>):void
 		{
-			_newsList = value;			
-			createDictionary();				
+			_newsList = value;
+			createDictionary();
 		}
 		
 		public function createDictionary():void
 		{
 			_newsListIdDictionary = new Dictionary();
 			
-			for (var i:int = 0; i < _newsList.length; i++) 			
-				_newsListIdDictionary[_newsList[i].id] = 	_newsList[i];		
+			for (var i:int = 0; i < _newsList.length; i++)
+				_newsListIdDictionary[_newsList[i].id] = _newsList[i];
 		}
 		
-		public function  getMaterialByID(id:Number):Material		
-		{			
-			if (_newsListIdDictionary == null) return null;			
-			if (_newsListIdDictionary[id]) return 	_newsListIdDictionary[id]
+		public function getMaterialByID(id:Number):Material
+		{
+			if (_newsListIdDictionary == null) return null;
+			if (_newsListIdDictionary[id]) return _newsListIdDictionary[id]
 			return null;
 		}
 		
-		public function  removeMaterialByID(id:Number):void		
-		{			
-			if (_newsListIdDictionary == null) return;			
+		public function removeMaterialByID(id:Number):void
+		{
+			if (_newsListIdDictionary == null) return;
 			if (_newsListIdDictionary[id])
 			{
 				delete _newsListIdDictionary[id]
-				//return 	_newsListIdDictionary[id]
+					//return 	_newsListIdDictionary[id]
 			}
-			for (var i:int = 0; i < _newsList.length; i++) 
+			for (var i:int = 0; i < _newsList.length; i++)
 			{
-				if (_newsList[i].id == id)  _newsList.splice(i, 1);
-			}	
+				if (_newsList[i].id == id) _newsList.splice(i, 1);
+			}
 		}
 		
-		public function  setModel(value:ChangeModelOut):void		
+		public function setModel(value:ChangeModelOut):void
 		{
-			
+		
 		}
 		
 		public function allSortByDate(date:Date = null):Vector.<Material>
@@ -110,17 +113,15 @@
 			for (var k:int = 0; k < _newsList.length; k++)
 			{
 				if (isEqualDayDate(_newsList[k].publishedDate, date))
-				{
 					_allSorted.push(_newsList[k]);
-				}
-			}	
+			}
 			return _allSorted;
-		}		
+		}
 		
 		protected function sortBydate():void
 		{
 			var compareFunc:Function = function(obj1:Object, obj2:Object):Number
-			{				
+			{
 				if (obj1.published_at > obj2.published_at)
 					return -1;
 				else if (obj1.published_at == obj2.published_at)
@@ -130,14 +131,16 @@
 			}
 			_newsList.sort(compareFunc);
 		}
+		
 		protected function isEqualDayDate(date1:Date, date2:Date):Boolean
 		{
 			if (date1.fullYear == date2.fullYear && date1.month == date2.month && date1.day == date2.day)
 			{
 				return true;
-			}			
-			return false;		
-		}			
+			}
+			return false;
+		}
+		
 		protected function isEqualeHours(d1:Date, d2:Date):Boolean
 		{
 			if (d1.getFullYear() == d2.getFullYear())
@@ -148,13 +151,9 @@
 			return false;
 		}
 		
-		public var rec:Rectangle;
-		//public var color:uint;
-		
 		public function setChoosenField(value:Object):void
 		{
 			rec = value.rec;
-			//color = value.color;
 		}
 		
 		public function getChoosenField():Object
@@ -162,5 +161,4 @@
 			return {rec: this.rec};
 		}
 	}
-
 }

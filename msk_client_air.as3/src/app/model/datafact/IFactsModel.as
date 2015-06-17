@@ -31,9 +31,7 @@ package app.model.datafact
 		function set data(value:Vector.<Fact>):void;	
 		
 		function get isAnimate():Boolean;		
-		function set isAnimate(value:Boolean):void;	
-		
-		function  setModel(value:ChangeModelOut):void;
+		function set isAnimate(value:Boolean):void;
 		
 		function set loadingDate(value:String):void;
 		function get loadingDate():String;
@@ -57,8 +55,7 @@ package app.model.datafact
 		function set limitLoad(value:int):void;
 		
 		function get direction():String;
-		function set direction(value:String):void;	
-
+		function set direction(value:String):void;
 		
 		function set nextDate(value:String):void;		
 		function get nextDate():String;
@@ -71,13 +68,9 @@ package app.model.datafact
 		
 		function set isInitLoad(value:Boolean):void;
 		function get isInitLoad():Boolean;
-		function  allInit():void;
 		
-		
-		function setOffset():void;
-			
-		
-		
-		
+		function allInit():void;			
+		function setOffset():void;	
+		function setModel(value:ChangeModelOut):void;
 	}	
 }

@@ -22,16 +22,16 @@ package app.view.baseview.onenewpage
 	 */
 	public class BaseLeftPanelSlider extends InteractiveObject
 	{
-		protected var all:*;	
-		protected var newsArray:*;		
+		protected var all:*;
+		protected var newsArray:*;
 		protected var slider:VerticalNewsSlider;
 		
 		public var backToDates:InteractiveChargeButton;
 		protected var isPreview:Boolean = false;
 		protected var isShowFullTime:Boolean = true;
 		protected var textTitle:TextField;
-		protected var textHour:TextField;		
-		protected var textFormat:TextFormat = new TextFormat("TornadoL", 72, 0X7b8193);		
+		protected var textHour:TextField;
+		protected var textFormat:TextFormat = new TextFormat("TornadoL", 72, 0X7b8193);
 		protected var startFocusID:int;
 		protected var fon:Shape;
 		
@@ -40,12 +40,12 @@ package app.view.baseview.onenewpage
 			all = _all;
 			startFocusID = id;
 			
-			fon = Tool.createShape(622, AppSettings.HEIGHT, 0x1a1b1f);		
+			fon = Tool.createShape(622, AppSettings.HEIGHT, 0x1a1b1f);
 			addChild(fon);
 			
 			slider = new VerticalNewsSlider();
 			slider.x = 210;
-			addChild(slider);			
+			addChild(slider);
 			
 			textTitle = TextUtil.createTextField(66, 74);
 			textTitle.multiline = false;
@@ -68,22 +68,22 @@ package app.view.baseview.onenewpage
 			addChild(backToDates);
 			backToDates.x = 57;
 			backToDates.y = AppSettings.HEIGHT - 152;
-			Tool.changecolor(backToDates, 0x02a7df);			
+			Tool.changecolor(backToDates, 0x02a7df);
 			
 			var fonBackBtn:Shape = Tool.createShape(imgFon.width, imgFon.height, 0x1a1b1f);
-			fonBackBtn.alpha = 0;		
+			fonBackBtn.alpha = 0;
 			backToDates.addChild(fonBackBtn);
 			resetSlider();
+		}
 		
-		}		
 		public function refresh(_all:*, id:int):void
 		{
 			all = _all;
 			resetSlider();
-		}	
+		}
 		
 		protected function resetSlider():void
-		{			
+		{
 			if (!all || all.length == 0)
 				return;
 			
@@ -94,13 +94,13 @@ package app.view.baseview.onenewpage
 			for (var i:int = 0; i < all.length; i++)
 			{
 				var hn:Material = new Material();
-				hn = all[i];			
+				hn = all[i];
 				
 				var oneHour:OneNewPreview = new OneNewPreview(hn, i == 0, isPreview, isShowFullTime);
 				oneHour.y = offset;
 				offset += oneHour.height + shift;
 				
-				if (hn.id  == startFocusID)
+				if (hn.id == startFocusID)
 				{
 					oneHour.setActive(startFocusID);
 					addHourTitle(int(all[i].publishedDate.getHours()));
@@ -110,15 +110,13 @@ package app.view.baseview.onenewpage
 				slider.addElement(oneHour);
 			}
 			
-			//addHourTitle(all[0].publishedDate.getHours());
-			
-			slider.mask = createMaskLayer();	
+			slider.mask = createMaskLayer();
 			slider.focusSlider(startFocusID, 82);
 			
 			slider.dragZoneFix();
-		
-			if (all.length > 5)			
-			slider.startInteraction();
+			
+			if (all.length > 5)
+				slider.startInteraction();
 		}
 		
 		protected function addHourTitle(hour:int):void
@@ -130,7 +128,7 @@ package app.view.baseview.onenewpage
 			textFormat.size = 18;
 			textHour.text = TextUtil.hourInRussian(textTitle.text);
 			textHour.setTextFormat(textFormat);
-			textHour.x = .5 * (textTitle.width - textHour.width) + textTitle.x;		
+			textHour.x = .5 * (textTitle.width - textHour.width) + textTitle.x;
 		}
 		
 		protected function createMaskLayer():Sprite
@@ -148,15 +146,12 @@ package app.view.baseview.onenewpage
 		
 		public function overbackToDates():void
 		{
-			TweenMax.to(backToDates, 0.3, {colorTransform: {tint: 0xffffff, tintAmount: 1}});		
+			TweenMax.to(backToDates, 0.3, {colorTransform: {tint: 0xffffff, tintAmount: 1}});
 		}
 		
 		public function outbackToDates():void
 		{
-			TweenMax.to(backToDates, 0.3, {colorTransform: {tint: 0x02a7df, tintAmount: 1}});		
+			TweenMax.to(backToDates, 0.3, {colorTransform: {tint: 0x02a7df, tintAmount: 1}});
 		}
-		
-	
 	}
-
 }

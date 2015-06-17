@@ -19,10 +19,6 @@ package app.view.baseview.onenewpage
 		protected var leftPanel:BaseLeftPanelSlider;
 		protected var newsBody:BaseNewsBody;
 		protected var splash:Shape;
-		public function OnePage()
-		{	
-			
-		}
 		
 		public function refreshData():void
 		{
@@ -37,50 +33,26 @@ package app.view.baseview.onenewpage
 		public function stretch():void
 		{
 		
-		}	
+		}
 		
 		override public function expand():void
-		{		
-			//newsBody = new NewsBody();
+		{
 			newsBody.x = AppSettings.WIDTH;
-			
-			
-			//leftPanel = new LeftPanelSlider();
 			leftPanel.x = -622;
 			
-			TweenLite.delayedCall(1.6,function ():void 
-			{			
+			TweenLite.delayedCall(1.6, function():void
+			{
 				addChild(leftPanel);
 				swapChildren(leftPanel, newsBody);
 				
-				TweenLite.to(leftPanel, 0.4,  { x:0, delay:1 , onComplete:animationInFinished()} );	
+				TweenLite.to(leftPanel, 0.4, {x: 0, delay: 1, onComplete: animationInFinished()});
 			});
-			TweenLite.delayedCall(1.1,function ():void 
+			
+			TweenLite.delayedCall(1.1, function():void
 			{
 				addChild(newsBody);
-				TweenLite.to(newsBody, 0.4,   { x:622  } );	
-			})					
-		}	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
+				TweenLite.to(newsBody, 0.4, {x: 622});
+			})
+		}
 	}
 }

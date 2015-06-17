@@ -2,6 +2,7 @@ package app.services.interactive
 {
 	import app.AppSettings;
 	import app.contoller.events.ChangeLocationEvent;
+	import app.contoller.events.GesturePostEvent;
 	import app.contoller.events.InteractiveEvent;
 	import app.contoller.events.InteractiveRemoteEvent;
 	import app.view.handsview.HandType;
@@ -144,10 +145,15 @@ package app.services.interactive
 			}		
 		}
 		
+		public function gestureDetected(event:GesturePostEvent):void
+		{
+			if (AppSettings.CONTROLL_BY_KINECT)
+				interactiveClient.gestureDetected(event);
+		}
+		
 		private function sendToShowMenu(e:InteractiveRemoteEvent):void
 		{
-			var event:ChangeLocationEvent = new ChangeLocationEvent(ChangeLocationEvent.SHOW_MENU);
-			
+			var event:ChangeLocationEvent = new ChangeLocationEvent(ChangeLocationEvent.SHOW_MENU);			
 			dispatch(event);
 		}	
 	}

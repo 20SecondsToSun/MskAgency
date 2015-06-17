@@ -6,8 +6,7 @@ package app.model.datauser
 	 * @author metalcorehero
 	 */
 	public interface IUser 
-	{
-		
+	{		
 		function get name():String;      
         function set name(value:String):void;
       
@@ -22,17 +21,6 @@ package app.model.datauser
 		
         function get permissions():Vector.<String>;
         function set permissions(value:Vector.<String>):void; 
-		
-		function addUserFilter(name:String, value:String):void;
-		function removeUserFilter(name:String):void;
-		function removeAllUserFilters():void;
-		
-		function addScreenFilter(name:String, value:String):void;
-		function removeScreenFilter(name:String):void;
-		function removeAllScreenFilters():void;
-		
-		function getfilters():Filters;
-		function getRubric():Object;
 		 
 		function set primaryScreen(value:String):void;		
 		function get primaryScreen():String;			
@@ -50,15 +38,20 @@ package app.model.datauser
 		function set stendID(value:String):void;
 		
 		function get idIpad():String;
-		function set idIpad(value:String):void;
-		
+		function set idIpad(value:String):void;		
 		
 		function get ipadTryingToConnect():Boolean;
 		function set ipadTryingToConnect(value:Boolean):void;
 		
+		function addUserFilter(name:String, value:String):void;
+		function removeUserFilter(name:String):void;
+		function removeAllUserFilters():void;
 		
+		function addScreenFilter(name:String, value:String):void;
+		function removeScreenFilter(name:String):void;
+		function removeAllScreenFilters():void;
 		
-		
+		function getfilters():Filters;
+		function getRubric():Object;
 	}
-
 }

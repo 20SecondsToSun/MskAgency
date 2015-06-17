@@ -21,7 +21,25 @@ package app.model.dataall
 		[Inject]
 		public var filters:IFilterDataModel;
 		
-		protected var _activeMaterial:Material;
+		private static const MAX_NEWS_COUNT:int = 20;
+		
+		public var _videoNum:int;
+		public var _photoNum:int;
+		public var _broadcastNum:int;
+		
+		protected var _activeMaterial:Material;	
+		
+		private var _sortedType:String = "all";		
+		private var _allTypeNews:Vector.<Material>;
+		private var _allNewsHourListFilter:Vector.<Vector.<Material>>;
+		private var _allNewsHourListToday:Vector.<Vector.<Material>>;
+		private var _allNewsHourList:Vector.<Vector.<Material>>;
+		
+		private const MAX_ALL_NEWS:int = 1040;
+		private var _isAnimate:Boolean = true;
+		private var _offsetLoad:int = 0;
+		private var _limitLoad:int = 20;
+		private var _sliderLoading:Boolean = false;
 		
 		public function get activeMaterial():Material
 		{
@@ -69,14 +87,10 @@ package app.model.dataall
 			
 			_allNewsHourListFilter = getHourListFilteredMainScreen();
 			
-			//_allNewsHourListFilter = _allNewsHourListFilter.reverse();
 			var len:int =  _allNewsHourListFilter[_allNewsHourListFilter.length - 1].length-1; // pop();//.pop();
 			
-			 var mat:Material = _allNewsHourListFilter[_allNewsHourListFilter.length - 1].pop();
-			 removeMaterialByID(mat.id);
-			//_allNewsHourListFilter
-			
-			//_newsList = _newsList.reverse();
+			var mat:Material = _allNewsHourListFilter[_allNewsHourListFilter.length - 1].pop();
+			removeMaterialByID(mat.id);
 		}
 		
 		private function createLists():void
@@ -86,13 +100,8 @@ package app.model.dataall
 			sortBydate();
 			createDictionary();
 			createNews();
-			createNewsHourLists();			
-			
-		}
-		
-		private static const MAX_NEWS_COUNT:int = 20;
-		
-		private var _allTypeNews:Vector.<Material>;
+			createNewsHourLists();				
+		}		
 		
 		public function get allTypeNews():Vector.<Material>
 		{
@@ -109,7 +118,6 @@ package app.model.dataall
 			_allTypeNews = new Vector.<Material>;
 			_allTypeNews = _newsList;
 		}
-		private var _allNewsHourListFilter:Vector.<Vector.<Material>>;
 		
 		public function get allNewsHourListFilter():Vector.<Vector.<Material>>
 		{
@@ -121,8 +129,6 @@ package app.model.dataall
 			_allNewsHourListFilter = value;
 		}
 		
-		private var _allNewsHourListToday:Vector.<Vector.<Material>>;
-		
 		public function get allNewsHourListToday():Vector.<Vector.<Material>>
 		{
 			return _allNewsHourListToday;
@@ -131,12 +137,7 @@ package app.model.dataall
 		public function set allNewsHourListToday(value:Vector.<Vector.<Material>>):void
 		{
 			_allNewsHourListToday = value;
-		}
-		
-		private var _allNewsHourList:Vector.<Vector.<Material>>;
-		public var _videoNum:int;
-		public var _photoNum:int;
-		public var _broadcastNum:int;
+		}		
 		
 		public function get broadcastNum():int
 		{
@@ -166,9 +167,7 @@ package app.model.dataall
 		public function set allNewsHourList(value:Vector.<Vector.<Material>>):void
 		{
 			_allNewsHourList = value;
-		}
-		
-		private var _sortedType:String = "all";
+		}		
 		
 		public function get sortedType():String
 		{
@@ -229,9 +228,9 @@ package app.model.dataall
 						allNewsHour = new Vector.<Material>();
 					}
 				}
-				allNewsHour.push(oneNew);
-				
+				allNewsHour.push(oneNew);				
 			}
+			
 			if (allNewsHour && allNewsHour.length)
 				allNewsHourList.push(allNewsHour);
 			
@@ -291,17 +290,15 @@ package app.model.dataall
 				case ChangeModelOut.ONE_DAY_NEWS:
 					
 					break;
-				
-				default: 
 			}
 		}
-		private const MAX_ALL_NEWS:int = 1040;
 		
 		private function getHourListFilteredMainScreen():Vector.<Vector.<Material>>
 		{
 			var filtr:Vector.<Vector.<Material>> = new Vector.<Vector.<Material>>();
 			var len:int = _allNewsHourList.length;
 			var counter:int = 0;
+			
 			for (var i:int = 0; i < len; i++)
 			{
 				var len1:int = _allNewsHourList[i].length;
@@ -312,18 +309,13 @@ package app.model.dataall
 					
 					counter++;
 					
-					if (counter == MAX_ALL_NEWS)
-					{
-						return filtr;
-					}
+					if (counter == MAX_ALL_NEWS)					
+						return filtr;					
 				}
 			}
 			return filtr;
 		}
-		private var _isAnimate:Boolean = true;
-		private var _offsetLoad:int = 0;
-		private var _limitLoad:int = 20;
-		private var _sliderLoading:Boolean = false;
+		
 		public function get isAnimate():Boolean
 		{
 			return _isAnimate;
@@ -354,7 +346,7 @@ package app.model.dataall
 			_limitLoad = value;
 		}
 		
-			public function get sliderLoading():Boolean
+		public function get sliderLoading():Boolean
 		{
 			return _sliderLoading;
 		}

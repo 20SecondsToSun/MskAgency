@@ -48,14 +48,14 @@ package app.view.filters
 		private var dateHolder:Sprite = new Sprite();
 		
 		public function CenterButton()
-		{			
+		{
 			center = new Shape();
 			addChild(center);
 			
 			squareMask = new Shape();
 			squareMask.graphics.beginFill(0xffffff);
 			squareMask.graphics.drawCircle(RADIUS, RADIUS, RADIUS);
-			addChild(squareMask);			
+			addChild(squareMask);
 			
 			square = Tool.createShape(RADIUS * 2, RADIUS * 2, 0x02a7df);
 			square.height = 1;
@@ -68,20 +68,20 @@ package app.view.filters
 			y = 0.5 * (AppSettings.HEIGHT - height);
 			
 			textFormat.align = "center";
-			textFormatLight.align = "center";			
-		
-			newsTextDef = TextUtil.createTextField(0, 0);			
+			textFormatLight.align = "center";
+			
+			newsTextDef = TextUtil.createTextField(0, 0);
 			newsTextDef.width = 250;
 			newsTextDef.multiline = true;
 			newsTextDef.wordWrap = true;
 			newsTextDef.autoSize = TextFieldAutoSize.CENTER;
-			newsTextDef.text = "Новости\nза все время";			
-			newsTextDef.setTextFormat(textFormat);			
+			newsTextDef.text = "Новости\nза все время";
+			newsTextDef.setTextFormat(textFormat);
 			newsTextDef.x = 0.5 * (width - newsTextDef.width);
-			newsTextDef.y = 0.5 * (height - newsTextDef.height) - 20;			
+			newsTextDef.y = 0.5 * (height - newsTextDef.height) - 20;
 			newsTextDef.visible = false;
-			addChild(newsTextDef);		
-		
+			addChild(newsTextDef);
+			
 			dayText = TextUtil.createTextField(0, 0);
 			dayText.text = "12"; // dateArray[0];			
 			dateHolder.addChild(dayText);
@@ -89,11 +89,11 @@ package app.view.filters
 			textFormatLight.size = 34.4;
 			monthText = TextUtil.createTextField(0, 0);
 			monthText.text = "мая"; // TextUtil.month[dateArray[1] - 1].toLowerCase();			
-			dateHolder.addChild(monthText);			
-		
+			dateHolder.addChild(monthText);
+			
 			yearText = TextUtil.createTextField(0, 0);
 			yearText.text = "2013"; //dateArray[2] ;				
-			yearText.alpha = 0.4;			
+			yearText.alpha = 0.4;
 			dateHolder.addChild(yearText);
 			
 			textFormat.size = 18;
@@ -129,13 +129,13 @@ package app.view.filters
 				//trace("DATE", date);
 				dateArray = date.split(".");
 				
-				textFormatLight.size = 121;				
-				dayText.text = dateArray[0];				
+				textFormatLight.size = 121;
+				dayText.text = dateArray[0];
 				dayText.setTextFormat(textFormatLight);
 				dayText.x = 0.5 * (width - dayText.width);
 				dateHolder.y = 0.5 * (height - dayText.height) - 100;
 				
-				textFormatLight.size = 34.4;					
+				textFormatLight.size = 34.4;
 				monthText.text = TextUtil.month[dateArray[1] - 1].toLowerCase();
 				monthText.setTextFormat(textFormatLight);
 				monthText.x = 0.5 * (width - monthText.width);
@@ -149,7 +149,7 @@ package app.view.filters
 				dayText.visible = true;
 				monthText.visible = true;
 				yearText.visible = true;
-				newsTextDef.visible = false;			
+				newsTextDef.visible = false;
 			}
 			else
 			{
@@ -164,7 +164,7 @@ package app.view.filters
 			alpha = 0;
 			visible = true;
 			
-			TweenLite.to(this, 0.8, {alpha: 1, ease: Quint.easeInOut});		
+			TweenLite.to(this, 0.8, {alpha: 1, ease: Quint.easeInOut});
 		}
 		
 		public function hide():void
@@ -173,18 +173,18 @@ package app.view.filters
 		}
 		
 		public function over():void
-		{		
+		{
 			if (!date)
 			{
 				TweenLite.killTweensOf(newsTextDef);
 				TweenLite.to(newsTextDef, 0.8, {y: 0.5 * (380 - newsTextDef.height), ease: Back.easeOut});
 			}
 			else
-			{					
-				TweenLite.killTweensOf(dateHolder);				
-				TweenLite.to(dateHolder, 0.8, { y: - 0.5 * (dateHolder.height - 380), ease: Back.easeOut } );				
+			{
+				TweenLite.killTweensOf(dateHolder);
+				TweenLite.to(dateHolder, 0.8, {y: -0.5 * (dateHolder.height - 380), ease: Back.easeOut});
 			}
-			TweenLite.to(square, 0.8, {y: 0, height: RADIUS * 2 + 10, ease: Back.easeOut});		
+			TweenLite.to(square, 0.8, {y: 0, height: RADIUS * 2 + 10, ease: Back.easeOut});
 		}
 		
 		public function out():void
@@ -195,9 +195,9 @@ package app.view.filters
 				TweenLite.to(newsTextDef, 0.8, {y: 0.5 * (380 - newsTextDef.height) - 20, ease: Back.easeOut});
 			}
 			else
-			{				
-				TweenLite.killTweensOf(dateHolder);				
-				TweenLite.to(dateHolder, 0.8, { y:20.95, ease: Back.easeOut } );				
+			{
+				TweenLite.killTweensOf(dateHolder);
+				TweenLite.to(dateHolder, 0.8, {y: 20.95, ease: Back.easeOut});
 			}
 			
 			TweenLite.to(square, 0.8, {y: squareMask.height, height: 1, ease: Back.easeOut});

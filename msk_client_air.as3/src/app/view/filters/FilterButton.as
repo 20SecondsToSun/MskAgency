@@ -20,8 +20,7 @@ package app.view.filters
 	 */
 	public class FilterButton extends InteractiveButton
 	{
-		public var data:Rubric;
-		
+		public var data:Rubric;		
 		public var isSelect:Boolean = false;
 		public var filtersID:Array = [7, 5, 9, 10, 11, 3];	
 		public var id:int;

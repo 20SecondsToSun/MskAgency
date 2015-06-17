@@ -29,28 +29,24 @@ package app.contoller.bootstraps
 	import app.view.MainView;
 	import org.robotlegs.core.IInjector;
 	
-    public class BootstrapModels
-    {
-        public function BootstrapModels(injector:IInjector)
-        {
-            injector.mapSingletonOf(IUser, User);
-            injector.mapSingletonOf(IPhotoNewsModel, PhotoNewsModel);
-			
+	public class BootstrapModels
+	{
+		public function BootstrapModels(injector:IInjector)
+		{
+			injector.mapSingletonOf(IUser, User);
+			injector.mapSingletonOf(IPhotoNewsModel, PhotoNewsModel);			
 			injector.mapSingletonOf(IAllNewsModel, AllNewsModel);
 			injector.mapSingletonOf(IMainNewsModel, MainNewsModel);
 			injector.mapSingletonOf(IVideoNewsModel, VideoNewsModel);
-            injector.mapSingletonOf(IMaterialModel, MaterialModel);
-            injector.mapSingletonOf(IFactsModel, FactsModel);
-            injector.mapSingletonOf(IEmployModel, EmployModel);
-            injector.mapSingletonOf(IHotNewsModel, HotNewsModel);          
-            injector.mapSingletonOf(IGeoModel, GeoModel);
-            injector.mapSingletonOf(IDaysNewsModel, DaysNewsModel);
-            injector.mapSingletonOf(IFilterDataModel, FilterDataModel);	
-            injector.mapSingletonOf(IFavoritesModel, FavoritesModel);	
-			
+			injector.mapSingletonOf(IMaterialModel, MaterialModel);
+			injector.mapSingletonOf(IFactsModel, FactsModel);
+			injector.mapSingletonOf(IEmployModel, EmployModel);
+			injector.mapSingletonOf(IHotNewsModel, HotNewsModel);
+			injector.mapSingletonOf(IGeoModel, GeoModel);
+			injector.mapSingletonOf(IDaysNewsModel, DaysNewsModel);
+			injector.mapSingletonOf(IFilterDataModel, FilterDataModel);
+			injector.mapSingletonOf(IFavoritesModel, FavoritesModel);			
 			injector.mapSingleton(MainView);
-			
-			
-        }
-    }
+		}
+	}
 }

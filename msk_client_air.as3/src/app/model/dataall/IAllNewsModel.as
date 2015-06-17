@@ -48,7 +48,6 @@ package app.model.dataall
 		function set limitLoad(value:int):void;
 		
 		function get sliderLoading():Boolean;
-		function set sliderLoading(value:Boolean):void;
-		
+		function set sliderLoading(value:Boolean):void;		
 	}
 }

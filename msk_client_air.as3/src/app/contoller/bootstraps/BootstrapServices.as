@@ -10,8 +10,6 @@ package app.contoller.bootstraps
 	import app.services.dataloading.IDataLoadingService;
 	import app.services.dataloading.ISocketService;
 	import app.services.dataloading.SocketService;
-	import app.services.error.ErrorService;
-	import app.services.error.IErrorService;
 	import app.services.interactive.IInteractiveControlService;
 	import app.services.interactive.InteractiveControlService;
 	import app.services.ipad.IIpadService;
@@ -24,7 +22,6 @@ package app.contoller.bootstraps
 
     public class BootstrapServices
     {
-
         public function BootstrapServices(injector:IInjector)
         {
             injector.mapSingletonOf(IDataLoadingService, DataLoadingService);           
@@ -33,16 +30,8 @@ package app.contoller.bootstraps
             injector.mapSingletonOf(INavigationService, NavigationService);			
             injector.mapSingletonOf(IUtilService, UtilService); 			
             injector.mapSingletonOf(ISocketService, SocketService);
-            injector.mapSingletonOf(IIpadService, IpadService);
-			
-			injector.mapSingletonOf(IConfig, Config);
-			//injector.mapSingletonOf(IErrorService, ErrorService);
-			
-			
-			//injector.mapSingletonOf(IScreenShots, ScreenShots);
-			
+            injector.mapSingletonOf(IIpadService, IpadService);			
+			injector.mapSingletonOf(IConfig, Config);			
         }
-
     }
-
 }

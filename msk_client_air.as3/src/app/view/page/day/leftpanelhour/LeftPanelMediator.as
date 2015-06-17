@@ -17,16 +17,12 @@ package app.view.page.day.leftpanelhour
 		{			
 			addViewListener(InteractiveEvent.HAND_OVER, overPanel,	InteractiveEvent,true);
 			addViewListener(InteractiveEvent.HAND_OUT, outPanel,	InteractiveEvent,true);
-			//addViewListener(InteractiveEvent.HAND_PUSH, view.pushPanelBtn,	InteractiveEvent,true);
 			addViewListener(InteractiveEvent.HAND_CHARGED, view.pushPanelBtn,	InteractiveEvent,true);
-			addViewListener(AnimationEvent.LEFT_PANEL_OVER, dispatch,	AnimationEvent);
-			
-		}
-		
+			addViewListener(AnimationEvent.LEFT_PANEL_OVER, dispatch,	AnimationEvent);			
+		}		
 		
 		override public function onRemove():void
 		{
-			//removeViewListener(InteractiveEvent.HAND_PUSH, view.pushPanelBtn,	InteractiveEvent,true);
 			removeViewListener(InteractiveEvent.HAND_CHARGED, view.pushPanelBtn,	InteractiveEvent,true);
 			removeViewListener(InteractiveEvent.HAND_OVER, overPanel,	InteractiveEvent,true);
 			removeViewListener(InteractiveEvent.HAND_OUT, outPanel,	InteractiveEvent,true);
@@ -43,8 +39,5 @@ package app.view.page.day.leftpanelhour
 		{				
 			view.overState();
 		}	
-	
-		
-		
 	}
 }

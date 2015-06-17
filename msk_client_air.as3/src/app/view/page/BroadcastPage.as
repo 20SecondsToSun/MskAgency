@@ -33,6 +33,9 @@ package app.view.page
 		
 		private var textFormat1:TextFormat = new TextFormat("Tornado", 22, 0x828696);
 		
+		public var nc:NetConnection;
+		public var ns:NetStream;	
+		
 		public function refreshData():void
 		{
 		
@@ -40,35 +43,23 @@ package app.view.page
 		
 		override public function flip():void
 		{
-			//createBroadcastImg();
-			//
 			splash = new Sprite();
-			addChild(splash);
-			
+			addChild(splash);			
 			
 			var sp:Shape = Tool.createShape(AppSettings.WIDTH, AppSettings.HEIGHT, 0x1a1b1f);			
 			splash.addChild(sp);
 			
-			
-			
 			adapter = new VideoPlayer(AppSettings.WIDTH, AppSettings.HEIGHT);
-			adapter.initBroadcast("rtmp://vgtrk.cdnvideo.ru/rr2/?auth=vh&cast_id=1661/");
-			
-			
-			
-			
+			adapter.initBroadcast("rtmp://vgtrk.cdnvideo.ru/rr2/?auth=vh&cast_id=1661/");			
 			
 			var logo:Sprite = Assets.create("mskLogo");
 			splash.addChild(logo);
 			logo.x = (AppSettings.WIDTH - logo.width) * 0.5;
 			logo.y = 220;
 			
-			
-			
 			var sp1:Shape = Tool.createShape(AppSettings.WIDTH, 329, 0x0f0f12);
 			sp1.y = AppSettings.HEIGHT  - sp1.height;
-			splash.addChild(sp1);
-			
+			splash.addChild(sp1);			
 			
 			var titleTxt:String = "Трансляция прямого эфира телеканала временно недоступна";
 			
@@ -86,31 +77,16 @@ package app.view.page
 			title2.setTextFormat(textFormat1);
 			title2.x = 0.5 * (AppSettings.WIDTH -  title2.width);
 			title2.y = 932;
-			splash.addChild(title2);
-			
-			
-			
-			
+			splash.addChild(title2);			
 			splash.y = AppSettings.HEIGHT;
 			TweenLite.to(splash, 1, { delay:0.8,y: 0, ease: Expo.easeOut, onComplete: animationInFinished() } );
-			/*mainTitle = TextUtil.createTextField(0, 0);
-			addChild(mainTitle);
-			setVolume("100");*/
-			
-			
-			
-			
 			
 			var vid:Video;
 			nc = new NetConnection();
-			nc.connect(null);
-			
-			
+			nc.connect(null);			
 			ns = new NetStream(nc);
 			
-			//ns.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
 			var customClient:Object = new Object();
-			//customClient.onMetaData = metaDataHandler;
 			ns.client = customClient;
 			ns.play("Moskva24Live.flv");
 						
@@ -120,17 +96,8 @@ package app.view.page
 			
 			vid.width = stage.stageWidth;
 			vid.scaleY = vid.scaleX;
-			vid.y = -35;
-			//vid.height = stage.stageHeight;
-			//vid.scaleX = vid.scaleY;
-			//vid.x = 0.5 * (stage.stageWidth -vid.width );			
-			
-		}
-		public var nc:NetConnection;
-		public var ns:NetStream ;
-		//public function setVolume(volume:String):void
-		//{
-		
+			vid.y = -35;			
+		}		
 		
 		public function kill():void
 		{
@@ -140,10 +107,7 @@ package app.view.page
 		
 		public function setVolume(volume:String):void
 		{
-			/*mainTitle.text = volume;
-			mainTitle.setTextFormat(textFormat);
-			mainTitle.y = 0.5 * (AppSettings.HEIGHT - mainTitle.height);
-			mainTitle.x = 0.5 * (AppSettings.WIDTH - mainTitle.width);*/
+			
 		}
 		
 		private function createBroadcastImg():void
@@ -156,10 +120,8 @@ package app.view.page
 		override public function expand():void
 		{
 			createBroadcastImg();
-			img.alpha = 0;
-			
+			img.alpha = 0;			
 			TweenLite.to(img, 0.5, {alpha: 1, delay: 0.8, onComplete: animationInFinished()});
-		}
-	
+		}	
 	}
 }

@@ -8,8 +8,6 @@ package app.model.datafact
 	{		
 		public var currentDate:String;
 		public var thisDate:String;
-		public var futurePastCurrent:String;
-		
+		public var futurePastCurrent:String;		
 	}
-
 }

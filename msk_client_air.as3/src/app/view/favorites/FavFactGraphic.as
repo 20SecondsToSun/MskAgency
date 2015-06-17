@@ -199,7 +199,7 @@ package app.view.favorites
 			main = Assets.create("mainfactsIco");
 			addChild(main);
 			
-			main.y = 0;// factTime.y - main.height - 15;
+			main.y = 0;
 			main.x = -4;
 		}
 		
@@ -208,40 +208,32 @@ package app.view.favorites
 			live = Assets.create("live");
 			addChild(live);
 			
-			if (main)
-			{
-				live.x = main.x + main.width + 15;
-			}
-			else
-			{
+			if (main)			
+				live.x = main.x + main.width + 15;			
+			else			
 				live.x = -4;
-			}
-			live.y = 0;// factTime.y - live.height - 15;
+			
+			live.y = 0;
 		}
 		
 		override public function getSelfRec():Rectangle
 		{
-			//trace("GET FACT RECTANGLE");
 			var point:Point = localToGlobal(new Point(x, y));
 			var point1:Point = parent.localToGlobal(new Point(x, y));
 			var finWidth:Number = width;
 			var finHeight:Number = height;
-			//if (point.x + width > AppSettings.WIDTH)
-			//{
+			
 			finWidth = AppSettings.WIDTH - point.x;
-			//}
+			
 			if (point.x < 0)
 			{
 				finWidth = width + point.x;
 				point.x = 0;
 			}
-			if (point.y + height > AppSettings.HEIGHT)
-			{
-				finHeight = AppSettings.HEIGHT - point1.y;
-			}
+			if (point.y + height > AppSettings.HEIGHT)			
+				finHeight = AppSettings.HEIGHT - point1.y;			
 			
-			return new Rectangle(point.x, point1.y, finWidth, finHeight);
-		
+			return new Rectangle(point.x, point1.y, finWidth, finHeight);		
 		}
 		
 		private function addBillet():void

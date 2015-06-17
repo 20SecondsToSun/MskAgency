@@ -38,6 +38,10 @@ package app.view.popup
 		public static const userWaiting:int = 15;
 		public static var randArr:Array = [1, 2, 3, 4, 5, 6];
 		
+		private static const NOTHING_FOUND_TEXT:String = "По вашему запросу\nне найдено ни одного материала";	
+		private static const IPAD_FOUND_TEXT:String = "Обнаружен iPad. Подключить?";	
+		private static const IPAD_AUTH_TEXT:String = "Авторизуйте или отклоните подключаемое устройство";		 
+		
 		public function ServicePopup() 
 		{
 			pushEnabled = false;
@@ -67,7 +71,7 @@ package app.view.popup
 			textTitle.multiline = true;
 			textTitle.wordWrap = true;
 			textTitle.width = 600;
-			textTitle.text = "По вашему запросу\nне найдено ни одного материала";	
+			textTitle.text = NOTHING_FOUND_TEXT;	
 			textTitle.setTextFormat(textFormat);
 			popup.addChild(textTitle);
 			
@@ -93,7 +97,7 @@ package app.view.popup
 			addChild(ipadPopup);
 			ipadPopup.visible = false;
 			
-			var titleTxt:String = "Обнаружен iPad. Подключить?";
+			var titleTxt:String = IPAD_FOUND_TEXT;
 			
 			var title:TextField = TextUtil.createTextField(0, 0);
 			title.text = titleTxt;
@@ -104,7 +108,7 @@ package app.view.popup
 			title.y = 260;
 			ipadPopup.addChild(title);			
 			
-			var titleTxt1:String = "Авторизуйте или отклоните подключаемое устройство";			
+			var titleTxt1:String = IPAD_AUTH_TEXT;			
 			var title1:TextField = TextUtil.createTextField(0, 0);
 			title1.text = titleTxt1;
 			title1.setTextFormat(textFormat1);

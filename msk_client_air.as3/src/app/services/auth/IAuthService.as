@@ -6,4 +6,3 @@ package app.services.auth
         function startIpad():void;
     }
 }
-

@@ -8,12 +8,12 @@ package ipad.model
 	 * @author metalcorehero
 	 */
 	public interface IInfo
-	{		
-		function get primaryScreen():String;		
+	{
+		function get primaryScreen():String;
 		function set primaryScreen(value:String):void;
 		
 		function get customScreenRubric():Object;
-		function set customScreenRubric(value:Object):void;		
+		function set customScreenRubric(value:Object):void;
 		
 		function get isKinectUser():Boolean;
 		function set isKinectUser(value:Boolean):void;
@@ -25,8 +25,6 @@ package ipad.model
 		function set playState(value:Boolean):void;
 		
 		function get volume():Number;
-		function set volume(value:Number):void;	
-		
-	
+		function set volume(value:Number):void;
 	}
 }

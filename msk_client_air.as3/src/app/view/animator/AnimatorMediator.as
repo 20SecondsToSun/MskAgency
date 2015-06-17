@@ -18,6 +18,7 @@ package app.view.animator
 		
 		[Inject]
 		public var model:IAllNewsModel;
+		
 		[Inject]
 		public var config:ScreenShots;
 		
@@ -50,13 +51,12 @@ package app.view.animator
 		}
 		
 		private function expandScreen(e:ChangeLocationEvent):void 
-		{
-			
+		{			
 			view.animation = "EXPAND";
 			view.expand_rectangle =model.getChoosenField().rec;//  ,//new Rectangle(0, 0, 100, 100);//
-			//view.expand_color = model.getChoosenField().color;//0xff0000;// 
 			makeScreenshot();	
 		}
+		
 		private function backFromOnePage(e:ChangeLocationEvent):void 
 		{
 			view.animation = "SPLIT";
@@ -67,7 +67,8 @@ package app.view.animator
 		{
 			removeContextListener(ScreenshotEvent.TAKE_SCREENSHOT, screenshotCapture, ScreenshotEvent);		
 			view.setScreenshot(e.shot);
-		}	
+		}
+		
 		private function makeScreenshot():void 
 		{
 			addContextListener(ScreenshotEvent.TAKE_SCREENSHOT, screenshotCapture, ScreenshotEvent);

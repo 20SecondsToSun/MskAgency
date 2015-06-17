@@ -55,17 +55,14 @@ package app.view.page.fact.leftpanel
 		
 		override public function over():void
 		{
-			if (isActive)
-				return;
-			super.over();
+			if (!isActive)				
+				super.over();
 		}
 		
 		override public function out():void
 		{
-			if (isActive)
-				return;
-			super.out();
+			if (!isActive)			
+				super.out();
 		}	
 	}
-
 }

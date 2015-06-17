@@ -98,8 +98,7 @@ package app.view.page.fact.body
 			view.star.visible = true;
 			removeContextListener(ScreenshotEvent.TAKE_SCREENSHOT, screenshotCapture, ScreenshotEvent);
 			eventMap.unmapListener(view.star, InteractiveEvent.HAND_UPDATE, view.dragFavShot, InteractiveEvent);			
-			eventMap.unmapListener(view.star, InteractiveEvent.HAND_UP, upStar, InteractiveEvent);	
-			
+			eventMap.unmapListener(view.star, InteractiveEvent.HAND_UP, upStar, InteractiveEvent);			
 			
 			if (view.backPanel(e) == true)
 			{
@@ -107,13 +106,8 @@ package app.view.page.fact.body
 				data.type = "activity";
 				data.mat = view.mat;
 				dispatch( new DataLoadServiceEvent(DataLoadServiceEvent.ADD_TO_FAVORITES, true, false, view.activeID, null, data));				
-			}
-			else
-			{
-				//view.star.visible = false;	
-			}
-		}
-		
+			}	
+		}		
 		
 		private function outStar(e:InteractiveEvent):void 
 		{
@@ -123,12 +117,6 @@ package app.view.page.fact.body
 		private function overStar(e:InteractiveEvent):void 
 		{
 			view.starOver();
-		}
-		
-	
-	
-	
+		}	
 	}
-
 }
-

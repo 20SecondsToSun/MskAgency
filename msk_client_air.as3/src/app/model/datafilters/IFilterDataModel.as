@@ -35,7 +35,6 @@ package app.model.datafilters
 		function  resetOffsetLimit():void;	
 		
 		function get factsNewsFilters():FilterData;
-		function set factsNewsFilters(value:FilterData):void;
-		
+		function set factsNewsFilters(value:FilterData):void;		
 	}	
 }

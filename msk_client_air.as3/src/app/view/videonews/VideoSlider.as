@@ -24,15 +24,16 @@ package app.view.videonews
 	{
 		private static const MARGIN:int = 200;
 		
-		public const oneVideoWidth:int = 410;
-		public const oneVideoHeight:int = 500;
-		
 		private var initX:int;
 		private var time:Number;
 		private const accel:Number = 1 / 700;
 		
 		private var screenshot:BigCanvas;
 		private var splash:Shape;
+		private var matList:Vector.<OneVideoNewGraphic>;
+		
+		public const oneVideoWidth:int = 410;
+		public const oneVideoHeight:int = 500;
 		
 		public static const startInteractPullOutEvent:SliderEvent = new SliderEvent(SliderEvent.START_INTERACTION_PULL_OUT);
 		public static const stopInteractPullOutEvent:SliderEvent = new SliderEvent(SliderEvent.STOP_INTERACTION_PULL_OUT);
@@ -41,7 +42,7 @@ package app.view.videonews
 		
 		public var screenshotArea:Rectangle = new Rectangle(oneVideoWidth, 0, AppSettings.WIDTH - oneVideoWidth, oneVideoHeight);
 		
-		private var matList:Vector.<OneVideoNewGraphic>;		
+		public var completeVideoSlider:Function;
 		
 		public function VideoSlider(_viewPort:Rectangle = null)
 		{
@@ -50,7 +51,7 @@ package app.view.videonews
 		
 		public function init(videoData:Vector.<OneVideoNewGraphic>):void
 		{
-			clearSlider();		
+			clearSlider();
 			
 			matList = videoData.reverse();
 			
@@ -66,13 +67,11 @@ package app.view.videonews
 				
 				if (i != len - 1)
 				{
-					//var fon:Shape = Tool.createShape(matList[i].width, matList[i].height, 0xffffff);
-					//addChild(fon);
 					line = addLine();
 					line.x = offset;
 					offset += 1;
-					addElementAt(line,0);
-				}				
+					addElementAt(line, 0);
+				}
 			}
 			
 			holder.x = initX = -holder.width + oneVideoWidth;
@@ -80,19 +79,19 @@ package app.view.videonews
 		}
 		
 		public function update(videoData:OneVideoNewGraphic):void
-		{		
-			addElement(videoData);	
+		{
+			addElement(videoData);
 			
-			matList = matList.reverse();			
+			matList = matList.reverse();
 			holder.removeChild(matList.pop());
-			matList = matList.reverse();				
+			matList = matList.reverse();
 			
-			var offset:int = 0;			
+			var offset:int = 0;
 			for (var i:int = 0; i < matList.length; i++)
-			{				
+			{
 				matList[i].x = offset;
-				offset += matList[i].width +1;				
-			}		
+				offset += matList[i].width + 1;
+			}
 		}
 		
 		private function addLine():Shape
@@ -189,7 +188,7 @@ package app.view.videonews
 				TweenLite.to(screenshot, time, {x: AppSettings.WIDTH, ease: sliderEasing});
 			}
 		}
-		public var completeVideoSlider:Function;
+		
 		public function initVideSliderPosition(completeVideoSlider:Function = null):void
 		{
 			TweenLite.killTweensOf(holder);
@@ -201,7 +200,7 @@ package app.view.videonews
 			var eas:Ease = Linear.easeNone;
 			
 			TweenLite.to(holder, time, {x: initX, ease: eas, onComplete: initPullOutListeners});
-			TweenLite.to(screenshot, time, { x: oneVideoWidth, ease: eas, onComplete: clearScreenShot } );
+			TweenLite.to(screenshot, time, {x: oneVideoWidth, ease: eas, onComplete: clearScreenShot});
 			
 			if (completeVideoSlider != null)
 				TweenLite.delayedCall(time, completeVideoSlider);
@@ -252,7 +251,7 @@ package app.view.videonews
 			if (contains(screenshot))
 				removeChild(screenshot);
 			
-			dispatchEvent(new SliderEvent(SliderEvent.VIDEO_SLIDER_STOP_DRAG));		
+			dispatchEvent(new SliderEvent(SliderEvent.VIDEO_SLIDER_STOP_DRAG));
 		}
 		
 		public function addScreenShot(shot:BigCanvas):void
@@ -266,8 +265,8 @@ package app.view.videonews
 		{
 			super.kill();
 			
-			TweenLite.killTweensOf(holder);			
-			if (completeVideoSlider != null )
+			TweenLite.killTweensOf(holder);
+			if (completeVideoSlider != null)
 				TweenLite.killDelayedCallsTo(completeVideoSlider);
 			
 			if (screenshot)

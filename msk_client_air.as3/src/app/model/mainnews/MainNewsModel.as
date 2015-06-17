@@ -1,16 +1,17 @@
-package app.model.mainnews 
+package app.model.mainnews
 {
 	import app.contoller.events.ChangeModelOut;
 	import app.contoller.events.DataLoadServiceEvent;
 	import app.model.materials.Material;
 	import app.model.materials.MaterialModel;
+	
 	/**
 	 * ...
 	 * @author metalcorehero
 	 */
 	public class MainNewsModel extends MaterialModel implements IMainNewsModel
 	{
-		private var _isAnimate:Boolean =  true;
+		private var _isAnimate:Boolean = true;
 		private var _data:Vector.<Material>;
 		
 		public function get isAnimate():Boolean
@@ -21,7 +22,7 @@ package app.model.mainnews
 		public function set isAnimate(value:Boolean):void
 		{
 			_isAnimate = value;
-		}	
+		}
 		
 		public function get data():Vector.<Material>
 		{
@@ -36,40 +37,36 @@ package app.model.mainnews
 		override public function set newsList(value:Vector.<Material>):void
 		{
 			_newsList = value;
-			sortBydate();			
+			sortBydate();
 			createDictionary();
-			dispatch( new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_COMPLETED_MAIN_NEWS));
+			dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_COMPLETED_MAIN_NEWS));
 		}
-		override public function  setModel(value:ChangeModelOut):void
+		
+		override public function setModel(value:ChangeModelOut):void
 		{
-			if (_newsList == null || _newsList.length == 0 ) return;
+			if (_newsList == null || _newsList.length == 0) return;
 			
 			_isAnimate = false;
 			data = _newsList;
 			
 			switch (value.type)
 			{
-				case ChangeModelOut.MAIN_SCREEN:
-					
-					break;
-				case ChangeModelOut.CUSTOM_SCREEN:
-					
-					break;
-				case ChangeModelOut.STORY_SCREEN:
-					
-					break;
-				
-				case ChangeModelOut.MAIN_SCREEN_SCREENSHOT: 
-				case ChangeModelOut.STORY_SCREEN_SCREENSHOT: 
-				case ChangeModelOut.CUSTOM_SCREEN_SCREENSHOT: 
-					_isAnimate = false;
-					data = _newsList.slice(0, 1);// _videoThumbnails.slice(0, 1);
-					break;
-				
-				default: 
+			case ChangeModelOut.MAIN_SCREEN: 
+				break;
+			
+			case ChangeModelOut.CUSTOM_SCREEN: 
+				break;
+			
+			case ChangeModelOut.STORY_SCREEN: 
+				break;
+			
+			case ChangeModelOut.MAIN_SCREEN_SCREENSHOT: 
+			case ChangeModelOut.STORY_SCREEN_SCREENSHOT: 
+			case ChangeModelOut.CUSTOM_SCREEN_SCREENSHOT: 
+				_isAnimate = false;
+				data = _newsList.slice(0, 1);
+				break;
 			}
 		}
-		
 	}
-
 }

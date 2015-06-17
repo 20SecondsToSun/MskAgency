@@ -59,6 +59,8 @@ package app.view.page.map
 		
 		private var popup:InteractiveButton;
 		private var isPopupOpen:Boolean = false;		
+		private var footerOver:Sprite;
+		private var popupMask:Shape;
 		
 		public function get isCluster():Boolean
 		{
@@ -199,10 +201,8 @@ package app.view.page.map
 				var zoomEvent:GraphicInterfaceEvent = new GraphicInterfaceEvent(GraphicInterfaceEvent.ZOOM_MAP);
 				dispatchEvent(zoomEvent);
 			}
-			else
-			{
-				showPopup();
-			}
+			else			
+				showPopup();			
 		}
 		
 		private function showPopup():void
@@ -287,10 +287,8 @@ package app.view.page.map
 			}
 			
 			isPopupOpen = false;		
-		}
+		}		
 		
-		private var footerOver:Sprite;
-		private var popupMask:Shape;
 		private function addFooter():void 
 		{
 			footerOver = new Sprite();
@@ -404,8 +402,6 @@ package app.view.page.map
 		private function nullValues():void
 		{
 			accident.count = accident.percent = city.count = city.percent = power.count = power.percent = dosug.count = dosug.percent = none.count = none.percent = 0;
-		}
-	
+		}	
 	}
-
 }

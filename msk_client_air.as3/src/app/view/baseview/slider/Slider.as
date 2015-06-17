@@ -91,19 +91,19 @@ package app.view.baseview.slider
 				}
 			}
 			else
-			{				
+			{
 				viewPort = new Rectangle(0, 0, AppSettings.WIDTH, AppSettings.HEIGHT);
 				fillholder = Tool.createShape(1, 1, 0x0000FF);
 				fillholder.alpha = 0;
 				holder.addChild(fillholder);
-			}			
+			}
 		}
 		
 		public function resetPosition():void
 		{
 			var offset:Number = 0;
 			
-			for (var i:int = 0; i < childList.length; i++) 
+			for (var i:int = 0; i < childList.length; i++)
 			{
 				childList[i].x = offset;
 				offset += childList[i].width;
@@ -116,10 +116,10 @@ package app.view.baseview.slider
 			Tool.removeAllChildren(holder);
 			childList = new Vector.<DisplayObject>();
 			
-			if (fillholder)		
-			{				
+			if (fillholder)
+			{
 				holder.addChild(fillholder);
-				fillholder.width = 1;		
+				fillholder.width = 1;
 			}
 		}
 		
@@ -135,10 +135,11 @@ package app.view.baseview.slider
 				holder.setChildIndex(fillholder, holder.numChildren - 1);
 			}
 		}
-		public function addElementAt(child:DisplayObject,index:int):void
+		
+		public function addElementAt(child:DisplayObject, index:int):void
 		{
 			childList.push(child);
-			holder.addChildAt(child,index);
+			holder.addChildAt(child, index);
 			
 			if (fillholder)
 			{
@@ -200,7 +201,6 @@ package app.view.baseview.slider
 			}
 		}
 		
-		
 		public function stopDragSlider(e:InteractiveEvent):void
 		{
 			var _x:Number = holder.globalToLocal(new Point(e.stageX, e.stageY)).x;
@@ -231,7 +231,7 @@ package app.view.baseview.slider
 		}
 		
 		protected function animatetoStartX():void
-		{			
+		{
 			TweenLite.killTweensOf(holder);
 			TweenLite.to(holder, Math.abs(holder.x) / 700, {x: startX, ease: sliderEasing, onComplete: finishDraggingAnimation, onUpdate: updateFinAnimation});
 		}
@@ -240,7 +240,7 @@ package app.view.baseview.slider
 		{
 			TweenLite.killTweensOf(holder);
 			var time:Number = Math.abs(holder.x - (maxBorder - holder.width)) / 700;
-			TweenLite.to(holder, time, {x: maxBorder - holder.width, ease: sliderEasing, onComplete: finishDraggingAnimation, onUpdate: updateFinAnimation});		
+			TweenLite.to(holder, time, {x: maxBorder - holder.width, ease: sliderEasing, onComplete: finishDraggingAnimation, onUpdate: updateFinAnimation});
 		}
 		
 		public function updateFinAnimation():void
@@ -283,7 +283,7 @@ package app.view.baseview.slider
 		protected function checkElementsToAdd():Boolean
 		{
 			return false;
-		}		
+		}
 		
 		private function setTimerSlideShow():void
 		{
@@ -293,7 +293,7 @@ package app.view.baseview.slider
 			slideShowTimer.addEventListener(TimerEvent.TIMER_COMPLETE, startSlideShow);
 			slideShowTimer.reset();
 			slideShowTimer.start();
-		}		
+		}
 		
 		private function startSlideShow(e:TimerEvent = null):void
 		{
@@ -312,19 +312,16 @@ package app.view.baseview.slider
 				
 				switch (slideShowDirection)
 				{
-					case "FORWARD": 
-						time = ((holder.width + holder.x) / holder.width) * 500;
-						TweenLite.to(holder, time, {x: maxBorder - holder.width, onComplete: reorganize});
-						break;
-						
-					case "BACK": 
-						time = (1 - (holder.width + holder.x) / holder.width) * 600;
-						TweenLite.to(holder, time, {x: startX, onComplete: reorganize});
-						break;
-					
-					default: 
-				}
+				case "FORWARD": 
+					time = ((holder.width + holder.x) / holder.width) * 500;
+					TweenLite.to(holder, time, {x: maxBorder - holder.width, onComplete: reorganize});
+					break;
 				
+				case "BACK": 
+					time = (1 - (holder.width + holder.x) / holder.width) * 600;
+					TweenLite.to(holder, time, {x: startX, onComplete: reorganize});
+					break;
+				}
 			}
 		}
 		
@@ -332,19 +329,14 @@ package app.view.baseview.slider
 		{
 			switch (slideShowDirection)
 			{
-				case "FORWARD": 
-					//TweenLite.to(holder, time, {x: maxBorder - holder.width, onComplete: reorganize});
-					holder.x =  startX;
-					break;
-				case "BACK": 
-					//TweenLite.to(holder, time, {x: startX, onComplete: reorganize});
-					holder.x =  maxBorder - holder.width;
-					break;
-				
-				default: 
+			case "FORWARD": 
+				holder.x = startX;
+				break;
+			
+			case "BACK": 
+				holder.x = maxBorder - holder.width;
+				break;
 			}
-			//	TweenLite.to(holder, 5, {x: 0, onComplete: setTimerSlideShow});
-			//holder.x = 0;
 			setTimerSlideShow();
 		}
 		
@@ -377,7 +369,6 @@ package app.view.baseview.slider
 			
 			var offset:Number = 0;
 			var updatingChilds:int = childListUpdate.length;
-			//trace("updatingChilds:::::::::", updatingChilds);
 			
 			holder.x = 0;
 			while (childListUpdate.length)
@@ -396,10 +387,8 @@ package app.view.baseview.slider
 			holder.visible = true;
 			
 			dispatchEvent(startInteractEvent);
-			setTimerSlideShow();
-			
+			setTimerSlideShow();			
 			isUpdating = false;
 		}
 	}
-
 }

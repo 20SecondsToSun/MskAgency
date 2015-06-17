@@ -20,8 +20,7 @@ package app.view.popup
 			videoNews.id = "ipad news";
 			textNews.id = "ipad news";
 			photoNews.id = "ipad news";
-			screenField  = new Rectangle(311, 0, AppSettings.WIDTH - 622, AppSettings.HEIGHT);
-			
+			screenField  = new Rectangle(311, 0, AppSettings.WIDTH - 622, AppSettings.HEIGHT);			
 			preloader.visible = false;			
 		}
 		

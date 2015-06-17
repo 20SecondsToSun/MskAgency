@@ -15,5 +15,4 @@ package app.model.materials
 		
 		public var precipitation:String;		
 	}
-
 }

@@ -11,27 +11,20 @@ package app.view.baseview.io
 	 */
 	public class InteractiveButton extends InteractiveObject 
 	{
-		
-		public function InteractiveButton() 
-		{
-			
-		}
 		public function getSelfRec():Rectangle
 		{	
 			var point:Point = parent.localToGlobal(new Point(x, y));
 			var finWidth:Number = width;
-			if (point.x + width > AppSettings.WIDTH)
-			{
-				finWidth = AppSettings.WIDTH - point.x;
-			}
+			
+			if (point.x + width > AppSettings.WIDTH)			
+				finWidth = AppSettings.WIDTH - point.x;			
 			if (point.x <0)
 			{
 				finWidth = width + point.x;
 				point.x = 0;
 			}
+			
 			return new Rectangle(point.x,point.y, finWidth, height);
-		}
-		
+		}		
 	}
-
 }

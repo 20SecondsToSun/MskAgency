@@ -37,24 +37,21 @@ package app.view.photonews
 		private var initX:Number;
 		private var initY:Number;
 		
+		protected var timeTitleBmp:Bitmap;
+		public var __width:Number;
+		
 		public function OnePhotoGraphic(photoNews:Material)
 		{
 			mat = photoNews;
 			id = photoNews.id;
 			
-			if (photoNews.important == "0")
-			{
-				graphic = Assets.create("photoNewsNoImp");
-			}
-			else
-			{
-				graphic = Assets.create("photoNewsImp");
-			}
+			if (photoNews.important == "0")			
+				graphic = Assets.create("photoNewsNoImp");			
+			else			
+				graphic = Assets.create("photoNewsImp");			
 			
 			addChild(graphic);
-			//"gallery/"+AppSettings.getNum().toString() +".jpg"
-			//photo = new OnePhoto("gallery/" + AppSettings.getNumG().toString() +".jpg", photoNews.files[0].id, false);				
-			photo = new OnePhoto(photoNews.files[0].thumbPath, photoNews.files[0].id, false);				
+			photo = new OnePhoto(photoNews.files[0].thumbPath, photoNews.files[0].id, false);	
 			photo._scaleMode = ScaleMode.HEIGHT_ONLY;
 			photo._height = 232;
 			addChild(photo);
@@ -78,26 +75,16 @@ package app.view.photonews
 			titleText.setTextFormat(textFormat);
 			TextUtil.truncate(titleText, MAX_LINES);
 			titleText.setTextFormat(textFormat);
-			//addChild(titleText);
-			
 			
 			timeTitleBmp = TextUtil.textFieldToBitmap(titleText);
-			addChild(timeTitleBmp);	
-			
+			addChild(timeTitleBmp);				
 		}
-		
-		protected var timeTitleBmp:Bitmap;
-		public var __width:Number;
 		
 		public function overlay(_width:Number,_height:Number = 10, _scale:Number = 1):void
 		{
-			
-			//photo.height = _height;
-			_scale = 232/_height;
-			
+			_scale = 232/_height;			
 			__width = width + _width - 20;
 			var w:Number = width  + _width*_scale  - 20;
-			//trace("WWWWWWWW:::::::::::::::::", _scale);
 			var overlay:Shape = Tool.createShape(w, height, 0xffffff);			
 			overlay.alpha = 0;
 			addChild(overlay);	
@@ -115,9 +102,9 @@ package app.view.photonews
 		{			
 			TweenMax.to(graphic, 0.5, { removeTint:true } );
 			TweenMax.to(timeTitleBmp, 0.5, { removeTint:true } );
-			TweenMax.to(photo, 0.5, { scaleX:1,  scaleY:1, x:initX, y:initY } );
-			
+			TweenMax.to(photo, 0.5, { scaleX:1,  scaleY:1, x:initX, y:initY } );			
 		}
+		
 		override public function getSelfRec():Rectangle
 		{	
 			var point:Point = parent.localToGlobal(new Point(x, y));

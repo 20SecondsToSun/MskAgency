@@ -16,6 +16,8 @@ package app.model.daysnews
 		[Inject]
 		public var filters:IFilterDataModel;
 		
+		public static const DAYS_BLOCK_NUM:int = 5;
+		
 		private var _isAnimate:Boolean = true;
 		private var _data:Vector.<Material>;
 		private var _allNewsDaysList:Vector.<Material>;
@@ -24,15 +26,15 @@ package app.model.daysnews
 		private var _offsetLoad:int = 0;
 		private var _limitLoad:int = DAYS_BLOCK_NUM;
 		private var _loadingDate:String = "";
-		public static const DAYS_BLOCK_NUM:int = 5;
+		
 		override public function set newsList(value:Vector.<Material>):void
 		{
-			_newsList = value;			
+			_newsList = value;
 			
 			if (filters.daysNewsFilters.from)
 			{
 				if (_newsList.length > 0)
-				{					
+				{
 					gotoOneDayPage(filters.daysNewsFilters.from);
 					return;
 				}
@@ -81,7 +83,7 @@ package app.model.daysnews
 			if (_limitLoad >= 0)
 				dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_DAYS_DATA));
 			else if (_limitLoad < 0)
-				initValues();		
+				initValues();
 		}
 		
 		private function gotoOneDayPage(_date:String):void
@@ -90,12 +92,12 @@ package app.model.daysnews
 			fd.from = _date;
 			fd.to = fd.from;
 			fd.rubrics = filterModel.daysNewsFilters.rubrics;
-		
-			filters.oneDayFilters = fd;		
+			
+			filters.oneDayFilters = fd;
 			
 			var event:ChangeLocationEvent = new ChangeLocationEvent(ChangeLocationEvent.NEWS_PAGE_HOUR);
 			event.mode = "STRETCH_IN";
-			dispatch(event);			
+			dispatch(event);
 		}
 		
 		private function initValues():void
@@ -132,7 +134,6 @@ package app.model.daysnews
 			}
 			if (allNewsDay && allNewsDay.length)
 				_allNewsDaysBlockList.push(allNewsDay);
-		
 		}
 		
 		public function get isAnimate():Boolean
@@ -205,7 +206,5 @@ package app.model.daysnews
 			_loadingDate = config.getShiftDate(_offsetLoad);
 			return _loadingDate;
 		}
-	
 	}
-
 }

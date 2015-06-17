@@ -60,12 +60,9 @@ package app.view.facts
 			if (factsGraphicList && factsGraphicList.length)
 			{
 				var bitmapData:BitmapData = new BitmapData(WIDTH, HEIGHT);
-				/*var mat:Matrix = new Matrix();
-				mat.translate(-AppSettings.WIDTH + WIDTH, 0);
-				mat.identity();*/
 				bitmapData.drawWithQuality(factsGraphicList[0], null, null, null, null, true, StageQuality.BEST);
 				config.setScreenShot(new Bitmap(bitmapData), "FACT_NEWS");
-			}		
+			}
 		}
 		
 		override public function setScreen():void
@@ -89,7 +86,7 @@ package app.view.facts
 				slider.initFactSliderPosition();
 			slider.clearSlider();
 			
-			var len:int = factList.length > 10?10:factList.length;
+			var len:int = factList.length > 10 ? 10 : factList.length;
 			
 			for (var i:int = 0; i < len; i++)
 			{

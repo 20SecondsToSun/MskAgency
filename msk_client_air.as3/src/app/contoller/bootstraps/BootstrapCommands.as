@@ -14,6 +14,7 @@ package app.contoller.bootstraps
 	import app.contoller.commadns.FlushLoadersCommand;
 	import app.contoller.commadns.geoNews.LoadGeoDataCommand;
 	import app.contoller.commadns.geoNews.LoadMainGeoDataCommand;
+	import app.contoller.commadns.gesture.GestureCommand;
 	import app.contoller.commadns.InitializedInteractiveCommand;
 	import app.contoller.commadns.ipad.IpadCommand;
 	import app.contoller.commadns.LoadAllDataCommand;
@@ -44,6 +45,7 @@ package app.contoller.bootstraps
 	import app.contoller.commadns.ScreenshotMakerCommand;
 	import app.contoller.commadns.SendShapesCommand;
 	import app.contoller.commadns.SettingsChangedCommand;
+	import app.contoller.commadns.ShutDownCommand;
 	import app.contoller.commadns.SortGeoNewsCommand;
 	import app.contoller.commadns.SortOneDayNewsCommand;
 	import app.contoller.commadns.StartInteractiveCommand;
@@ -62,11 +64,13 @@ package app.contoller.bootstraps
 	import app.contoller.events.DataLoadServiceEvent;
 	import app.contoller.events.FavoriteEvent;
 	import app.contoller.events.FilterEvent;
+	import app.contoller.events.GesturePostEvent;
 	import app.contoller.events.InteractiveRemoteEvent;
 	import app.contoller.events.InteractiveServiceEvent;
 	import app.contoller.events.IpadEvent;
 	import app.contoller.events.LoadPhotoEvent;
 	import app.contoller.events.ScreenshotEvent;
+	import app.services.interactive.gestureDetector.GestureEvent;
 	import org.robotlegs.base.ContextEvent;
 	import org.robotlegs.core.ICommandMap;
 	
@@ -76,14 +80,14 @@ package app.contoller.bootstraps
 		{
 			commandMap.mapEvent(ContextEvent.STARTUP_COMPLETE, InitializedInteractiveCommand, ContextEvent);	
 			commandMap.mapEvent(ContextEvent.STARTUP_COMPLETE, AuthenticationDataCommand, ContextEvent);
+			commandMap.mapEvent(ContextEvent.SHUTDOWN_COMPLETE, ShutDownCommand, ContextEvent);
 			
 			commandMap.mapEvent(AuthenticationEvent.AUTH_SUCCESS, StartNavigationCommand, AuthenticationEvent);
 			commandMap.mapEvent(AuthenticationEvent.AUTH_SUCCESS, StartSocketServer, AuthenticationEvent);
 			commandMap.mapEvent(AuthenticationEvent.AUTH_SUCCESS, LoadFiltersDataCommand, AuthenticationEvent);
 			commandMap.mapEvent(AuthenticationEvent.AUTH_SUCCESS, StartIpadConnection, AuthenticationEvent);
 			commandMap.mapEvent(AuthenticationEvent.AUTH_SUCCESS, LoadFavoritesMaterialsCommand, AuthenticationEvent);
-			commandMap.mapEvent(AuthenticationEvent.AUTH_SUCCESS, LoadFavoritesFactsCommand, AuthenticationEvent);			
-			
+			commandMap.mapEvent(AuthenticationEvent.AUTH_SUCCESS, LoadFavoritesFactsCommand, AuthenticationEvent);
 			
 			
 			commandMap.mapEvent(DataLoadServiceEvent.LOAD_PHOTO_DATA, LoadPhotoDataCommand, DataLoadServiceEvent);
@@ -211,7 +215,11 @@ package app.contoller.bootstraps
 			commandMap.mapEvent(FavoriteEvent.CHECK_FOR_FAVORITES, CheckForFavoritesCommand, FavoriteEvent);			
 			commandMap.mapEvent(IpadEvent.SEND_SHAPES, SendShapesCommand, IpadEvent);			
 			commandMap.mapEvent(IpadEvent.SYMBOLS_IS_OK, SymbolsIsOkCommand, IpadEvent);			
-			commandMap.mapEvent(IpadEvent.SYMBOLS_BAD, SymbolsBadCommand, IpadEvent);			
+			commandMap.mapEvent(IpadEvent.SYMBOLS_BAD, SymbolsBadCommand, IpadEvent);		
+			
+			
+			commandMap.mapEvent(GesturePostEvent.HAND_ONE_FINGER, GestureCommand, GesturePostEvent);		
+			commandMap.mapEvent(GesturePostEvent.HAND_TWO_FINGERS, GestureCommand, GesturePostEvent);					
 		}
 	}
 }

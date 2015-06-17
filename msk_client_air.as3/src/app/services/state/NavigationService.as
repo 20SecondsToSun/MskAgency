@@ -44,6 +44,9 @@ package app.services.state
 		[Inject]
 		public var filters:IFilterDataModel;
 		
+		private static var mainScreenNames:Array = ["MAIN_SCREEN", "CUSTOM_SCREEN", "STORY_SCREEN"];
+		public var LOCATIONS:Dictionary = new Dictionary();
+		
 		private var startLocation:String = ChangeLocationEvent.MAIN_SCREEN; //ChangeLocationEvent.ONE_NEW_PAGE;// 
 		private var currentLocation:String = startLocation;
 		private var nextLocation:String = startLocation;
@@ -55,9 +58,7 @@ package app.services.state
 		private var isMenuOpen:Boolean = false;
 		private var isFiltersOpen:Boolean = false;
 		private var isIpadPopupOpen:Boolean = false;
-		
-		private static var mainScreenNames:Array = ["MAIN_SCREEN", "CUSTOM_SCREEN", "STORY_SCREEN"];
-		public var LOCATIONS:Dictionary = new Dictionary();
+		private var count:int = 0;		
 		
 		private static var filterLocations:Dictionary = new Dictionary();
 		{
@@ -88,10 +89,7 @@ package app.services.state
 			view.addMainScreen(startLocation);
 			
 			dispatch(new ChangeLocationEvent(ChangeLocationEvent.GO_TO_MAIN_SCREEN_ALONE));
-			dispatch(new AnimationEvent(AnimationEvent.TO_MAIN_SCREEN_ANIMATION)); //	!!!!!!!!!!!!!!!! add			
-		
-			//dispatch( new ChangeLocationEvent(ChangeLocationEvent.EXPAND_MODE));//!!!!!!!!! delete
-			//dispatch(new ChangeLocationEvent("FLIP_MODE" ));
+			dispatch(new AnimationEvent(AnimationEvent.TO_MAIN_SCREEN_ANIMATION)); //	!!!!!!!!!!!!!!!! add		
 		}
 		
 		public function checkForStartLocation(event:GraphicInterfaceEvent):void
@@ -128,9 +126,7 @@ package app.services.state
 			
 			lastLocation = currentLocation;
 			isBlocked = true;
-			dispatch(new InteractiveServiceEvent(InteractiveServiceEvent.STOP_INTERACTION));
-			
-			//trace("gotolocation::", currentLocation, nextLocation, lastLocation, event.mode);
+			dispatch(new InteractiveServiceEvent(InteractiveServiceEvent.STOP_INTERACTION));			
 			
 			if (isMainScreen(nextLocation))
 				config.currentScreen = nextLocation;
@@ -208,18 +204,13 @@ package app.services.state
 						dispatch(new ChangeLocationEvent("FLIP_MODE"));
 					}
 				}
-				else if (event.mode == "EXPAND_MODE")
-				{
-					dispatch(new ChangeLocationEvent("EXPAND_MODE"));
-				}
-				else if (event.mode == "STRETCH_IN")
-				{
-					dispatch(new ChangeLocationEvent("STRETCH_IN"));
-				}
-				else
-				{
+				else if (event.mode == "EXPAND_MODE")				
+					dispatch(new ChangeLocationEvent("EXPAND_MODE"));				
+				else if (event.mode == "STRETCH_IN")				
+					dispatch(new ChangeLocationEvent("STRETCH_IN"));				
+				else				
 					dispatch(new ChangeLocationEvent("BACK_FROM_ONE_NEW_START"));
-				}
+				
 			}
 			else if (isPage(nextLocation) && isMainScreen(currentLocation))
 			{
@@ -229,11 +220,8 @@ package app.services.state
 				view.addPageLocation(nextLocation);
 				
 				if (event.mode == "STRETCH_MODE")
-				{
-					//if (nextLocation != "NEWS_PAGE_HOUR") 
-					//{					
-					view.removeLocation(currentLocation);
-					//}
+				{					
+					view.removeLocation(currentLocation);				
 					dispatch(new ChangeLocationEvent("STRETCH_MODE"));
 				}
 				else if (event.mode == "MENU_MODE")
@@ -249,19 +237,15 @@ package app.services.state
 			}
 			else if (!isMainScreen(currentLocation) && isMainScreen(nextLocation))
 			{
-				nullFilters();
-				
+				nullFilters();				
 				flush();
-				//view.addMainScreen(nextLocation);
+				
 				view.removeLocation(currentLocation);
 				view.addAllScreen();
 				
 				dispatch(new ChangeLocationEvent(ChangeLocationEvent.REMOVE_PAGE));
-				//dispatch(new ChangeLocationEvent("GO_TO_" + nextLocation + "_ALONE"));
 				dispatch(new ChangeLocationEvent("GO_TO_" + nextLocation + "_BACK"));
-				dispatch(new AnimationEvent(AnimationEvent.TO_MAIN_SCREEN_ANIMATION));
-				//trace("HERE!!!!!!!!!");
-				
+				dispatch(new AnimationEvent(AnimationEvent.TO_MAIN_SCREEN_ANIMATION));				
 			}
 			else if (isMainScreen(currentLocation) && isMainScreen(nextLocation))
 			{
@@ -275,11 +259,7 @@ package app.services.state
 		
 		private function checkforIpadDelay():void 
 		{
-			/*trace("USER_ACTIVE!!!!!!!.", user.isHandActive);
-			if (user.isHandActive) return;
-			
-			TweenLite.killDelayedCallsTo(_returnToMainScreen);
-			TweenLite.delayedCall(10, _returnToMainScreen);*/
+
 		}
 		
 		private function nullFilters():void
@@ -316,8 +296,7 @@ package app.services.state
 					return true;
 			}
 			return false;
-		}
-		private var count:int = 0;
+		}		
 		
 		public function checkForReadyAnimation_3():void
 		{
@@ -332,11 +311,9 @@ package app.services.state
 		
 		public function animationFinished(event:AnimationEvent):void
 		{
-			//trace("event.animationType", event.type);
 			if (event.animationType == AnimationType.OUT)
 			{
 				viewIsComplete(currentLocation, getClassName(getQualifiedClassName(event.view)));
-				//trace("DELETED LOCATION" + event.view, currentLocation);
 				event.view.remove();
 				event.view.parent.removeChild(event.view);
 				
@@ -352,7 +329,6 @@ package app.services.state
 			{
 				if (event.type == AnimationEvent.MAIN_SCREEN_FINISHED || event.type == AnimationEvent.STORY_SCREEN_FINISHED || event.type == AnimationEvent.CUSTOM_SCREEN_FINISHED || event.type == AnimationEvent.PAGE_ANIMATION_FINISHED)
 				{
-					//trace("CURRENT LOCATION COMPLETE::::::: =====================", nextLocation);
 					currentLocation = nextLocation;
 					config.currentLocation = currentLocation;
 					dispatch(new IpadEvent(IpadEvent.LOCATION_CHANGED, true, false, currentLocation));
@@ -366,8 +342,7 @@ package app.services.state
 					viewIsComplete(nextLocation, getClassName(getQualifiedClassName(event.view)));
 					
 					if (checkForCompleted(nextLocation))
-					{//
-					//		trace("CURRENT LOCATION COMPLETE =====================" , nextLocation);
+					{
 						currentLocation = nextLocation;
 						config.currentLocation = currentLocation;
 						dispatch(new IpadEvent(IpadEvent.LOCATION_CHANGED, true, false, currentLocation));
@@ -384,6 +359,7 @@ package app.services.state
 		{
 			if (data == null)
 				return;
+				
 			if (isIpadPopupOpen == false)
 				closePopups();
 			
@@ -441,25 +417,18 @@ package app.services.state
 		}
 		
 		public function returnToMainScreen(value:Boolean):void
-		{
-			
-			trace("RETURN TO MAIN SCREEN!!!!!!!!!!!!!!!!!!!!!!", value);
-			//!!!!!!!!!!!!!!!!!!!!!!!
+		{			
 			if (value)
 			{
 				TweenLite.killDelayedCallsTo(_returnToMainScreen);
 				TweenLite.delayedCall(AppSettings.USER_LOST_TIME_AUTO_MODE, _returnToMainScreen);
 			}
-			else
-			{
-				TweenLite.killDelayedCallsTo(_returnToMainScreen);
-			}
+			else			
+				TweenLite.killDelayedCallsTo(_returnToMainScreen);			
 		}
 		
 		private function _returnToMainScreen():void
 		{
-			//!!!!!!!!!!!!!!!!!!!!!!!
-			///if (user.isHandActive) return;
 			if (user.is_active) return;
 			
 			if (currentLocation != user.primaryScreen)
@@ -468,10 +437,8 @@ package app.services.state
 				event.mode = "MENU_MODE";
 				location(event);
 			}
-			else if (user.is_active == false)
-			{
-				dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.RELOAD_DATA));
-			}
+			else if (user.is_active == false)			
+				dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.RELOAD_DATA));			
 		}
 		
 		//--------------------------------------------------------------------------
@@ -509,13 +476,11 @@ package app.services.state
 					return false;
 			}
 			
-			return true;
-			
+			return true;			
 		}
 		
 		public function viewIsComplete(locationname:String, view:String):String
 		{
-			//trace("locationname", locationname, view);
 			for (var i:int = 0; i < LOCATIONS[locationname].length; i++)
 			{
 				if (LOCATIONS[locationname][i].name == view)
@@ -524,15 +489,14 @@ package app.services.state
 					return view;
 				}
 			}
+			
 			return null;
 		}
 		
 		public function resetLocation(locationname:String):void
 		{
-			for (var i:int = 0; i < LOCATIONS[locationname].length; i++)
-			{
-				LOCATIONS[locationname][i].completed = false;
-			}
+			for (var i:int = 0; i < LOCATIONS[locationname].length; i++)			
+				LOCATIONS[locationname][i].completed = false;			
 		}
 		
 		public function getClassName(className:String):String

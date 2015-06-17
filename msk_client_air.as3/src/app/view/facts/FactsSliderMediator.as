@@ -37,4 +37,3 @@ package app.view.facts
 		}
 	}
 }
-

@@ -26,8 +26,7 @@ package app.view.page.map
 		public var type_id:int;
 		
 		public function GeoObject(_mat:Material) 
-		{	
-			
+		{			
 			this._mat = _mat;				
 			lat = _mat.point.lat;		
 			long = _mat.point.long;			
@@ -38,11 +37,10 @@ package app.view.page.map
 			group = _mat.point.group.toLowerCase();
 			group_id = _mat.point.group_id;
 		}
+		
 		public function get mat():Material 
 		{
 			return _mat;
-		}
-		
+		}		
 	}
-
 }

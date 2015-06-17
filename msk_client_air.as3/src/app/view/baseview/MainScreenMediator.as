@@ -104,5 +104,4 @@ package app.view.baseview
 			activeView.toMainScreen();
 		}	
 	}
-
 }

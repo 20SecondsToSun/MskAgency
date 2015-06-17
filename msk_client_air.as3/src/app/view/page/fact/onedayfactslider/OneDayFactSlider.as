@@ -57,7 +57,7 @@ package app.view.page.fact.onedayfactslider
 			_dateInfo = value;
 		}
 		
-		public function OneDayFactSlider(_day:Vector.<Fact>, _dateInfo:DateInfo, direction:String = "", isSplash:Boolean = false ):void
+		public function OneDayFactSlider(_day:Vector.<Fact>, _dateInfo:DateInfo, direction:String = "", isSplash:Boolean = false):void
 		{
 			if (!isSplash)
 			{
@@ -85,55 +85,50 @@ package app.view.page.fact.onedayfactslider
 			
 			switch (dateInfo.futurePastCurrent)
 			{
-				case "CURRENT": 
-					datecolor = 0xffffff;
-					Tool.changecolor(fon, 0x5c9f42);
-					Tool.changecolor(polosa, 0x2b2c32);
-					break;
-				
-				case "PAST": 
-					datecolor = 0xb8b9c0;
-					addLine(new Point(0, 0), new Point(WIDTH, 0), 0x000000);
-					addLine(new Point(WIDTH, 0), new Point(AppSettings.WIDTH, 0), 0x4b8735);
-					over = Tool.createShape(AppSettings.WIDTH, HEIGHT, 0x000000);
-					over.alpha = direction != "TO_PAST" ? 0.68 : 0;
-					addChild(over);
-					Tool.changecolor(fon, 0x447631);
-					factTitleColor = 0xdce8d8;
-					break;
-				
-				case "FUTURE": 
-					datecolor = 0xb8b9c0;
-					addLine(new Point(0, 1), new Point(WIDTH, 1), 0x000000);
-					addLine(new Point(WIDTH, 1), new Point(AppSettings.WIDTH, 1), 0x5c9f42);
-					break;
-				
-				default: 
+			case "CURRENT": 
+				datecolor = 0xffffff;
+				Tool.changecolor(fon, 0x5c9f42);
+				Tool.changecolor(polosa, 0x2b2c32);
+				break;
+			
+			case "PAST": 
+				datecolor = 0xb8b9c0;
+				addLine(new Point(0, 0), new Point(WIDTH, 0), 0x000000);
+				addLine(new Point(WIDTH, 0), new Point(AppSettings.WIDTH, 0), 0x4b8735);
+				over = Tool.createShape(AppSettings.WIDTH, HEIGHT, 0x000000);
+				over.alpha = direction != "TO_PAST" ? 0.68 : 0;
+				addChild(over);
+				Tool.changecolor(fon, 0x447631);
+				factTitleColor = 0xdce8d8;
+				break;
+			
+			case "FUTURE": 
+				datecolor = 0xb8b9c0;
+				addLine(new Point(0, 1), new Point(WIDTH, 1), 0x000000);
+				addLine(new Point(WIDTH, 1), new Point(AppSettings.WIDTH, 1), 0x5c9f42);
+				break;
+			
+			default: 
 			}
 			addDate();
 			
-			//{ region 		
-			
 			ALL_NUM = day.length;
-			NOW_NUM_SHOWING = ALL_NUM > INIT_NUM_TO_SHOW ? INIT_NUM_TO_SHOW : ALL_NUM;			
+			NOW_NUM_SHOWING = ALL_NUM > INIT_NUM_TO_SHOW ? INIT_NUM_TO_SHOW : ALL_NUM;
 			addBlockElements(0, NOW_NUM_SHOWING);
-		
-			//} endregion
-		
 		}
 		
 		private function addBlockElements(_offset:int, _limit:int):void
-		{			
+		{
 			const shift:int = 30;
-			for (var i:int =_offset; i < _limit; i++)
+			for (var i:int = _offset; i < _limit; i++)
 			{
-				var oneHour:OneFactPageGraphic = new OneFactPageGraphic(day[i], factTitleColor, dateInfo.thisDate);				
+				var oneHour:OneFactPageGraphic = new OneFactPageGraphic(day[i], factTitleColor, dateInfo.thisDate);
 				oneHour.currentDate = dateInfo.thisDate;
 				oneHour.x = offset;
 				oneHour.setY();
 				offset += WIDTH_BLOCK + shift;
-				addElement(oneHour);				
-			}			
+				addElement(oneHour);
+			}
 		}
 		
 		override protected function checkElementsToAdd():Boolean
@@ -144,19 +139,14 @@ package app.view.page.fact.onedayfactslider
 			var len:int;
 			
 			if (NOW_NUM_SHOWING + OFFSET_NUM_TO_SHOW < ALL_NUM)
-			{
 				len = NOW_NUM_SHOWING + OFFSET_NUM_TO_SHOW;
-			}
 			else
-			{
 				len = ALL_NUM;
-			}
 			
 			addBlockElements(NOW_NUM_SHOWING, len);
 			NOW_NUM_SHOWING = len;
 			
 			return true;
-		
 		}
 		
 		public function lightPast():void
@@ -173,7 +163,7 @@ package app.view.page.fact.onedayfactslider
 		
 		override public function startInteraction():void
 		{
-			if (holder.width > AppSettings.WIDTH )
+			if (holder.width > AppSettings.WIDTH)
 			{
 				super.startInteraction();
 				isPause = true;
@@ -213,7 +203,5 @@ package app.view.page.fact.onedayfactslider
 			line.graphics.lineTo(point2.x, point2.y);
 			_fon.addChild(line);
 		}
-	
 	}
-
 }

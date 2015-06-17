@@ -48,8 +48,7 @@ package app.view.mainnew.types
 		
 		public function set great(value:Boolean):void 
 		{
-			//trace("Great", value);
-			//_great =  important.visible = value;
+
 		}
 		
 		public function get great():Boolean 

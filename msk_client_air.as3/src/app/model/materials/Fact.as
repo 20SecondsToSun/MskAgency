@@ -26,11 +26,9 @@ package app.model.materials
 			{
 				var rubric:MaterialRubric = new MaterialRubric();
 				rubric.id = _rubric.id;
-				rubric.title = _rubric.title;
-				
+				rubric.title = _rubric.title;				
 				rubrics.push(rubric);
-			}
-		
+			}		
 		}
 	}
 }

@@ -80,16 +80,14 @@ package app.view.page.days.onedayslider
 		
 		public function push():void
 		{
-			dispatchEvent(new AnimationEvent(AnimationEvent.STRETCH, "", this));
-			
+			dispatchEvent(new AnimationEvent(AnimationEvent.STRETCH, "", this));			
 		}
 		
 		public function over():void
 		{			
 			TweenLite.to(allnew, 0.5, { alpha:1 } );
 			TweenLite.to(textTitle, 0.5, { y:60 } );
-			TweenLite.to(textDay, 0.5, { y:132 } );
-			
+			TweenLite.to(textDay, 0.5, { y:132 } );			
 		}
 		
 		public function out():void
@@ -97,8 +95,6 @@ package app.view.page.days.onedayslider
 			TweenLite.to(allnew, 0.5, { alpha:0 } );
 			TweenLite.to(textTitle, 0.5, { y:80 } );
 			TweenLite.to(textDay, 0.5, { y:152 } );
-		}
-		
+		}		
 	}
-
 }

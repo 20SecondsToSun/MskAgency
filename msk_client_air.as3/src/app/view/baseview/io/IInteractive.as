@@ -1,6 +1,5 @@
 package app.view.baseview.io 
-{
-	
+{	
 	/**
 	 * ...
 	 * @author metalcorehero
@@ -8,6 +7,5 @@ package app.view.baseview.io
 	public interface IInteractive 
 	{
 		
-	}
-	
+	}	
 }

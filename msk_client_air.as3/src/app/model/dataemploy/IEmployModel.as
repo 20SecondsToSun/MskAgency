@@ -12,14 +12,12 @@ package app.model.dataemploy
 	{	
 		function get isAnimate():Boolean;		
 		function set isAnimate(value:Boolean):void;	
-		function  setModel(value:ChangeModelOut):void;
-		
+		function  setModel(value:ChangeModelOut):void;		
 		
 		function get weather():Vector.<Weather>;
 		function set weather(value:Vector.<Weather>):void;	
 		
 		function get informer():Informer;		
 		function set informer(value:Informer):void
-	}
-	
+	}	
 }

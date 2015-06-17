@@ -30,19 +30,14 @@ package app.view.facts
 			
 			addContextListener(DataLoadServiceEvent.LOAD_COMPLETED_MAIN_FACTS, refreshData, DataLoadServiceEvent, false, 0, true);
 			addViewListener(DataLoadServiceEvent.LOAD_FACTS_DATA, dispatch, DataLoadServiceEvent);
-			
+			addViewListener(Event.REMOVED_FROM_STAGE, removeHandler);
 			addViewListener(AnimationEvent.FACTS_ANIMATION_FINISHED, dispatch, AnimationEvent);
 			
 			addContextListener(SliderEvent.VIDEO_SLIDER_START_DRAG, hideView, SliderEvent);
 			addContextListener(SliderEvent.FACT_SLIDER_START_DRAG, view.showYellowLine, SliderEvent);
 			addContextListener(SliderEvent.VIDEO_SLIDER_STOP_DRAG, showView, SliderEvent);
-			addContextListener(SliderEvent.FACT_SLIDER_STOP_DRAG, view.hideYellowLine, SliderEvent);
-			
-			addViewListener(Event.REMOVED_FROM_STAGE, removeHandler);
-			
+			addContextListener(SliderEvent.FACT_SLIDER_STOP_DRAG, view.hideYellowLine, SliderEvent);			
 			addContextListener(DataLoadServiceEvent.RELOAD_DATA, reloadData, DataLoadServiceEvent);
-			
-			//trace("config.currentScreen", iconfig.currentScreen );
 		}
 		
 		private function reloadData(e:DataLoadServiceEvent):void

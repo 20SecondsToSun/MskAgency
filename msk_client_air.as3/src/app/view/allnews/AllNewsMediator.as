@@ -42,7 +42,6 @@ package app.view.allnews
 		
 		private function reloadData(e:DataLoadServiceEvent):void 
 		{
-			//trace("RELOAD DAT!!!!!!!!!!!!!!!!");
 			view.stopAutoAnimation();
 			dispatch(new DataLoadServiceEvent(DataLoadServiceEvent.LOAD_ALL_DATA));
 		}
