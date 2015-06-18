@@ -18,7 +18,7 @@ package app
 		
 		public static const FULL_SCREEN_MODE:String = StageDisplayState.NORMAL;
 		
-		public static const CONTROLL_BY_KINECT:Boolean = true;
+		public static const CONTROLL_BY_KINECT:Boolean = false;
 		public static const CONTROLL_BY_LEAP:Boolean = false;
 		
 		public static const IPAD_SYNCH_TIME:int = 15;

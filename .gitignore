@@ -27,6 +27,7 @@ bat
 bin
 cert
 obj
+dist
 presentationVer
 
 # =========================
